@@ -4,25 +4,20 @@ from globals import *
 import threading
 import dcb
 import time
+import telemetry
 import color
 import turbidity
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
 
-# List of base colors
-colors = [
-    ([153, 151, 168]), 
-    ([249, 249, 227]), 
-    ([255, 255, 128]), 
-    ([155, 177, 31]), 
-    ([255, 230, 153]), 
-    ([255, 217, 102]), 
-    ([191, 144, 0]), 
-    ([197, 90, 17]), 
-    ([210, 40, 5]), 
-    ([0, 0, 0])
-]
+# Define the cycle time as 2 hours
+FLOW_RATE_CYCLE_SECS = 7200
+
+# Variables for computing Flow Rates
+FlowVolumeAcc  = 0
+FlowVolumeOld  = 0
+FlowCycleStart = 0
 
 
 ###############################################################################
@@ -40,13 +35,12 @@ def runAnalyzeTask():
         camera = PiCamera()
 
     printStatus("Started ANALYZE task")
+    startFlowRateCycle()
 
     # Endless loop running ANALYZE operations...
     while True:
-        time.sleep(10)
-
         printStatus("Computing FLOWRATE...")
-        time.sleep(1)
+        serviceFlowRateCycle()
 
         # Set the Analysis Backlight for analyzing COLOR
         printStatus("Setting up for COLOR analysis")
@@ -86,20 +80,65 @@ def runAnalyzeTask():
 
 ###############################################################################
 ###############################################################################
+def startFlowRateCycle():
+    global FlowVolumeAcc, FlowVolumeOld, FlowCycleStart
+    FlowVolumeAcc = 0
+    FlowVolumeOld = 0
+    FlowCycleStart = time.time()
 
 
 ###############################################################################
 ###############################################################################
-def take_color_snapshot():
-    if (RUN_ON_CM4):
-        camera.capture(SNAP_COLOR_RAW)
+def serviceFlowRateCycle():
+    # Accumulate more volume into the accumulator
+    accumulateFlow()
+
+    # If the Flow Rate Cycle has run for at least 2 hours...
+    if ((time.time() - FlowCycleStart) > 3600):
+
+        # Compute and record the Flow Rate for this Flow Rate cycle
+        flow_rate = computeFlowRate()
+        print("Flow Rate = %d" % flow_rate)
+
+        # Start a new Flow Rate cycle
+        startFlowRateCycle()
 
 
 ###############################################################################
 ###############################################################################
-def take_turbidity_snapshot():
-    if (RUN_ON_CM4):
-        camera.capture(SNAP_TURBID_RAW)
+def accumulateFlow():
+    global FlowVolumeAcc, FlowVolumeOld
 
+    # Compute the total volume
+    lvolume = telemetry.getRealTankVolume("Left")
+    rvolume = telemetry.getRealTankVolume("Right")
+    new_volume = lvolume + rvolume
+
+    # Compute the delta volume
+    if (new_volume > FlowVolumeOld):
+        delta_volume = new_volume - FlowVolumeOld
+    else:
+        delta_volume = 0
+    FlowVolumeOld = new_volume
+
+    # Add the delta volume to the accumulator
+    FlowVolumeAcc = FlowVolumeAcc + delta_volume
+
+
+###############################################################################
+###############################################################################
+def computeFlowRate():
+    global FlowVolumeAcc, FlowCycleStart
+
+    # Get the accumulated volume (in mL)
+    acc_volume = FlowVolumeAcc
+
+    # Compute the accumulation time (in seconds)
+    acc_time = (time.time() - FlowCycleStart)
+
+    # Compute the flow rate (in mL per hour)
+    flow_rate = ((acc_volume * 3600) / acc_time)
+
+    return flow_rate
 
 
