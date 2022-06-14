@@ -6,8 +6,9 @@ import shutdown
 
 import screens
 import titlebar
-import statusscreen
 import statusbar
+import analyzescreen
+import statusscreen
 
 
 ###############################################################################
@@ -28,9 +29,9 @@ def startup():
     window.rowconfigure(2, weight=1)
 
     # Create the three Main Frames
-    tb = titlebar.create(window)
-    sa = screens.create(window)
-    sb = statusbar.create(window)
+    tb = titlebar.create_bar(window)
+    sa = screens.create_screens(window)
+    sb = statusbar.create_bar(window)
 
     # Start periodic screen updates
     periodic_update()
@@ -42,25 +43,22 @@ def startup():
 def periodic_update():
     # Get the latest Telemetry
     telem = telemetry.getLatestTelemetry()
+    print("telem = %s" % telem)
 
     # Update the Title Bar widgets
-    titlebar.update()
+    titlebar.update_bar()
 
     # As long as we have new Telemetry...
     if (len(telem) > 0):
 
-        # Update the Status Screen widgets
-        statusscreen.update()
-
         # Update the Status Bar widgets
-        statusbar.update()
+        statusbar.update_bar()
 
-    # Check for a new shut-down request...
-    if (shutdown.isShutDownRequested()):
-        screens.show_shut_down_screen()
+        # Update the Screen widgets
+        screens.update_screens()
 
     # As long as we are not shutting down...
-    else:
+    if (shutdown.isShutDownRequested() == False):
         # After 1 second, perform another update
         window.after(1000, periodic_update)
 

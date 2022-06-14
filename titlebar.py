@@ -16,10 +16,41 @@ BAD_COLOR = 'red'
 
 
 ###############################################################################
+###############################################################################
+def create_bar(window):
+    global this_frame, pname, tstamp, battery
+
+    # Open up the image files and size them correctly
+    global charging_yes_icon
+    charging_yes_img = Image.open("Icons/charging_yes.png").resize((25,25), Image.ANTIALIAS)
+    charging_yes_icon = ImageTk.PhotoImage(charging_yes_img)
+    global charging_no_icon
+    charging_no_img = Image.open("Icons/charging_no.png").resize((25,25), Image.ANTIALIAS)
+    charging_no_icon = ImageTk.PhotoImage(charging_no_img)
+
+    # Create the Frame for this bar
+    this_frame = tk.LabelFrame(window)
+    this_frame.configure(bg=MY_BG)
+    this_frame.grid(row=0, column=0, sticky='new')
+
+    # Create the Widgets for this bar
+    pname   = create_patient_name(this_frame)
+    tstamp  = create_date_time(this_frame)
+    battery = create_battery(this_frame)
+
+    # Place the Widgets into the Frame
+    pname.grid(  row=0, column=0, padx=5)
+    tstamp.grid( row=0, column=1, padx=40)
+    battery.grid(row=0, column=2, padx=80)
+
+    return this_frame
+
+
+###############################################################################
 # Update the Title Bar widgets with the latest data
 ###############################################################################
-def update():
-    patient_name = patientlog.get_name()
+def update_bar():
+    patient_name = patientlog.get_patient_name()
     datetime_string = strftime('%x   %I:%M:%S %p')
     batterypct = telemetry.getBatteryChargePercent()
     charge_status = telemetry.getBatteryChargeStatus()
@@ -85,37 +116,6 @@ def create_battery(frame):
     npl_cv = tk.Canvas(this_frame)
     npl_cv.configure(height=10, width=3)
     npl_cv.grid(row=0, column=2)
-
-    return this_frame
-
-
-###############################################################################
-###############################################################################
-def create(window):
-    global this_frame, pname, tstamp, battery
-
-    # Open up the image files and size them correctly
-    global charging_yes_icon
-    charging_yes_img = Image.open("Icons/charging_yes.png").resize((25,25), Image.ANTIALIAS)
-    charging_yes_icon = ImageTk.PhotoImage(charging_yes_img)
-    global charging_no_icon
-    charging_no_img = Image.open("Icons/charging_no.png").resize((25,25), Image.ANTIALIAS)
-    charging_no_icon = ImageTk.PhotoImage(charging_no_img)
-
-    # Create the Frame for this bar
-    this_frame = tk.LabelFrame(window)
-    this_frame.configure(bg=MY_BG)
-    this_frame.grid(row=0, column=0, sticky='new')
-
-    # Create the Widgets for this bar
-    pname   = create_patient_name(this_frame)
-    tstamp  = create_date_time(this_frame)
-    battery = create_battery(this_frame)
-
-    # Place the Widgets into the Frame
-    pname.grid(  row=0, column=0, padx=5)
-    tstamp.grid( row=0, column=1, padx=40)
-    battery.grid(row=0, column=2, padx=80)
 
     return this_frame
 

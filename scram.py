@@ -6,22 +6,21 @@ import serial, threading
 ###############################################################################
 ###############################################################################
 def startup():
-    global scram
-    global lock
+    global scram_port, lock
 
     lock = threading.Lock()
 
     # Create the serial port object
-    scram = serial.Serial()
-    scram.port     = COMPORT
-    scram.baudrate = BAUD_RATE
-    scram.timeout  = 1
+    scram_port = serial.Serial()
+    scram_port.port     = COMPORT
+    scram_port.baudrate = BAUD_RATE
+    scram_port.timeout  = 1
 
     # Try to open the serial port
     try:
-        scram.open()
+        scram_port.open()
     except:
-        print("error opening serial port")
+        print("Error opening serial port")
 
     # Get the DCB version string
     rsp = SendCommand(">GV?\n")
@@ -33,20 +32,23 @@ def startup():
 # returns its corresponding RSP string
 ###############################################################################
 def SendCommand(cmd_string):
+    global lock
     lock.acquire()
 
     rsp = ""
 
-    if (scram.is_open):
+    if (scram_port.is_open):
         # Start with empty buffers
-        scram.flushInput()
-        scram.flushOutput()
+        scram_port.flushInput()
+        scram_port.flushOutput()
 
         # Send the Get Telemetry command...
-        scram.write(bytes(cmd_string, 'utf-8'))
+        scram_port.write(bytes(cmd_string, 'utf-8'))
+        #print(cmd_string)
 
         # Receive the response
-        rsp = scram.readline().decode()
+        rsp = scram_port.readline().decode()
+        #print(rsp)
 
     lock.release()
 

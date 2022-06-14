@@ -9,19 +9,28 @@ import shutdown
 
 
 ###############################################################################
-# Start the thread
+# Starts the STATUS thread
 ###############################################################################
-def startup():
-    y = threading.Thread(target=runStatusTask, daemon = True)
+def start_thread():
+    printStatus("Start-up STATUS thread")
+    global y
+    y = threading.Thread(target=runStatusTask, daemon=True)
     y.start()
 
 
 ###############################################################################
-# Run the thread
+# Stops the STATUS thread
+###############################################################################
+def stop_thread():
+    printStatus("Shut-down STATUS thread")
+    global y
+    y.terminate()
+
+
+###############################################################################
+# Run the STATUS thread
 ###############################################################################
 def runStatusTask():
-    printStatus("Started STATUS task")
-
     # Endless loop running STATUS operations...
     while True:
         time.sleep(1.0)
@@ -36,7 +45,7 @@ def sendStatusUpdate():
     status_string = ">SU: 0000\n"
     my_status = list(status_string)
 
-    # If a Shut-Down was requested...
+    # If a shut-down has been requested...
     if (shutdown.isShutDownRequested()):
         my_status[5] = '1'
 
@@ -50,7 +59,7 @@ def sendStatusUpdate():
 
     # Send our latest STATUS to the DCB
     status_string = "".join(my_status)
-    printStatus(status_string)
+    #printStatus(status_string)
     rsp = scram.SendCommand(status_string)
 
 

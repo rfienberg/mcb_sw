@@ -1,4 +1,5 @@
 from globals import *
+import time
 import tkinter as tk
 from PIL import ImageTk, Image
 import cv2 as cv
@@ -6,6 +7,7 @@ from sklearn.cluster import KMeans
 import screens
 if (RUN_ON_CM4):
     from picamera import PiCamera
+import dcb
 
 
 BIG_FONT = ("Georgia", 30)
@@ -26,11 +28,18 @@ COLOR_BINS = [
     ([200, 200, 200]) 
 ]
 
+# Initialize COLOR rating to value for "Unknown"
+ColorRating = 15
+
 
 ###############################################################################
 ###############################################################################
 def create_screen(frame):
     global this_screen
+
+    global back_btn_icon
+    this_btn_img = Image.open("Icons/brn_back_btn.png").resize((150,50), Image.ANTIALIAS)
+    back_btn_icon = ImageTk.PhotoImage(this_btn_img)
 
     # Create and place the Screen
     this_screen = tk.Frame(frame)
@@ -58,9 +67,64 @@ def show_screen():
 
 ###############################################################################
 ###############################################################################
+def getColorRating():
+    global ColorRating
+    return ColorRating
+
+
+###############################################################################
+###############################################################################
+def start_analysis():
+    global ColorRating
+    ColorRating = 15
+
+    dcb.sendBacklightCommand('white')
+    time.sleep(5)
+
+
+###############################################################################
+###############################################################################
 def take_snapshot(camera):
     if (RUN_ON_CM4):
         camera.capture(SNAP_COLOR_RAW)
+    time.sleep(1)
+
+
+###############################################################################
+###############################################################################
+def analyze():
+    global ColorRating
+    #global analyze_color_img
+
+    # Crop the raw image to get rid of borders
+    bgr_img = cv.imread(SNAP_COLOR_RAW)
+    cropped_image = bgr_img[100:500, 200:600]
+
+    # Save it as the new COLOR image
+    cv.imwrite(SNAP_COLOR_IMG, cropped_image)
+
+    # Convert it from BGR to RGB
+    rgb_img = cv.cvtColor(cropped_image, cv.COLOR_BGR2RGB)
+
+    # get the image's dominant color (rgb) value
+    color = getDominantColor(rgb_img)
+
+    # Find the best match to one of our base colors
+    ColorRating = getColorMatch(color)
+    print("Matched Color #" + str(ColorRating))
+
+    # RLF: Move this logic to UPDATE function
+    # Display the cropped image in the photo frame
+    #photo_file = Image.open(SNAP_COLOR_IMG).resize((200,200), Image.ANTIALIAS)
+    #analyze_color_img = ImageTk.PhotoImage(photo_file)
+    #photo_frame.configure(image=analyze_color_img)
+
+
+###############################################################################
+###############################################################################
+def stop_analysis():
+    dcb.sendBacklightCommand('off')
+    time.sleep(2)
 
 
 ###############################################################################
@@ -103,32 +167,6 @@ def getColorMatch(rgb):
 
 ###############################################################################
 ###############################################################################
-def analyze():
-    global analyze_color_img
-
-    # Crop the raw image to get rid of borders
-    bgr_img = cv.imread(SNAP_COLOR_RAW)
-    cropped_image = bgr_img[100:500, 200:600]
-    cv.imwrite(SNAP_COLOR_IMG, cropped_image)
-
-    # Convert it to rgb from bgr
-    rgb_img = cv.cvtColor(cropped_image, cv.COLOR_BGR2RGB)
-
-    # get the image's dominant color (rgb) value
-    color = getDominantColor(rgb_img)
-
-    # Find the best match to one of our base colors
-    match = getColorMatch(color)
-    print("Matched Color #" + str(match))
-
-    # Display the cropped image in the photo frame
-    photo_file = Image.open(SNAP_COLOR_IMG).resize((200,200), Image.ANTIALIAS)
-    analyze_color_img = ImageTk.PhotoImage(photo_file)
-    photo_frame.configure(image=analyze_color_img)
-
-
-###############################################################################
-###############################################################################
 def on_back_press():
     screens.play_key_tone()
     screens.show_analyze_screen()
@@ -165,9 +203,6 @@ def create_color_photo(frame):
     photo_frame.configure(image=analyze_color_img)
     photo_frame.grid(row=0, column=0, padx=10, pady=20, sticky='n')
 
-    global back_btn_icon
-    back_btn_img = Image.open("Icons/back_btn_icon.png").resize((150,50), Image.ANTIALIAS)
-    back_btn_icon = ImageTk.PhotoImage(back_btn_img)
     back_button = tk.Button(this_frame)
     back_button.configure(image=back_btn_icon, borderwidth=0)
     back_button.configure(command=on_back_press)
@@ -188,4 +223,56 @@ def create_color_chart(frame):
     chart_frame.grid(row=0, column=0, padx=40, pady=20)
 
     return this_frame
+
+
+###############################################################################
+###############################################################################
+def populateRatingBox(color_box, color_rating):
+    if (color_rating == 0):
+        text_string = "Pink"
+        text_color  = '#D22805'
+        color_fill  = '#FAC8C3'
+    elif (color_rating == 1):
+        text_string = "Red"
+        text_color  = '#FAC8C3'
+        color_fill  = '#D22805'
+    elif (color_rating == 2):
+        text_string = "Dark"
+        text_color  = '#FFFFB7'
+        color_fill  = '#843C0C'
+    elif (color_rating == 3):
+        text_string = "Orange"
+        text_color  = '#D22805'
+        color_fill  = '#FF8C00'
+    elif (color_rating == 4):
+        text_string = "Amber"
+        text_color  = '#7F6000'
+        color_fill  = '#FFFF00'
+    elif (color_rating == 5):
+        text_string = "Yellow"
+        text_color  = '#843C0C'
+        color_fill  = '#FAFA05'
+    elif (color_rating == 6):
+        text_string = "Green"
+        text_color  = '#385723'
+        color_fill  = '#E2F0D9'
+    elif (color_rating == 7):
+        text_string = "Blue"
+        text_color  = 'brown'
+        color_fill  = '#FFFFFF'
+    elif (color_rating == 8):
+        text_string = "White"
+        text_color  = '#000000'
+        color_fill  = '#F2F2F2'
+    else:
+        text_string = "Analyzing..."
+        text_color  = '#702713'
+        color_fill  = '#FFFFFF'
+
+    # Populate the specified Rating Box
+    color_box[0].itemconfig(color_box[1], fill=color_fill)
+    color_box[0].itemconfig(color_box[2], text=text_string, fill=text_color)
+
+
+
 

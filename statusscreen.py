@@ -16,9 +16,47 @@ TANK_WIDTH = 100
 
 
 ###############################################################################
+###############################################################################
+def create_screen(frame):
+    global this_screen
+
+    # Open up the image files and size them correctly
+    global gohome_btn_icon
+    gohome_btn_img = Image.open("Icons/home_icon.png").resize((50,50), Image.ANTIALIAS)
+    gohome_btn_icon = ImageTk.PhotoImage(gohome_btn_img)
+    global no_flow_icon
+    no_flow_img = Image.open("Icons/flow_no.png").resize((25,25), Image.ANTIALIAS)
+    no_flow_icon = ImageTk.PhotoImage(no_flow_img)
+    global yes_flow_icon
+    yes_flow_img = Image.open("Icons/flow_yes.png").resize((25,25), Image.ANTIALIAS)
+    yes_flow_icon = ImageTk.PhotoImage(yes_flow_img)
+    global light_bulb_icon
+    light_bulb_img = Image.open("Icons/status_lightbulb_icon.png").resize((50,50), Image.ANTIALIAS)
+    light_bulb_icon = ImageTk.PhotoImage(light_bulb_img)
+
+    # Create the Frame for this screen
+    this_screen = tk.LabelFrame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the Widgets for this screen
+    tline = create_top_line(this_screen)
+    ltank = create_ltank_widget(this_screen)
+    rtank = create_rtank_widget(this_screen)
+    lights = create_lighting_widget(this_screen)
+
+    # Place the Widgets into the Frame
+    tline.grid( row=0, column=0, padx=5, sticky='nw', columnspan=10)
+    ltank.grid( row=1, column=0, padx=5, sticky='n')
+    rtank.grid( row=1, column=1, padx=5, sticky='n')
+    lights.grid(row=1, column=2, padx=5, sticky='n')
+
+    return this_screen
+
+
+###############################################################################
 # Display the Status Screen in the screen area
 ###############################################################################
-def show():
+def show_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -26,7 +64,7 @@ def show():
 ###############################################################################
 # Update the Status Screen widgets based on the latest data
 ###############################################################################
-def update():
+def update_screen():
     lvalve = telemetry.getTankValveStatus("Left")
     lvolume = telemetry.getRealTankVolume("Left")
     rvalve = telemetry.getTankValveStatus("Right")
@@ -172,39 +210,3 @@ def create_lighting_widget(frame):
     return this_frame
 
 
-###############################################################################
-###############################################################################
-def create(frame):
-    global this_screen
-
-    # Open up the image files and size them correctly
-    global gohome_btn_icon
-    gohome_btn_img = Image.open("Icons/home_icon.png").resize((50,50), Image.ANTIALIAS)
-    gohome_btn_icon = ImageTk.PhotoImage(gohome_btn_img)
-    global no_flow_icon
-    no_flow_img = Image.open("Icons/flow_no.png").resize((25,25), Image.ANTIALIAS)
-    no_flow_icon = ImageTk.PhotoImage(no_flow_img)
-    global yes_flow_icon
-    yes_flow_img = Image.open("Icons/flow_yes.png").resize((25,25), Image.ANTIALIAS)
-    yes_flow_icon = ImageTk.PhotoImage(yes_flow_img)
-    global light_bulb_icon
-    light_bulb_img = Image.open("Icons/status_lightbulb_icon.png").resize((50,50), Image.ANTIALIAS)
-    light_bulb_icon = ImageTk.PhotoImage(light_bulb_img)
-
-    # Create the Frame for this screen
-    this_screen = tk.LabelFrame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    # Create the Widgets for this screen
-    tline = create_top_line(this_screen)
-    ltank = create_ltank_widget(this_screen)
-    rtank = create_rtank_widget(this_screen)
-    lights = create_lighting_widget(this_screen)
-
-    # Place the Widgets into the Frame
-    tline.grid( row=0, column=0, padx=5, sticky='nw', columnspan=10)
-    ltank.grid( row=1, column=0, padx=5, sticky='n')
-    rtank.grid( row=1, column=1, padx=5, sticky='n')
-    lights.grid(row=1, column=2, padx=5, sticky='n')
-
-    return this_screen

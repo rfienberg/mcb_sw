@@ -42,22 +42,35 @@ BLV_IDX = (SOD_IDX+31)
 FLG_IDX = (SOD_IDX+33)
 
 TelemetryLatest = ""
-
-# Create a lock so multiple threads can access Telemetry
 TelemetryLock = threading.Lock()
 
 
 ###############################################################################
 # Starts the TELEMETRY thread
 ###############################################################################
-def startup():
+def start_thread():
+    # Create a lock so multiple threads can access Telemetry
+    #global TelemetryLock
+    #TelemetryLock = threading.Lock()
+
     # Try to open the log file and write the header
     with open(TELEM_FILE, 'w') as file:
         file.write("Starting file\n")
 
     # Start a thread that periodically pulls in new Telemetry
-    x = threading.Thread(target=runTelemetryTask, daemon=True)
-    x.start()
+    printStatus("Start-up TELEMETRY thread")
+    global y
+    y = threading.Thread(target=runTelemetryTask, daemon=True)
+    y.start()
+
+
+###############################################################################
+# Stops the TELEMETRY thread
+###############################################################################
+def stop_thread():
+    printStatus("Shut-down TELEMETRY thread")
+    global y
+    y.terminate()
 
 
 ###############################################################################
@@ -65,8 +78,6 @@ def startup():
 ###############################################################################
 def runTelemetryTask():
     global TelemetryLatest, TelemetryLock
-
-    printStatus("Started TELEMETRY task")
 
     # Endless loop running TELEMETRY operations...
     while True:
@@ -84,6 +95,7 @@ def runTelemetryTask():
             TelemetryLock.acquire()
             TelemetryLatest = fields[1]
             TelemetryLock.release()
+            #print(TelemetryLatest)
 
             # Tack on a Date/Time stamp
             dts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -92,6 +104,10 @@ def runTelemetryTask():
             # Write the telemetry string to a log file
             with open(TELEM_FILE, 'a') as telemfile:
                 telemfile.write(telem_string)
+
+            # If the latest telemetry indicates a shut-down request...
+            if (getShutdownStatus() == "Shutting-down"):
+                shutdown.requestShutdown()
 
 
 ###############################################################################
@@ -136,6 +152,8 @@ def getLatestTelemetry():
     # If that Telemetry is invalid...
     if (len(telem) < 10):
         telem = ""
+
+    print("Latest = %s" % telem)
 
     return telem
 

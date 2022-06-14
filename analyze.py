@@ -1,144 +1,107 @@
 #!/usr/bin/python
 
 from globals import *
-import threading
-import dcb
 import time
+import threading
 import telemetry
+import flowrate
 import color
 import turbidity
+import patientlog
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
 
-# Define the cycle time as 2 hours
-FLOW_RATE_CYCLE_SECS = 7200
-
-# Variables for computing Flow Rates
-FlowVolumeAcc  = 0
-FlowVolumeOld  = 0
-FlowCycleStart = 0
-
 
 ###############################################################################
+# Starts the ANALYZE thread
 ###############################################################################
-def startup():
-    y = threading.Thread(target=runAnalyzeTask, daemon = True)
+def start_thread():
+    printStatus("Start-up ANALYZE thread")
+    global y
+    y = threading.Thread(target=runAnalyzeTask, daemon=True)
     y.start()
 
 
 ###############################################################################
+# Stops the ANALYZE thread
+###############################################################################
+def stop_thread():
+    printStatus("Shut-down ANALYZE thread")
+    global y
+    y.terminate()
+
+
+###############################################################################
+# Runs the ANALYZE thread
 ###############################################################################
 def runAnalyzeTask():
-    # Create a Camera object
+    # Create an Analysis Camera object
     if (RUN_ON_CM4):
         camera = PiCamera()
 
-    printStatus("Started ANALYZE task")
-    startFlowRateCycle()
+    # Initialize this thread
+    new_minute = 0
+    old_minute = 0
+
+    # Delay some time to allow some telemetry to come in...
+    time.sleep(30)
+    flowrate.start_new_cycle()
 
     # Endless loop running ANALYZE operations...
     while True:
-        printStatus("Computing FLOWRATE...")
-        serviceFlowRateCycle()
+        # Wait for a new MINUTE to occur
+        while (new_minute == old_minute):
+            time.sleep(1)
+            new_minute = time.strftime("%M", time.gmtime(time.time()))
+        old_minute = new_minute
 
-        # Set the Analysis Backlight for analyzing COLOR
-        printStatus("Setting up for COLOR analysis")
-        dcb.sendBacklightCommand('white')
-        time.sleep(5)
+        # As long as flow is allowed...
+        if (IsFlowAllowed()):
 
-        # Snap a picture for analyzing COLOR
-        printStatus("Take a COLOR snapshot")
-        if (RUN_ON_CM4):
-            color.take_snapshot(camera)
-        time.sleep(1)
+            # Snap a FLOW sample for analyzing FLOW and FLOWRATE
+            printStatus("Computing FLOW...")
+            flowrate.take_flow_sample()
+            flowrate.update_flow_rate()
+            my_flow = flowrate.get_flow_accumulation()
+            print("Flow = %s" % my_flow)
 
-        # Analyze the picture for its COLOR
-        printStatus("Computing COLOR...")
-        color.analyze()
+            printStatus("Computing COLOR...")
+            color.start_analysis()
+            if (RUN_ON_CM4):
+                color.take_snapshot(camera)
+            color.analyze()
+            color.stop_analysis()
+            my_color = color.getColorRating()
 
-        # Set the Analysis Backlight for analyzing TURBIDITY
-        printStatus("Setting up for TURBIDITY analysis")
-        dcb.sendBacklightCommand('hatch')
-        time.sleep(5)
+            printStatus("Computing TURBIDITY...")
+            turbidity.start_analysis()
+            if (RUN_ON_CM4):
+                turbidity.take_snapshot(camera)
+            turbidity.analyze()
+            turbidity.stop_analysis()
+            my_turbidity = turbidity.getTurbidRating()
 
-        # Snap a picture for analyzing TURBIDITY
-        printStatus("Take a TURBIDITY snapshot")
-        if (RUN_ON_CM4):
-            turbidity.take_snapshot(camera)
-        time.sleep(1)
+            printStatus("Analysis cycle complete!")
 
-        # Analyze the picture for its TURBIDITY
-        printStatus("Computing TURBIDITY...")
-        turbidity.analyze()
-
-        # Set the Analysis Backlight to OFF
-        printStatus("Analysis cycle complete!")
-        dcb.sendBacklightCommand('off')
-        time.sleep(10)
-
-
-###############################################################################
-###############################################################################
-def startFlowRateCycle():
-    global FlowVolumeAcc, FlowVolumeOld, FlowCycleStart
-    FlowVolumeAcc = 0
-    FlowVolumeOld = 0
-    FlowCycleStart = time.time()
+            dts = getDateTimeStamp()
+            analyze_line = dts + f'Flow:{my_flow} Color:{my_color} Turbidity: \n'
+            patientlog.write_line(analyze_line)
 
 
 ###############################################################################
 ###############################################################################
-def serviceFlowRateCycle():
-    # Accumulate more volume into the accumulator
-    accumulateFlow()
+def IsFlowAllowed():
+    if (RUN_ON_CM4 == False):
+        return True
 
-    # If the Flow Rate Cycle has run for at least 2 hours...
-    if ((time.time() - FlowCycleStart) > 3600):
+    lvalve = telemetry.getTankValveStatus("Left")
+    rvalve = telemetry.getTankValveStatus("Right")
 
-        # Compute and record the Flow Rate for this Flow Rate cycle
-        flow_rate = computeFlowRate()
-        print("Flow Rate = %d" % flow_rate)
-
-        # Start a new Flow Rate cycle
-        startFlowRateCycle()
-
-
-###############################################################################
-###############################################################################
-def accumulateFlow():
-    global FlowVolumeAcc, FlowVolumeOld
-
-    # Compute the total volume
-    lvolume = telemetry.getRealTankVolume("Left")
-    rvolume = telemetry.getRealTankVolume("Right")
-    new_volume = lvolume + rvolume
-
-    # Compute the delta volume
-    if (new_volume > FlowVolumeOld):
-        delta_volume = new_volume - FlowVolumeOld
+    # If any valve is open...
+    if ((lvalve == "Opened") or (rvalve == "Opened")):
+        return True
     else:
-        delta_volume = 0
-    FlowVolumeOld = new_volume
-
-    # Add the delta volume to the accumulator
-    FlowVolumeAcc = FlowVolumeAcc + delta_volume
-
-
-###############################################################################
-###############################################################################
-def computeFlowRate():
-    global FlowVolumeAcc, FlowCycleStart
-
-    # Get the accumulated volume (in mL)
-    acc_volume = FlowVolumeAcc
-
-    # Compute the accumulation time (in seconds)
-    acc_time = (time.time() - FlowCycleStart)
-
-    # Compute the flow rate (in mL per hour)
-    flow_rate = ((acc_volume * 3600) / acc_time)
-
-    return flow_rate
+        return False
 
 

@@ -16,13 +16,12 @@ import timeouts
 import mcb_logging
 import calibrate
 
-import flowrates
+import flowrate
 import color
 import turbidity
 
 import cartridge
 import lights
-import power
 
 import shutdown
 
@@ -30,32 +29,81 @@ import shutdown
 
 ###############################################################################
 ###############################################################################
+def create_screens(window):
+    this_frame = tk.Frame(window)
+    this_frame.grid(row=1, column=0, sticky='nsew')
+    this_frame.grid(padx=10, pady=10)
+
+    # Create the individual Screens
+    s1  = homescreen.create_screen(this_frame)
+
+    s2  = setupscreen.create_screen(this_frame)
+    s3  = analyzescreen.create_screen(this_frame)
+    s4  = statusscreen.create_screen(this_frame)
+    s5  = controlscreen.create_screen(this_frame)
+
+    s6  = patient.create_screen(this_frame)
+    s7  = clock.create_screen(this_frame)
+    s8  = alarms.create_screen(this_frame)
+    s9  = audio.create_screen(this_frame)
+    s10 = timeouts.create_screen(this_frame)
+    s11 = mcb_logging.create_screen(this_frame)
+    s12 = calibrate.create_screen(this_frame)
+
+    s13 = flowrate.create_screen(this_frame)
+    s14 = color.create_screen(this_frame)
+    s15 = turbidity.create_screen(this_frame)
+
+    s16 = lights.create_screen(this_frame)
+    s17 = cartridge.create_screen(this_frame)
+
+    s18 = shutdown.create_verify_shutdown_screen(this_frame)
+    s19 = shutdown.create_shutting_down_screen(this_frame)
+
+    """
+    s20 = tankfullscreen.create(this_frame)
+    """
+
+    # Initialize to raise the 1st Screen
+    show_home_screen()
+
+    return this_frame
+
+
+###############################################################################
+###############################################################################
+def update_screens():
+    statusscreen.update_screen()
+
+
+###############################################################################
+###############################################################################
 def show_home_screen():
-    homescreen.show()
+    homescreen.show_screen()
 
 
 ###############################################################################
 ###############################################################################
 def show_setup_screen():
-    setupscreen.show()
+    setupscreen.show_screen()
 
 
 ###############################################################################
 ###############################################################################
 def show_analyze_screen():
-    analyzescreen.show()
+    analyzescreen.show_screen()
 
 
 ###############################################################################
 ###############################################################################
 def show_status_screen():
-    statusscreen.show()
+    statusscreen.show_screen()
 
 
 ###############################################################################
 ###############################################################################
 def show_control_screen():
-    controlscreen.show()
+    controlscreen.show_screen()
 
 
 ###############################################################################
@@ -102,19 +150,19 @@ def show_calibrate_screen():
 
 ###############################################################################
 ###############################################################################
-def show_analyze_flowrates_screen():
-    flowrates.show_screen()
+def show_flowrate_history_screen():
+    flowrate.show_screen()
 
 
 ###############################################################################
 ###############################################################################
-def show_analyze_color_screen():
+def show_color_details_screen():
     color.show_screen()
 
 
 ###############################################################################
 ###############################################################################
-def show_analyze_turbidity_screen():
+def show_turbidity_details_screen():
     turbidity.show_screen()
 
 
@@ -132,14 +180,14 @@ def show_control_lights_screen():
 
 ###############################################################################
 ###############################################################################
-def show_control_power_screen():
-    power.show_screen()
+def show_verify_shutdown_screen():
+    shutdown.show_verify_shutdown_screen()
 
 
 ###############################################################################
 ###############################################################################
-def show_shut_down_screen():
-    shutdown.show_screen()
+def show_shutting_down_screen():
+    shutdown.show_shutting_down_screen()
 
 
 ###############################################################################
@@ -147,46 +195,4 @@ def show_shut_down_screen():
 def play_key_tone():
     audio.play_key_tone()
 
-
-###############################################################################
-###############################################################################
-def create(window):
-    this_frame = tk.Frame(window)
-    this_frame.grid(row=1, column=0, sticky='nsew')
-    this_frame.grid(padx=10, pady=10)
-
-    # Create the individual Screens
-    s1  = homescreen.create(this_frame)
-
-    s2  = setupscreen.create(this_frame)
-    s3  = analyzescreen.create(this_frame)
-    s4  = statusscreen.create(this_frame)
-    s5  = controlscreen.create(this_frame)
-
-    s6  = patient.create_screen(this_frame)
-    s7  = clock.create_screen(this_frame)
-    s8  = alarms.create_screen(this_frame)
-    s9  = audio.create_screen(this_frame)
-    s10 = timeouts.create_screen(this_frame)
-    s11 = mcb_logging.create_screen(this_frame)
-    s12 = calibrate.create_screen(this_frame)
-
-    s13 = flowrates.create_screen(this_frame)
-    s14 = color.create_screen(this_frame)
-    s15 = turbidity.create_screen(this_frame)
-
-    s16 = lights.create_screen(this_frame)
-    s17 = cartridge.create_screen(this_frame)
-    s18 = power.create_screen(this_frame)
-
-    s19 = shutdown.create_screen(this_frame)
-
-    """
-    s20 = tankfullscreen.create(this_frame)
-    """
-
-    # Initialize to raise the 1st Screen
-    show_home_screen()
-
-    return this_frame
 

@@ -9,7 +9,7 @@ import calibrate
 import audio
 
 ###############################################################################
-# This is the main thread of our MCB application
+# This is the main process of our MCB application
 ###############################################################################
 if __name__ == "__main__":
     # Start the CONFIG File parser
@@ -21,14 +21,14 @@ if __name__ == "__main__":
     # Open the SCRAM serial port for DCB communications
     scram.startup()
 
-    # Start the TELEMETRY logger thread
-    telemetry.startup()
+    # Start the TELEMETRY logger process
+    telemetry.start_thread()
 
-    # Start the STATUS thread
-    status.startup()
+    # Start the STATUS process
+    status.start_thread()
 
-    # Start the ANALYZE thread
-    analyze.startup()
+    # Start the ANALYZE process
+    analyze.start_thread()
 
     # Pull the latest CONFIG settings
     calibrate.pullSettings()
