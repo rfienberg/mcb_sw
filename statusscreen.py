@@ -4,20 +4,14 @@ from PIL import ImageTk, Image
 import screens
 import telemetry
 
-BIG_FONT = ("Georgia", 30)
-BIG_FG = 'purple'
-MY_FONT = ('Calibri', 18)
-MY_FG = 'purple'
-
 URINE_COLOR = '#DCC5ED'
-
 TANK_HEIGHT = 180
 TANK_WIDTH = 100
 
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_main_screen(frame):
     global this_screen
 
     # Open up the image files and size them correctly
@@ -56,7 +50,7 @@ def create_screen(frame):
 ###############################################################################
 # Display the Status Screen in the screen area
 ###############################################################################
-def show_screen():
+def show_main_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -124,7 +118,7 @@ def create_top_line(frame):
 
     # Create the Title label
     title_label = tk.Label(this_frame, text="Status:")
-    title_label.configure(font=BIG_FONT, fg=MY_FG)
+    title_label.configure(font=LG_FONT, fg=STATUS_COLOR)
     title_label.grid(row=0, column=1, padx=5, pady=10)
 
     return this_frame
@@ -147,9 +141,9 @@ def create_ltank_widget(frame):
 
     ltank_fill = ltank_cv.create_rectangle(4, TANK_HEIGHT, TANK_WIDTH, TANK_HEIGHT, fill=URINE_COLOR)
     ltank_glass = ltank_cv.create_rectangle(4, 0, TANK_WIDTH, TANK_HEIGHT, width=5, outline='purple')
-    ltank_percent = ltank_cv.create_text(TANK_WIDTH/2, TANK_HEIGHT/2, text="0%", font=MY_FONT, fill=MY_FG)
+    ltank_percent = ltank_cv.create_text(TANK_WIDTH/2, TANK_HEIGHT/2, text="0%", font=SM_FONT, fill=STATUS_COLOR)
 
-    ltank_volume = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    ltank_volume = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     ltank_volume.configure(text="0 mL")
     ltank_volume.grid(row=2, column=0)
 
@@ -173,9 +167,9 @@ def create_rtank_widget(frame):
 
     rtank_fill = rtank_cv.create_rectangle(4, TANK_HEIGHT, TANK_WIDTH, TANK_HEIGHT, fill=URINE_COLOR)
     rtank_glass = rtank_cv.create_rectangle(4, 0, TANK_WIDTH, TANK_HEIGHT, width=5, outline='purple')
-    rtank_percent = rtank_cv.create_text(TANK_WIDTH/2, TANK_HEIGHT/2, text="0%", font=MY_FONT, fill=MY_FG)
+    rtank_percent = rtank_cv.create_text(TANK_WIDTH/2, TANK_HEIGHT/2, text="0%", font=SM_FONT, fill=STATUS_COLOR)
 
-    rtank_volume = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    rtank_volume = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     rtank_volume.configure(text="0 mL")
     rtank_volume.grid(row=2, column=0)
 
@@ -193,17 +187,17 @@ def create_lighting_widget(frame):
     lighting_bulb.grid(row=0, column=0, columnspan=2, pady=10)
     """
 
-    tank_lights_label = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    tank_lights_label = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     tank_lights_label.configure(text="Tanks:")
     tank_lights_label.grid(row=1, column=0, pady=10)
-    tank_lights_status = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    tank_lights_status = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     tank_lights_status.configure(text="Lights On")
     tank_lights_status.grid(row=1, column=1, padx=5, sticky='w')
 
-    room_lights_label = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    room_lights_label = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     room_lights_label.configure(text="Room:")
     room_lights_label.grid(row=2, column=0, pady=10)
-    room_lights_status = tk.Label(this_frame, font=MY_FONT, fg=MY_FG)
+    room_lights_status = tk.Label(this_frame, font=SM_FONT, fg=STATUS_COLOR)
     room_lights_status.configure(text="Bright")
     room_lights_status.grid(row=2, column=1, padx=5, sticky='w')
 

@@ -14,27 +14,87 @@ MY_FG = 'brown'
 # Define a cycle time as 2 hours
 FLOW_RATE_CYCLE_SECS = 7200
 
-
+# Variables for computing Flows
 FlowSample    = 0
 FlowVolumeOld = 0
 
-# Variables for computing Flow Rates
-FlowVolumeAcc   = 0
-FlowCycleStart  = 0
+FlowHourly  = 0
+FlowDaily = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+
+###############################################################################
+###############################################################################
+def takeFlowSample():
+    global FlowSample, FlowVolumeOld
+
+    # Accumulate more flow into the accumulator
+    # Compute the total volume in the two tanks
+    lvolume = telemetry.getRealTankVolume("Left")
+    rvolume = telemetry.getRealTankVolume("Right")
+    new_volume = lvolume + rvolume
+
+    # Compute the delta volume since last update
+    if (new_volume > FlowVolumeOld):
+        delta_volume = new_volume - FlowVolumeOld
+    else:
+        delta_volume = 0
+    FlowVolumeOld = new_volume
+
+    # Record the new delta volume as the flow sample
+    FlowSample = delta_volume
+    return FlowSample
+
+
+###############################################################################
+# Updates and returns the current hour's total flow (in mL)
+###############################################################################
+def updateHourlyFlow(timestamp):
+    global FlowHourly
+    FlowHourly = compute_flow_over_range(timestamp-3600, timestamp)
+    return FlowHourly
+
+
+###############################################################################
+# Updates the previous day's hourly flows
+###############################################################################
+def updateDailyFlows(timestamp):
+    global FlowDaily
+
+    # Compute the second of the last hour point
+    time_flds = time.gmtime(timestamp)
+    secs_from_hour = time_flds.tm_sec + (60 * time_flds.tm_min)
+    last_ts = timestamp - secs_from_hour
+
+    # For each of the last 24 hours...
+    for hour in range(len(FlowDaily)):
+        # Compute this hour's start/end timestamp range
+        end_ts   = last_ts - (hour * 3600)
+        start_ts = end_ts - 3600
+
+        # Compute the total flow within this range
+        FlowDaily[hour] = compute_flow_over_range(start_ts, end_ts)
+
+    print(FlowDaily)
+
+
+###############################################################################
+###############################################################################
+def getCurrentHourlyFlow():
+    global FlowHourly
+    return FlowHourly
 
 
 ###############################################################################
 # Define the FLOWRATE HISTORY screen
 ###############################################################################
-def create_screen(frame):
+def create_history_screen(frame):
     global this_screen
 
     global back_btn_icon
     this_btn_img = Image.open("Icons/brn_back_btn.png").resize((150,50), Image.ANTIALIAS)
     back_btn_icon = ImageTk.PhotoImage(this_btn_img)
 
-    this_screen = tk.LabelFrame(frame, text="Analyze Flow Rates")
+    this_screen = tk.LabelFrame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     top = create_top_line(this_screen)
@@ -49,7 +109,7 @@ def create_screen(frame):
 ###############################################################################
 # Show the FLOWRATE HISTORY screen
 ###############################################################################
-def show_screen():
+def show_history_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -64,7 +124,7 @@ def show_screen():
 ###############################################################################
 def on_back_press():
     screens.play_key_tone()
-    screens.show_analyze_screen()
+    screens.show_analyze_main_screen()
 
 
 ###############################################################################
@@ -97,74 +157,40 @@ def create_bottom_line(frame):
 # Starts a new Flow Rate accumulation cycle
 ###############################################################################
 def start_new_cycle():
-    global FlowCycleStart, FlowVolumeAcc, FlowVolumeOld
+    global FlowVolumeOld
 
-    FlowVolumeAcc = 0
     FlowVolumeOld = 0
 
     # Take an initial sample to "prime the pump"
-    take_flow_sample()
-
-    FlowCycleStart = time.time()
+    takeFlowSample()
 
 
 ###############################################################################
 ###############################################################################
-def take_flow_sample():
-    global FlowSample, FlowVolumeOld
+def compute_flow_over_range(start_sec, end_sec):
+    total_flow = count = 0
 
-    # Accumulate more flow into the accumulator
-    # Compute the total volume in the two tanks
-    lvolume = telemetry.getRealTankVolume("Left")
-    rvolume = telemetry.getRealTankVolume("Right")
-    new_volume = lvolume + rvolume
+    # Open the Analyze Log File to see the flow data
+    with open(ANALYZE_FILE, 'rt') as myfile:
 
-    # Compute the delta volume since last update
-    if (new_volume > FlowVolumeOld):
-        delta_volume = new_volume - FlowVolumeOld
-    else:
-        delta_volume = 0
-    FlowVolumeOld = new_volume
+        # Sum all of the flows within the past hour (3600 secs)...
+        for myline in myfile:
+            # Split the line of comma seperated text into fields
+            fields = myline.split(',')
 
-    # Record the new delta volume as the flow sample
-    FlowSample = delta_volume
+            # As long as this line has a timestamp field...
+            if (fields[0].isdigit()):
+                timestamp = int(fields[0])
 
+                # And as long as this line's timestamp field is within range...
+                if ((timestamp > start_sec) and (timestamp <= end_sec)):
 
-###############################################################################
-###############################################################################
-def update_flow_rate():
-    global FlowCycleStart, FlowVolumeAcc, FlowSample
+                    # Add it's flow delta field's value to the sum
+                    total_flow = total_flow + int(fields[1])
+                    count = count + 1
 
-    # Add the new sample to the accumulator
-    FlowVolumeAcc = FlowVolumeAcc + FlowSample
-
-    # Compute the accumulation time (in seconds)
-    acc_time = (time.time() - FlowCycleStart)
-
-    # If the Flow Rate Cycle has ended...
-    if (acc_time >= FLOW_RATE_CYCLE_SECS):
-
-        # Compute the flow rate (in mL per hour)
-        flow_rate = ((FlowVolumeAcc * 3600) / acc_time)
-        flow_rate = round(flow_rate, 1)
-        print("Flow Rate = %d" % flow_rate)
-
-        # Start a new Flow Rate cycle
-        start_new_cycle()
+        return total_flow
 
 
-###############################################################################
-###############################################################################
-def get_flow_string():
-    global FlowSample
-    return (str(FlowSample).zfill(2))
-
-
-###############################################################################
-###############################################################################
-def get_flow_accumulation():
-    global FlowVolumeAcc
-    accumulation = round(FlowVolumeAcc)
-    return (str(accumulation).rjust(4, '0'))
 
 

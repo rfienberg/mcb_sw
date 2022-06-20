@@ -16,9 +16,17 @@ else:
 BAUD_RATE = 115200
 
 # Define some fonts
-SM_FONT = ('Tahoma', 18)
-MD_FONT = ('Tahoma', 22)
-LG_FONT = ("Georgia", 30)
+SM_FONT = ('Calibri', 18)
+MD_FONT = ('Calibri', 26)
+LG_FONT = ('Calibri', 30)
+#LG_FONT = ("Georgia", 30)
+GI_FONT = ('Calibri', 32)
+
+# Define some colors
+SETUP_COLOR   = '#0070C0'
+ANALYZE_COLOR = '#702713'
+CONTROL_COLOR = '#00B050'
+STATUS_COLOR  = '#7030A0'
 
 # Define the CONFIG file name
 CONFIG_FILE = "mcb_config.ini"
@@ -26,6 +34,7 @@ CONFIG_FILE = "mcb_config.ini"
 # Define some log file names
 TELEM_FILE = "Logs/telemetry.log"
 PATIENT_FILE = "Logs/patient.log"
+ANALYZE_FILE = "Logs/analyze.log"
 
 # Define some snap shot file names
 SNAP_COLOR_RAW =  'SnapShots/color_raw.jpg'
@@ -48,6 +57,7 @@ MAXIMUM_CAL_OFFEST = 200
 def getDateTimeStamp():
     dts = datetime.now().strftime("%Y-%m-%d %H:%M:%S: ")
     return dts
+
 
 ###############################################################################
 ###############################################################################

@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
 from globals import *
+from os.path import exists
 import time
 import threading
 import telemetry
 import flowrate
 import color
 import turbidity
-import patientlog
+import patient
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
@@ -61,10 +62,8 @@ def runAnalyzeTask():
 
             # Snap a FLOW sample for analyzing FLOW and FLOWRATE
             printStatus("Computing FLOW...")
-            flowrate.take_flow_sample()
-            flowrate.update_flow_rate()
-            my_flow = flowrate.get_flow_accumulation()
-            print("Flow = %s" % my_flow)
+            my_flow = flowrate.takeFlowSample()
+            print("Delta Flow = %d" % my_flow)
 
             printStatus("Computing COLOR...")
             color.start_analysis()
@@ -82,11 +81,17 @@ def runAnalyzeTask():
             turbidity.stop_analysis()
             my_turbidity = turbidity.getTurbidRating()
 
-            printStatus("Analysis cycle complete!")
+            # Update last hour's total flow
+            my_sec = int(time.time())
+            hr_flow = flowrate.updateHourlyFlow(my_sec)
 
-            dts = getDateTimeStamp()
-            analyze_line = dts + f'Flow:{my_flow} Color:{my_color} Turbidity: \n'
-            patientlog.write_line(analyze_line)
+            # Record a new line into the ANALYZE log file
+            printStatus("Analysis cycle #%d complete!" % my_sec)
+            analyze_line = f"{my_sec}, {my_flow}, {hr_flow}, {my_color}, {my_turbidity}\n"
+            write_log_line(analyze_line)
+
+            # Update today's hourly flows
+            flowrate.updateDailyFlows(my_sec)
 
 
 ###############################################################################
@@ -103,5 +108,33 @@ def IsFlowAllowed():
         return True
     else:
         return False
+
+
+###############################################################################
+# Creates a new Analyze Log File for the specified name
+###############################################################################
+def create_log_file():
+    print("Created new log file: " + ANALYZE_FILE)
+    file = open(ANALYZE_FILE, "w")
+    file.write("Started Analyze Log\n")
+    file.close()
+
+
+###############################################################################
+###############################################################################
+def write_log_line(line):
+    file = open_log_file("a")
+    file.write(line)
+    file.close()
+
+
+###############################################################################
+###############################################################################
+def open_log_file(mode="a"):
+    if (not exists(ANALYZE_FILE)):
+        create_log_file()
+
+    file = open(ANALYZE_FILE, mode)
+    return file
 
 

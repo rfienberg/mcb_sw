@@ -10,10 +10,6 @@ if (RUN_ON_CM4):
 import dcb
 
 
-BIG_FONT = ("Georgia", 30)
-BIG_FG = 'brown'
-MY_FONT = ('Calibri', 18)
-MY_FG = 'brown'
 
 # List of base colors
 COLOR_BINS = [
@@ -34,7 +30,7 @@ ColorRating = 15
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_details_screen(frame):
     global this_screen
 
     global back_btn_icon
@@ -60,7 +56,7 @@ def create_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_details_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -169,7 +165,7 @@ def getColorMatch(rgb):
 ###############################################################################
 def on_back_press():
     screens.play_key_tone()
-    screens.show_analyze_screen()
+    screens.show_analyze_main_screen()
 
 
 ###############################################################################
@@ -177,7 +173,7 @@ def on_back_press():
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame, text="Color Analysis:", font=BIG_FONT, fg=MY_FG)
+    title_label = tk.Label(this_frame, text="Color Analysis:", font=LG_FONT, fg=ANALYZE_COLOR)
     title_label.grid(row=0, column=0, padx=10)
 
     return this_frame
@@ -266,7 +262,7 @@ def populateRatingBox(color_box, color_rating):
         color_fill  = '#F2F2F2'
     else:
         text_string = "Analyzing..."
-        text_color  = '#702713'
+        text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
 
     # Populate the specified Rating Box

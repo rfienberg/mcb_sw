@@ -9,7 +9,7 @@ BIG_FG = 'purple'
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_menu_screen(frame):
     global this_screen
 
     # Open up the image files and size them correctly
@@ -56,7 +56,7 @@ def create_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_menu_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -65,27 +65,27 @@ def show_screen():
 ###############################################################################
 def on_setup_press():
     screens.play_key_tone()
-    screens.show_setup_screen()
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
 ###############################################################################
 def on_analyze_press():
     screens.play_key_tone()
-    screens.show_analyze_screen()
+    screens.show_analyze_main_screen()
 
 
 ###############################################################################
 ###############################################################################
 def on_status_press():
     screens.play_key_tone()
-    screens.show_status_screen()
+    screens.show_status_main_screen()
 
 
 ###############################################################################
 ###############################################################################
 def on_control_press():
     screens.play_key_tone()
-    screens.show_control_screen()
+    screens.show_control_main_screen()
 
 

@@ -5,11 +5,12 @@
 
 from globals import *
 import threading
-import scram
-import status
-import time
 from calibrate import getCalibrationOffset
 from datetime import datetime
+import scram
+import status
+import shutdown
+import time
 
 GET_TELEMETRY_CMD = ">GT?\n"
 GET_TELEMETRY_RSP_0_5 = '<GT: '
@@ -152,8 +153,6 @@ def getLatestTelemetry():
     # If that Telemetry is invalid...
     if (len(telem) < 10):
         telem = ""
-
-    print("Latest = %s" % telem)
 
     return telem
 

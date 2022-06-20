@@ -43,7 +43,7 @@ def startup():
 def periodic_update():
     # Get the latest Telemetry
     telem = telemetry.getLatestTelemetry()
-    print("telem = %s" % telem)
+    #print("telem = %s" % telem)
 
     # Update the Title Bar widgets
     titlebar.update_bar()

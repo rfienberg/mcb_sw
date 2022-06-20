@@ -5,20 +5,15 @@ import screens
 import dcb
 
 
-BIG_FONT = ("Georgia", 30)
-BIG_FG = '#00B050'
-MY_FONT = ('Calibri', 28)
-MY_FG = '#00B050'
-
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_control_screen(frame):
     global this_screen, unlock_msg, ready_msg
 
     # Open up the image files and size them correctly
     global ok_btn_icon
-    ok_btn_img = Image.open("Icons/ok_btn_green.png").resize((150,50), Image.ANTIALIAS)
+    ok_btn_img = Image.open("Icons/green_ok_btn.png").resize((150,50), Image.ANTIALIAS)
     ok_btn_icon = ImageTk.PhotoImage(ok_btn_img)
 
     # Create and place the Screen
@@ -40,7 +35,7 @@ def create_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_control_screen():
     global this_screen, unlock_msg
 
     # Display the "Unlocking" message screen
@@ -67,7 +62,7 @@ def on_remove_ready():
 ###############################################################################
 def on_ok_press():
     screens.play_key_tone()
-    screens.show_control_screen()
+    screens.show_control_main_screen()
 
     # Allow fluid flow again
     dcb.sendValveFlowCommand("Auto")
@@ -78,7 +73,7 @@ def on_ok_press():
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame, text="Remove Cartridge:", font=BIG_FONT, fg=MY_FG)
+    title_label = tk.Label(this_frame, text="Remove Cartridge:", font=LG_FONT, fg=CONTROL_COLOR)
     title_label.grid(row=0, column=0, padx=10)
 
     return this_frame
@@ -90,7 +85,7 @@ def create_unlocking_widget(frame):
     this_frame = tk.Frame(frame)
 
     my_label = tk.Label(this_frame)
-    my_label.configure(font=MY_FONT, fg=MY_FG)
+    my_label.configure(font=MD_FONT, fg=CONTROL_COLOR)
     my_label.configure(text="Unlocking Cartridge! Please wait...")
     my_label.grid(row=0, column=0, columnspan=10, padx=20, pady=40)
 
@@ -103,12 +98,12 @@ def create_safe_widget(frame):
     this_frame = tk.Frame(frame)
 
     label_1 = tk.Label(this_frame)
-    label_1.configure(font=MY_FONT, fg=MY_FG)
+    label_1.configure(font=MD_FONT, fg=CONTROL_COLOR)
     label_1.configure(text="It is now safe to remove the Cartridge")
     label_1.grid(row=0, column=0, padx=20, pady=20, sticky='ew')
 
     label_2 = tk.Label(this_frame)
-    label_2.configure(font=MY_FONT, fg=MY_FG)
+    label_2.configure(font=MD_FONT, fg=CONTROL_COLOR)
     label_2.configure(text="Press OK when done...")
     label_2.grid(row=1, column=0, padx=20, sticky='ew')
 

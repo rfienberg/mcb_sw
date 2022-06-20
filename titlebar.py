@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter.ttk import *
 from PIL import ImageTk, Image
 import telemetry
-import patientlog
+import patient
 from time import strftime
 
 
@@ -50,7 +50,7 @@ def create_bar(window):
 # Update the Title Bar widgets with the latest data
 ###############################################################################
 def update_bar():
-    patient_name = patientlog.get_patient_name()
+    patient_name = patient.get_patient_name()
     datetime_string = strftime('%x   %I:%M:%S %p')
     batterypct = telemetry.getBatteryChargePercent()
     charge_status = telemetry.getBatteryChargeStatus()

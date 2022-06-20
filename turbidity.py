@@ -10,10 +10,6 @@ if (RUN_ON_CM4):
 import dcb
 
 
-BIG_FONT = ("Georgia", 30)
-BIG_FG = 'brown'
-MY_FONT = ('Calibri', 18)
-MY_FG = 'brown'
 
 # Initialize TURBIDITY rating to value for "Unknown"
 TurbidRating = 15
@@ -21,7 +17,7 @@ TurbidRating = 15
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_details_screen(frame):
     global this_screen
 
     global turb_clear_icon
@@ -51,7 +47,7 @@ def create_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_details_screen():
     global this_screen
     this_screen.tkraise()
 
@@ -119,7 +115,7 @@ def stop_analysis():
 ###############################################################################
 def on_back_press():
     screens.play_key_tone()
-    screens.show_analyze_screen()
+    screens.show_analyze_main_screen()
 
 
 ###############################################################################
@@ -127,7 +123,7 @@ def on_back_press():
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame, text="Turbidity:", font=BIG_FONT, fg=MY_FG)
+    title_label = tk.Label(this_frame, text="Turbidity:", font=LG_FONT, fg=ANALYZE_COLOR)
     title_label.grid(row=0, column=0, padx=10)
 
     return this_frame
@@ -182,19 +178,19 @@ def create_turbidity_chart(frame):
 def populateRatingBox(turbid_box, turbid_rating):
     if (turbid_rating == 0):
         text_string = "Clear"
-        text_color  = '#702713'
+        text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
     elif (turbid_rating == 1):
         text_string = "Partly Cloudy"
-        text_color  = '#702713'
+        text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
     elif (turbid_rating == 2):
         text_string = "Cloudy"
-        text_color  = '#702713'
+        text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
     else:
         text_string = "Analyzing..."
-        text_color  = '#702713'
+        text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
 
     # Populate the specified Rating Box

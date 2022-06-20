@@ -253,4 +253,29 @@ def setPlayAlarmTone(value):
         parser.set('Audio', 'playalarmtone', value)
 
 
+###############################################################################
+###############################################################################
+def getTankLightsConfig():
+    global parser
+
+    # Read the entire CONFIG file
+    parser.read(CONFIG_FILE)
+
+    # Extract our SETTING and return it if available
+    if (parser.has_option('Lights', 'tanklightconfig')):
+        return parser.get('Lights', 'tanklightconfig')
+
+    return '0'
+
+
+
+###############################################################################
+###############################################################################
+def setTankLightsConfig(value):
+    global parser
+
+    if (parser.has_option('Lights', 'tanklightconfig')):
+        parser.set('Lights', 'tanklightconfig', value)
+
+
 

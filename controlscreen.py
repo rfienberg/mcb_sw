@@ -10,7 +10,7 @@ MY_FG = '#02AB4F'
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_main_screen(frame):
     global this_screen
 
     # Open up the image files and size them correctly
@@ -28,7 +28,7 @@ def create_screen(frame):
     turbidity_btn_icon = ImageTk.PhotoImage(this_btn_img)
 
     # Create and place the Screen
-    this_screen = tk.LabelFrame(frame, text="Control Screen")
+    this_screen = tk.LabelFrame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets
@@ -48,7 +48,7 @@ def create_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_main_screen():
     global this_screen
     this_screen.tkraise()
 

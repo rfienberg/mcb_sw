@@ -5,13 +5,13 @@ import datetime
 import screens
 
 
-BIG_FONT = ("Georgia", 30)
 MY_FONT = ('Calibri', 30)
-MY_FG = '#0070C0'
+
+
 
 ###############################################################################
 ###############################################################################
-def create_screen(frame):
+def create_setup_screen(frame):
     global this_screen
 
     # Open up the image files and size them correctly
@@ -22,34 +22,34 @@ def create_screen(frame):
     dec_img = inc_img.rotate(180)
     dec_btn_icon = ImageTk.PhotoImage(dec_img)
     global ok_btn_icon
-    ok_btn_img = Image.open("Icons/ok_btn_icon.png").resize((150,50), Image.ANTIALIAS)
+    ok_btn_img = Image.open("Icons/blue_ok_btn.png").resize((150,50), Image.ANTIALIAS)
     ok_btn_icon = ImageTk.PhotoImage(ok_btn_img)
     global cancel_btn_icon
-    cancel_btn_img = Image.open("Icons/cancel_btn_icon.png").resize((150,50), Image.ANTIALIAS)
+    cancel_btn_img = Image.open("Icons/blue_cancel_btn.png").resize((150,50), Image.ANTIALIAS)
     cancel_btn_icon = ImageTk.PhotoImage(cancel_btn_img)
 
     # Create the Frame for this screen
-    this_screen = tk.LabelFrame(frame, text="Set Date/Time Screen")
+    this_screen = tk.LabelFrame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets for this screen
-    top = create_top_line(this_screen)
+    top_line = create_top_line(this_screen)
     time_adj = create_time_adjuster(this_screen)
     date_adj = create_date_adjuster(this_screen)
-    bot = create_bottom_line(this_screen)
+    bot_line = create_bottom_line(this_screen)
 
     # Place the Widgets into the Frame
-    top.grid(row=0, column=0, columnspan=10, sticky='nw')
-    time_adj.grid(row=1, column=0, padx=10, pady=10, sticky='ew')
-    date_adj.grid(row=2, column=0, padx=10, pady=10, sticky='ew')
-    bot.grid(row=10, column=0, columnspan=10, pady=20)
+    top_line.grid(row=0, column=0, columnspan=10, sticky='nw')
+    time_adj.grid(row=1, column=0, padx=30, pady=10, sticky='ew')
+    date_adj.grid(row=2, column=0, padx=30, pady=10, sticky='ew')
+    bot_line.grid(row=3, column=0, columnspan=10, pady=20)
 
     return this_screen
 
 
 ###############################################################################
 ###############################################################################
-def show_screen():
+def show_setup_screen():
     global this_screen
 
     now = datetime.datetime.now()
@@ -183,14 +183,14 @@ def dec_years():
 ###############################################################################
 def on_ok_press():
     screens.play_key_tone()
-    screens.show_setup_screen()
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
 ###############################################################################
 def on_cancel_press():
     screens.play_key_tone()
-    screens.show_setup_screen()
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
@@ -199,7 +199,7 @@ def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
     title_label = tk.Label(this_frame)
-    title_label.configure(text="Set Time/Date:", font=BIG_FONT, fg=MY_FG)
+    title_label.configure(text="Set Time/Date:", font=LG_FONT, fg=SETUP_COLOR)
     title_label.grid(row=0, column=0, padx=10)
 
     return this_frame
@@ -220,9 +220,9 @@ def create_hour_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="Hour")
+    my_label.configure(fg=SETUP_COLOR, text="Hour")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_hour)
 
     my_label.grid(row=0, column=0)
@@ -262,9 +262,9 @@ def create_minute_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="Minute")
+    my_label.configure(fg=SETUP_COLOR, text="Minute")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_minute)
 
     my_label.grid(row=0, column=0)
@@ -304,9 +304,9 @@ def create_ampm_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="AM/PM")
+    my_label.configure(fg=SETUP_COLOR, text="AM/PM")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_ampm)
 
     my_label.grid(row=0, column=0)
@@ -344,9 +344,9 @@ def create_month_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="Month")
+    my_label.configure(fg=SETUP_COLOR, text="Month")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_month)
 
     my_label.grid(row=0, column=0)
@@ -386,9 +386,9 @@ def create_day_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="Day")
+    my_label.configure(fg=SETUP_COLOR, text="Day")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_day)
 
     my_label.grid(row=0, column=0)
@@ -428,9 +428,9 @@ def create_year_adjuster(window):
     my_label = tk.Label(ent_frame)
     my_entry = tk.Entry(ent_frame)
 
-    my_label.configure(fg=MY_FG, text="Year")
+    my_label.configure(fg=SETUP_COLOR, text="Year")
     my_entry.configure(width=4, justify='center', bd=4, relief='groove')
-    my_entry.configure(font=MY_FONT, fg=MY_FG, bg='white')
+    my_entry.configure(font=MY_FONT, fg=SETUP_COLOR, bg='white')
     my_entry.configure(textvariable=new_year)
 
     my_label.grid(row=0, column=0)
@@ -461,7 +461,7 @@ def create_time_adjuster(window):
     this_frame = tk.LabelFrame(window)
 
     time_label = tk.Label(this_frame, text="Time:")
-    time_label.configure(font=MY_FONT, fg=MY_FG)
+    time_label.configure(font=MY_FONT, fg=SETUP_COLOR)
 
     hour_adj   = create_hour_adjuster(this_frame)
     minute_adj = create_minute_adjuster(this_frame)
@@ -481,7 +481,7 @@ def create_date_adjuster(window):
     this_frame = tk.LabelFrame(window)
 
     date_label = tk.Label(this_frame, text="Date:")
-    date_label.configure(font=MY_FONT, fg=MY_FG)
+    date_label.configure(font=MY_FONT, fg=SETUP_COLOR)
 
     month_adj = create_month_adjuster(this_frame)
     day_adj   = create_day_adjuster(this_frame)
@@ -503,15 +503,16 @@ def create_bottom_line(frame):
     ok_button = tk.Button(this_frame)
     ok_button.configure(image=ok_btn_icon, borderwidth=0)
     ok_button.configure(command=on_ok_press)
-    ok_button.grid(row=0, column=0, padx=40, sticky='w')
 
-    padding = tk.Label(this_frame)
-    padding.grid(row=0, column=1, padx=100)
+    spacer_label = tk.Label(this_frame)
 
     cancel_button = tk.Button(this_frame)
     cancel_button.configure(image=cancel_btn_icon, borderwidth=0)
     cancel_button.configure(command=on_cancel_press)
-    cancel_button.grid(row=0, column=2, padx=40)
+
+    ok_button.grid(    row=0, column=0, pady=10)
+    spacer_label.grid( row=0, column=1, padx=80)
+    cancel_button.grid(row=0, column=2, pady=10)
 
     return this_frame
 

@@ -5,7 +5,7 @@ import screens
 import analyze
 import status
 import telemetry
-
+import patient
 
 ShutDownRequested = False
 
@@ -17,11 +17,16 @@ def requestShutdown():
     global ShutDownRequested
     ShutDownRequested = True
 
+    # Write this event into the log file
+    dts = getDateTimeStamp()
+    shutdown_line = dts + "Shutting-down!\n"
+    patient.write_log_line(shutdown_line)
+
     # Bring up the "Shutting Down" screen
     screens.show_shutting_down_screen()
 
     global shutting_down_screen
-    shutting_down_screen.after(1000, performShutDown)
+    shutting_down_screen.after(2000, perform_shut_down)
 
 
 ###############################################################################
@@ -33,15 +38,13 @@ def isShutDownRequested():
 
 ###############################################################################
 ###############################################################################
-def performShutDown():
-    analyze.stop_thread()
-    status.stop_thread()
-    telemetry.stop_thread()
+def perform_shut_down():
+    pass
 
 
 ###############################################################################
 ###############################################################################
-def create_verify_shutdown_screen(frame):
+def create_control_shutdown_screen(frame):
     global verify_screen, ver_msg, off_msg
 
     # Open up the image files and size them correctly
@@ -49,10 +52,10 @@ def create_verify_shutdown_screen(frame):
     question_img = Image.open("Icons/green_question.png").resize((120,120), Image.ANTIALIAS)
     question_icon = ImageTk.PhotoImage(question_img)
     global yes_btn_icon
-    yes_btn_img = Image.open("Icons/yes_btn_green.png").resize((150,50), Image.ANTIALIAS)
+    yes_btn_img = Image.open("Icons/green_yes_btn.png").resize((150,50), Image.ANTIALIAS)
     yes_btn_icon = ImageTk.PhotoImage(yes_btn_img)
     global no_btn_icon
-    no_btn_img = Image.open("Icons/no_btn_green.png").resize((150,50), Image.ANTIALIAS)
+    no_btn_img = Image.open("Icons/green_no_btn.png").resize((150,50), Image.ANTIALIAS)
     no_btn_icon = ImageTk.PhotoImage(no_btn_img)
 
     # Create and place the Screen
@@ -70,7 +73,7 @@ def create_verify_shutdown_screen(frame):
 
 ###############################################################################
 ###############################################################################
-def show_verify_shutdown_screen():
+def show_control_shutdown_screen():
     global verify_screen
     verify_screen.tkraise()
 
@@ -92,7 +95,7 @@ def on_no_press():
     screens.play_key_tone()
 
     # Go back to display the parent screen
-    screens.show_control_screen()
+    screens.show_control_main_screen()
 
 
 ###############################################################################
@@ -105,14 +108,14 @@ def create_verify_widget(frame):
     f3 = tk.Frame(this_frame)
 
     title_label = tk.Label(f1)
-    title_label.configure(font=("Georgia", 30), fg='#00B050')
+    title_label.configure(font=("Georgia", 30), fg=CONTROL_COLOR)
     title_label.configure(text="Shut-Down:")
     title_label.grid(row=0, column=0, padx=10)
 
     mark_label = tk.Label(f2)
     mark_label.configure(image=question_icon)
     text_label = tk.Label(f2)
-    text_label.configure(font=('Calibri', 32), fg='#00B050')
+    text_label.configure(font=GI_FONT, fg=CONTROL_COLOR)
     text_label.configure(text="Are you sure that you \n want to shut-down?")
     mark_label.grid(row=0, column=0, padx=10)
     text_label.grid(row=0, column=1, padx=10)
@@ -172,7 +175,7 @@ def create_shutting_down_widget(frame):
     sleep_label.configure(image=shutdown_icon)
 
     text_label = tk.Label(this_frame)
-    text_label.configure(font=('Calibri', 32), fg='red')
+    text_label.configure(font=GI_FONT, fg='red')
     text_label.configure(text="Shutting down! \n Please wait...")
 
     sleep_label.grid(row=0, column=0, padx=20, pady=40)
