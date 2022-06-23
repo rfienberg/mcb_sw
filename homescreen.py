@@ -80,6 +80,7 @@ def on_analyze_press():
 def on_status_press():
     screens.play_key_tone()
     screens.show_status_main_screen()
+    #screens.popup_tank_warning()
 
 
 ###############################################################################

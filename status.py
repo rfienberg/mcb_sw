@@ -33,7 +33,10 @@ def stop_thread():
 def runStatusTask():
     # Endless loop running STATUS operations...
     while True:
+        # Sleep for 1 second to allow other things to occur
         time.sleep(1.0)
+
+        # Send a STATUS report to the DCB
         sendStatusUpdate()
 
 

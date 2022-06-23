@@ -16,7 +16,7 @@ import timeouts
 import mcb_logging
 import calibrate
 
-import flowrate
+import flow
 import color
 import turbidity
 
@@ -30,6 +30,8 @@ import shutdown
 ###############################################################################
 ###############################################################################
 def create_screens(window):
+    global this_frame
+
     this_frame = tk.Frame(window)
     this_frame.grid(row=1, column=0, sticky='nsew')
     this_frame.grid(padx=10, pady=10)
@@ -55,7 +57,7 @@ def create_screens(window):
     s15 = cartridge.create_control_screen(this_frame)
     s16 = shutdown.create_control_shutdown_screen(this_frame)
 
-    s17 = flowrate.create_history_screen(this_frame)
+    s17 = flow.create_history_screen(this_frame)
     s18 = color.create_details_screen(this_frame)
     s19 = turbidity.create_details_screen(this_frame)
 
@@ -158,7 +160,7 @@ def show_calibrate_setup_screen():
 ###############################################################################
 ###############################################################################
 def show_flowrate_history_screen():
-    flowrate.show_history_screen()
+    flow.show_history_screen()
 
 
 ###############################################################################
@@ -201,5 +203,32 @@ def show_shutting_down_screen():
 ###############################################################################
 def play_key_tone():
     audio.play_key_tone()
+
+
+###############################################################################
+###############################################################################
+def popup_tank_warning():
+    global tank_level_warning
+
+    tank_level_warning = tk.Toplevel(this_frame)
+    tank_level_warning.title("Warning!")
+    tank_level_warning.minsize(800, 350)
+
+    f1 = tk.LabelFrame(tank_level_warning)
+    f1.grid(row=0, column=0, sticky='nsew')
+
+    b1 = tk.Button(f1)
+    b1.configure(text="OK")
+    b1.configure(command=popdown_tank_warning)
+    b1.grid(row=0, column=0, sticky='nsew')
+
+    tank_level_warning.mainloop()
+
+
+###############################################################################
+###############################################################################
+def popdown_tank_warning():
+    global tank_level_warning
+    tank_level_warning.destroy()
 
 

@@ -18,8 +18,8 @@ BAUD_RATE = 115200
 # Define some fonts
 SM_FONT = ('Calibri', 18)
 MD_FONT = ('Calibri', 26)
-LG_FONT = ('Calibri', 30)
-#LG_FONT = ("Georgia", 30)
+#LG_FONT = ('Calibri', 30)
+LG_FONT = ("Georgia", 30)
 GI_FONT = ('Calibri', 32)
 
 # Define some colors

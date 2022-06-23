@@ -2,7 +2,7 @@ from globals import *
 import tkinter as tk
 from PIL import ImageTk, Image
 import screens
-import flowrate
+import flow
 import color
 import turbidity
 import time
@@ -46,7 +46,7 @@ def create_main_screen(frame):
     atw = create_turbidity_widget(this_screen)
 
     # Place the Widgets
-    top.grid(row=0, column=0, padx=2, pady=10, sticky='w')
+    top.grid(row=0, column=0, padx=2, sticky='w')
     afw.grid(row=1, column=0, padx=2)
     acw.grid(row=1, column=1, padx=2)
     atw.grid(row=1, column=2, padx=2)
@@ -60,17 +60,18 @@ def create_main_screen(frame):
 def show_main_screen():
     global this_screen
     this_screen.tkraise()
-    update_main_screen()
+
+    periodic_screen_update()
 
 
 ###############################################################################
-# Updates the screen widgets from the latest data
+# Periodically update the ANALYZE main screen
 ###############################################################################
-def update_main_screen():
+def periodic_screen_update():
     global this_screen, flowrate_items, color_items, turbid_items
 
     # Update with the last hour's total FLOW
-    flow_text = str(flowrate.getCurrentHourlyFlow()).rjust(4, '0')
+    flow_text = str(flow.getCurrentHourlyFlow()).rjust(4, '0')
     flowrate_items[0].itemconfig(flowrate_items[1], text=flow_text)
 
     # Update with last minute's COLOR
@@ -81,36 +82,22 @@ def update_main_screen():
     turbid_rating = turbidity.getTurbidRating()
     turbidity.populateRatingBox(turbid_items, turbid_rating)
 
-    # Keep updating this screen every 2 seconds
-    this_screen.after(2000, update_main_screen)
+    # Schedule the next screen update
+    this_screen.after(2000, periodic_screen_update)
 
 
 ###############################################################################
 ###############################################################################
 def on_home_press():
+    global this_screen
+
+    # Chirp
     screens.play_key_tone()
+
+    # Cancel the periodic screen updates
+    this_screen.after_cancel(periodic_screen_update)
+
     screens.show_home_screen()
-
-
-###############################################################################
-###############################################################################
-def on_flowrate_history_press():
-    screens.play_key_tone()
-    screens.show_flowrate_history_screen()
-
-
-###############################################################################
-###############################################################################
-def on_color_details_press():
-    screens.play_key_tone()
-    screens.show_color_details_screen()
-
-
-###############################################################################
-###############################################################################
-def on_turbidity_details_press():
-    screens.play_key_tone()
-    screens.show_turbidity_details_screen()
 
 
 ###############################################################################
@@ -119,13 +106,15 @@ def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
     # Create the Go Home button
-    gohome_btn_button = tk.Button(this_frame, image=gohome_btn_icon, borderwidth=0)
+    gohome_btn_button = tk.Button(this_frame)
+    gohome_btn_button.configure(image=gohome_btn_icon, borderwidth=0)
     gohome_btn_button.configure(command=on_home_press)
-    gohome_btn_button.grid(row=0, column=0, padx=5, pady=10, sticky='nw')
 
     # Create the Title label
     title_label = tk.Label(this_frame, text="Analyze:")
     title_label.configure(font=LG_FONT, fg=ANALYZE_COLOR)
+
+    gohome_btn_button.grid(row=0, column=0, padx=5, pady=10, sticky='nw')
     title_label.grid(row=0, column=1, padx=5, pady=5)
 
     return this_frame
@@ -184,6 +173,9 @@ def create_flowrate_widget(frame):
 ###############################################################################
 ###############################################################################
 def on_flow_history_press():
+    # Chirp
+    screens.play_key_tone()
+
     screens.show_flowrate_history_screen()
 
 
@@ -236,6 +228,9 @@ def create_color_widget(frame):
 ###############################################################################
 ###############################################################################
 def on_color_details_press():
+    # Chirp
+    screens.play_key_tone()
+
     screens.show_color_details_screen()
 
 
@@ -290,6 +285,9 @@ def create_turbidity_widget(frame):
 ###############################################################################
 ###############################################################################
 def on_turbidity_details_press():
+    # Chirp
+    screens.play_key_tone()
+
     screens.show_turbidity_details_screen()
 
 

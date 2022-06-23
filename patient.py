@@ -3,12 +3,13 @@ from os.path import exists
 import tkinter as tk
 from PIL import ImageTk, Image
 import screens
-
+import analyze
 
 KEY_FONT = ('Calibri', 14)
 
 
 ###############################################################################
+# Creates the PATIENT setup screen
 ###############################################################################
 def create_setup_screen(frame):
     global this_screen, kb_lower, kb_upper
@@ -43,6 +44,7 @@ def create_setup_screen(frame):
 
 
 ###############################################################################
+# Shows the PATIENT setup screen
 ###############################################################################
 def show_setup_screen():
     global this_screen
@@ -51,6 +53,7 @@ def show_setup_screen():
 
 
 ###############################################################################
+# Shows the specified type (upper/lower) of keyboard
 ###############################################################################
 def show_keyboard(type):
     global use_caps
@@ -67,13 +70,31 @@ def show_keyboard(type):
 
 
 ###############################################################################
+# Handles the OK button press event
 ###############################################################################
 def on_ok_press():
+    # Chirp
     screens.play_key_tone()
-    save_and_return()
+
+    # Pull the new patient's name from the entry box
+    patient_name = patient_name_entry.get()
+    patient_name_entry.delete(0, tk.END)
+
+    # If it has at least one character filled in...
+    if (len(patient_name) > 0):
+
+        # Create a new Patient Log File with this name in it
+        create_log_file(patient_name)
+
+        # Create a new ANALYZE Log File
+        analyze.create_log_file(patient_name)
+
+        # Go back to the main SETUP screen
+        screens.show_setup_main_screen()
 
 
 ###############################################################################
+# Handles the CANCEL button press event
 ###############################################################################
 def on_cancel_press():
     screens.play_key_tone()
@@ -105,22 +126,6 @@ def on_key_press(key):
     else:
         patient_name_entry.insert(tk.END, key)
         show_keyboard('lower')
-
-
-###############################################################################
-###############################################################################
-def save_and_return():
-    # Pull the new patient's name from the entry box
-    patient_name = patient_name_entry.get()
-    #print(patient_name)
-
-    if (len(patient_name) > 0):
-        # Create a new Patient Log File with this name in it
-        create_log_file(patient_name)
-
-        patient_name_entry.delete(0, tk.END)
-
-        screens.show_setup_main_screen()
 
 
 ###############################################################################
@@ -283,7 +288,7 @@ def get_patient_name():
 # Creates a new Patient Log File for the specified name
 ###############################################################################
 def create_log_file(name):
-    print("Created new log file: " + PATIENT_FILE + " for " + name)
+    print("Created new patient log file: " + PATIENT_FILE + " for " + name)
     file = open(PATIENT_FILE, "w")
     file.write("Patient: " + name + "\n")
     file.close()
