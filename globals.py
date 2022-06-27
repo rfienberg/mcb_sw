@@ -16,17 +16,18 @@ else:
 BAUD_RATE = 115200
 
 # Define some fonts
-SM_FONT = ('Calibri', 18)
-MD_FONT = ('Calibri', 26)
-#LG_FONT = ('Calibri', 30)
-LG_FONT = ("Georgia", 30)
-GI_FONT = ('Calibri', 32)
+SM_FONT = ('Franklin Gothic', 18)
+MD_FONT = ('Franklin Gothic', 26)
+LG_FONT = ('Franklin Gothic', 30)
+#LG_FONT = ("Georgia", 30)
+GI_FONT = ('Franklin Gothic', 32)
 
 # Define some colors
 SETUP_COLOR   = '#0070C0'
 ANALYZE_COLOR = '#702713'
-CONTROL_COLOR = '#00B050'
-STATUS_COLOR  = '#7030A0'
+#CONTROL_COLOR = '#009A49'
+CONTROL_COLOR = '#007A3A'
+STATUS_COLOR  = '#781B79'
 
 # Define the CONFIG file name
 CONFIG_FILE = "mcb_config.ini"

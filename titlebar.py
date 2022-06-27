@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 import telemetry
 import patient
 from time import strftime
-
+import screens
 
 MY_BG = '#0070C0'
 MY_FG = 'white'
@@ -22,11 +22,11 @@ def create_bar(window):
 
     # Open up the image files and size them correctly
     global charging_yes_icon
-    charging_yes_img = Image.open("Icons/charging_yes.png").resize((25,25), Image.ANTIALIAS)
-    charging_yes_icon = ImageTk.PhotoImage(charging_yes_img)
+    this_graphic = Image.open("Graphics/charging_yes.png").resize((25,25), Image.ANTIALIAS)
+    charging_yes_icon = ImageTk.PhotoImage(this_graphic)
     global charging_no_icon
-    charging_no_img = Image.open("Icons/charging_no.png").resize((25,25), Image.ANTIALIAS)
-    charging_no_icon = ImageTk.PhotoImage(charging_no_img)
+    this_graphic = Image.open("Graphics/charging_no.png").resize((25,25), Image.ANTIALIAS)
+    charging_no_icon = ImageTk.PhotoImage(this_graphic)
 
     # Create the Frame for this bar
     this_frame = tk.LabelFrame(window)

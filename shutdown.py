@@ -1,6 +1,5 @@
 from globals import *
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 import analyze
 import status
@@ -46,17 +45,6 @@ def perform_shut_down():
 ###############################################################################
 def create_control_shutdown_screen(frame):
     global verify_screen, ver_msg, off_msg
-
-    # Open up the image files and size them correctly
-    global question_icon
-    question_img = Image.open("Icons/green_question.png").resize((120,120), Image.ANTIALIAS)
-    question_icon = ImageTk.PhotoImage(question_img)
-    global yes_btn_icon
-    yes_btn_img = Image.open("Icons/green_yes_btn.png").resize((150,50), Image.ANTIALIAS)
-    yes_btn_icon = ImageTk.PhotoImage(yes_btn_img)
-    global no_btn_icon
-    no_btn_img = Image.open("Icons/green_no_btn.png").resize((150,50), Image.ANTIALIAS)
-    no_btn_icon = ImageTk.PhotoImage(no_btn_img)
 
     # Create and place the Screen
     verify_screen = tk.Frame(frame)
@@ -113,7 +101,7 @@ def create_verify_widget(frame):
     title_label.grid(row=0, column=0, padx=10)
 
     mark_label = tk.Label(f2)
-    mark_label.configure(image=question_icon)
+    mark_label.configure(image=screens.question_icon)
     text_label = tk.Label(f2)
     text_label.configure(font=GI_FONT, fg=CONTROL_COLOR)
     text_label.configure(text="Are you sure that you \n want to shut-down?")
@@ -121,10 +109,10 @@ def create_verify_widget(frame):
     text_label.grid(row=0, column=1, padx=10)
 
     yes_button = tk.Button(f3)
-    yes_button.configure(image=yes_btn_icon, borderwidth=0)
+    yes_button.configure(image=screens.yes_btn_icon, borderwidth=0)
     yes_button.configure(command=on_yes_press)
     no_button = tk.Button(f3)
-    no_button.configure(image=no_btn_icon, borderwidth=0)
+    no_button.configure(image=screens.no_btn_icon, borderwidth=0)
     no_button.configure(command=on_no_press)
     yes_button.grid(row=0, column=0, padx=60)
     no_button.grid(row=0, column=1, padx=60)
@@ -140,11 +128,6 @@ def create_verify_widget(frame):
 ###############################################################################
 def create_shutting_down_screen(frame):
     global shutting_down_screen
-
-    # Open up the image files and size them correctly
-    global shutdown_icon
-    shutdown_img = Image.open("Icons/sleep.png").resize((120,120), Image.ANTIALIAS)
-    shutdown_icon = ImageTk.PhotoImage(shutdown_img)
 
     # Create and place the Screen
     shutting_down_screen = tk.Frame(frame)
@@ -172,7 +155,7 @@ def create_shutting_down_widget(frame):
     this_frame = tk.Frame(frame)
 
     sleep_label = tk.Label(this_frame)
-    sleep_label.configure(image=shutdown_icon)
+    sleep_label.configure(image=screens.shutdown_icon)
 
     text_label = tk.Label(this_frame)
     text_label.configure(font=GI_FONT, fg='red')

@@ -1,7 +1,6 @@
 from globals import *
 from os.path import exists
 import tkinter as tk
-from PIL import ImageTk, Image
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg')
@@ -113,13 +112,6 @@ def updateDailyFlows(timestamp):
 def create_history_screen(frame):
     global this_screen
 
-    global back_btn_icon
-    this_btn_img = Image.open("Icons/brn_back_btn.png").resize((150,50), Image.ANTIALIAS)
-    back_btn_icon = ImageTk.PhotoImage(this_btn_img)
-    global past_arrow_icon
-    this_btn_img = Image.open("Icons/brn_past_arrow.png").resize((400,40), Image.ANTIALIAS)
-    past_arrow_icon = ImageTk.PhotoImage(this_btn_img)
-
     this_screen = tk.LabelFrame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
@@ -205,15 +197,15 @@ def create_flow_history(frame):
     flowplot.spines['left'].set_color(ANALYZE_COLOR)
     flowplot.spines['right'].set_color(ANALYZE_COLOR)
 
-    back_button = tk.Button(f2)
-    back_button.configure(image=back_btn_icon, borderwidth=0)
-    back_button.configure(command=on_back_press)
-    past_label = tk.Label(f2)
-    past_label.configure(font=SM_FONT, fg=ANALYZE_COLOR)
-    past_label.configure(image=past_arrow_icon)
+    b1 = tk.Button(f2)
+    b1.configure(image=screens.back_btn_icon, borderwidth=0)
+    b1.configure(command=on_back_press)
+    l1 = tk.Label(f2)
+    l1.configure(font=SM_FONT, fg=ANALYZE_COLOR)
+    l1.configure(image=screens.past_arrow_icon)
 
-    back_button.grid(row=0, column=0, padx=40)
-    past_label.grid( row=0, column=1, padx=80, sticky='n')
+    b1.grid(row=0, column=0, padx=40)
+    l1.grid(row=0, column=1, padx=340, sticky='ne')
 
     return this_frame
 

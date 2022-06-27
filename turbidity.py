@@ -20,14 +20,6 @@ TurbidRating = 15
 def create_details_screen(frame):
     global this_screen
 
-    global turb_clear_icon
-    this_btn_img = Image.open("Icons/turb_clear.png").resize((200,70), Image.ANTIALIAS)
-    turb_clear_icon = ImageTk.PhotoImage(this_btn_img)
-
-    global back_btn_icon
-    this_btn_img = Image.open("Icons/brn_back_btn.png").resize((150,50), Image.ANTIALIAS)
-    back_btn_icon = ImageTk.PhotoImage(this_btn_img)
-
     # Create and place the Screen
     this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
@@ -101,7 +93,7 @@ def analyze():
     # RLF: Move this logic to UPDATE function
     #photo_file = Image.open(SNAP_TURBID_IMG).resize((200,200), Image.ANTIALIAS)
     #analyze_turbid_img = ImageTk.PhotoImage(photo_file)
-    #photo_frame.configure(image=analyze_turbid_img)
+    #photo_frame.configure(image=screens.analyze_turbid_img)
 
 
 ###############################################################################
@@ -146,13 +138,13 @@ def create_turbidity_photo(frame):
     photo_file = Image.open(SNAP_TURBID_IMG).resize((200,200), Image.ANTIALIAS)
     analyze_turbid_img = ImageTk.PhotoImage(photo_file)
 
-    photo_frame.configure(image=analyze_turbid_img)
+    photo_frame.configure(image=screens.analyze_turbid_img)
     """
     photo_frame = tk.Label(this_frame, bd=8)
     photo_frame.grid(row=0, column=0, padx=10, pady=20, sticky='n')
 
     back_button = tk.Button(this_frame)
-    back_button.configure(image=back_btn_icon, borderwidth=0)
+    back_button.configure(image=screens.back_btn_icon, borderwidth=0)
     back_button.configure(command=on_back_press)
     back_button.grid(row=1, column=0, padx=20)
 
@@ -164,10 +156,7 @@ def create_turbidity_photo(frame):
 def create_turbidity_chart(frame):
     this_frame = tk.Frame(frame)
 
-    global match_turbidity_img # Keeps it persistent in memory
-    photo_file = Image.open("Icons/turbidity_chart.png").resize((110,280), Image.ANTIALIAS)
-    match_turbidity_img = ImageTk.PhotoImage(photo_file)
-    photo_frame = tk.Label(this_frame, image=match_turbidity_img)
+    photo_frame = tk.Label(this_frame, image=screens.match_turbidity_img)
     photo_frame.grid(row=0, column=0, padx=40, pady=20)
 
     return this_frame

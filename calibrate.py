@@ -1,7 +1,6 @@
 from globals import *
 import mcb_config
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 import telemetry
 import dcb
@@ -28,14 +27,6 @@ def getCalibrationOffset(side="Left"):
 ###############################################################################
 def create_setup_screen(frame):
     global cal_screen, instruct, progress, finished, start_btns
-
-    # Open the images for this screen
-    global start_btn_icon
-    start_btn_img = Image.open("Icons/blue_start_btn.png").resize((150,50), Image.ANTIALIAS)
-    start_btn_icon = ImageTk.PhotoImage(start_btn_img)
-    global cancel_btn_icon
-    cancel_btn_img = Image.open("Icons/blue_cancel_btn.png").resize((150,50), Image.ANTIALIAS)
-    cancel_btn_icon = ImageTk.PhotoImage(cancel_btn_img)
 
     # Create and place this Screen
     cal_screen = tk.LabelFrame(frame)
@@ -201,10 +192,10 @@ def create_cal_instructions(frame):
     instr_text.grid(row=0, column=0)
 
     start_button = tk.Button(f2)
-    start_button.configure(image=start_btn_icon, borderwidth=0)
+    start_button.configure(image=screens.start_btn_icon, borderwidth=0)
     start_button.configure(command=on_start_press)
     cancel_button = tk.Button(f2)
-    cancel_button.configure(image=cancel_btn_icon, borderwidth=0)
+    cancel_button.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
     cancel_button.configure(command=on_cancel_press)
     start_button.grid( row=0, column=0, padx=60)
     cancel_button.grid(row=0, column=1, padx=60)
@@ -223,15 +214,11 @@ def create_cal_in_progress(frame):
 
     message = "Tank calibration is in progress..."
 
-    global cal_inprogress_icon
-    cal_inprogress_img = Image.open("Icons/blue_cal_in_progress.png").resize((120,120), Image.ANTIALIAS)
-    cal_inprogress_icon = ImageTk.PhotoImage(cal_inprogress_img)
-
     text_label = tk.Label(this_frame)
     text_label.configure(text=message, font=MD_FONT, fg=SETUP_COLOR)
 
     icon_label = tk.Label(this_frame)
-    icon_label.configure(image=cal_inprogress_icon)
+    icon_label.configure(image=screens.cal_inprogress_icon)
 
     text_label.grid(row=0, column=0, padx=40, pady=20)
     icon_label.grid(row=1, column=0)
@@ -247,27 +234,19 @@ def create_cal_finished(frame):
 
     message = "Tank calibration is complete!"
 
-    global cal_complete_icon
-    cal_complete_img = Image.open("Icons/blue_thumbs_up.png").resize((100,100), Image.ANTIALIAS)
-    cal_complete_icon = ImageTk.PhotoImage(cal_complete_img)
-
-    global ok_btn_icon
-    ok_btn_img = Image.open("Icons/blue_ok_btn.png").resize((150,50), Image.ANTIALIAS)
-    ok_btn_icon = ImageTk.PhotoImage(ok_btn_img)
-
     text_label = tk.Label(this_frame)
     text_label.configure(text=message, font=MD_FONT, fg=SETUP_COLOR)
 
     icon_label = tk.Label(this_frame)
-    icon_label.configure(image=cal_complete_icon)
+    icon_label.configure(image=screens.cal_complete_icon)
 
     ok_button = tk.Button(this_frame)
-    ok_button.configure(image=ok_btn_icon, borderwidth=0)
+    ok_button.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
     ok_button.configure(command=on_cancel_press)
 
     text_label.grid(row=0, column=0, padx=40, pady=20)
     icon_label.grid(row=1, column=0)
-    ok_button.grid(row=2, column=0, pady=40)
+    ok_button.grid(row=2, column=0, pady=20)
 
     return this_frame
 
@@ -277,14 +256,14 @@ def create_cal_finished(frame):
 def pull_calibation_settings():
     global LeftCalOffset, RightCalOffset
 
-    offset = int(mcb_config.getLTankCalOffset(), 10)
-    if (offset < MAXIMUM_CAL_OFFEST):
+    offset = mcb_config.getLTankCalOffset()
+    if (offset > 0):
         LeftCalOffset = offset
     else:
         LeftCalOffset = DEFAULT_CAL_OFFSET
 
-    offset = int(mcb_config.getRTankCalOffset(), 10)
-    if (offset < MAXIMUM_CAL_OFFEST):
+    offset = mcb_config.getRTankCalOffset()
+    if (offset > 0):
         RightCalOffset = offset
     else:
         RightCalOffset = DEFAULT_CAL_OFFSET
@@ -295,11 +274,8 @@ def pull_calibation_settings():
 def push_calibration_settings():
     global LeftCalOffset, RightCalOffset
 
-    offset_str = str(LeftCalOffset)
-    mcb_config.setLTankCalOffset(offset_str)
-
-    offset_str = str(RightCalOffset)
-    mcb_config.setRTankCalOffset(offset_str)
+    mcb_config.setLTankCalOffset(LeftCalOffset)
+    mcb_config.setRTankCalOffset(RightCalOffset)
 
     # Write the new CONFIG values to file
     mcb_config.writeConfigSettings()

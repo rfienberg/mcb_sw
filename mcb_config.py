@@ -30,102 +30,172 @@ def writeConfigSettings():
 
 ###############################################################################
 ###############################################################################
-def getFlowAnalysisEnabled():
+def getMinFlowAlertEnabled():
     global parser
+
+    value = False
 
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
-    if (parser.has_option('Alarms', 'flowanalysisenabled')):
-        return parser.get('Alarms', 'flowanalysisenabled')
+    if (parser.has_option('Alerts', 'minflowalertenabled')):
+        if (parser.get('Alerts', 'minflowalertenabled') == '1'):
+            value = True
 
-    return '0'
+    return value
 
 
 
 ###############################################################################
 ###############################################################################
-def setFlowAnalysisEnabled(value):
+def setMinFlowAlertEnabled(value):
     global parser
 
-    if (parser.has_option('Alarms', 'flowanalysisenabled')):
-        parser.set('Alarms', 'flowanalysisenabled', value)
+    if (parser.has_option('Alerts', 'minflowalertenabled')):
+        if (value == True):
+            parser.set('Alerts', 'minflowalertenabled', '1')
+        else:
+            parser.set('Alerts', 'minflowalertenabled', '0')
 
 
 ###############################################################################
 ###############################################################################
-def getFlowAnalysisPeriod():
+def getMaxFlowAlertEnabled():
     global parser
+
+    value = False
 
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
-    if (parser.has_option('Alarms', 'flowanalysisperiod')):
-        return parser.get('Alarms', 'flowanalysisperiod')
+    if (parser.has_option('Alerts', 'maxflowalertenabled')):
+        if (parser.get('Alerts', 'maxflowalertenabled') == '1'):
+            value = True
 
-    return '0'
+    return value
 
 
 
 ###############################################################################
 ###############################################################################
-def setFlowAnalysisPeriod(value):
+def setMaxFlowAlertEnabled(value):
     global parser
 
-    if (parser.has_option('Alarms', 'flowanalysisperiod')):
-        parser.set('Alarms', 'flowanalysisperiod', value)
+    if (parser.has_option('Alerts', 'maxflowalertenabled')):
+        if (value == True):
+            parser.set('Alerts', 'maxflowalertenabled', '1')
+        else:
+            parser.set('Alerts', 'maxflowalertenabled', '0')
+
+
 
 
 ###############################################################################
 ###############################################################################
-def getFlowLowThreshold():
+def getMinFlowThreshold():
     global parser
+
+    value = 0
 
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
-    if (parser.has_option('Alarms', 'flowlowthreshold')):
-        return parser.get('Alarms', 'flowlowthreshold')
+    if (parser.has_option('Alerts', 'minflowthreshold')):
+        value = int(parser.get('Alerts', 'minflowthreshold'), 10)
 
-    return '0'
+    return value
 
 
 
 ###############################################################################
 ###############################################################################
-def setFlowLowThreshold(value):
+def setMinFlowThreshold(value):
     global parser
 
-    if (parser.has_option('Alarms', 'flowlowthreshold')):
-        parser.set('Alarms', 'flowlowthreshold', value)
+    if (parser.has_option('Alerts', 'minflowthreshold')):
+        parser.set('Alerts', 'minflowthreshold', str(value))
 
 
 ###############################################################################
 ###############################################################################
-def getFlowHighThreshold():
+def getMaxFlowThreshold():
     global parser
+
+    value = 0
 
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
-    if (parser.has_option('Alarms', 'flowhighthreshold')):
-        return parser.get('Alarms', 'flowhighthreshold')
+    if (parser.has_option('Alerts', 'maxflowthreshold')):
+        value = int(parser.get('Alerts', 'maxflowthreshold'), 10)
 
-    return '0'
-
+    return value
 
 
 ###############################################################################
 ###############################################################################
-def setFlowHighThreshold(value):
+def setMaxFlowThreshold(value):
     global parser
 
-    if (parser.has_option('Alarms', 'flowhighthreshold')):
-        parser.set('Alarms', 'flowhighthreshold', value)
+    if (parser.has_option('Alerts', 'maxflowthreshold')):
+        parser.set('Alerts', 'maxflowthreshold', str(value))
+
+
+###############################################################################
+###############################################################################
+def getMinFlowHours():
+    global parser
+
+    value = 0
+
+    # Read the entire CONFIG file
+    parser.read(CONFIG_FILE)
+
+    # Extract our SETTING and return it if available
+    if (parser.has_option('Alerts', 'minflowhours')):
+        value = int(parser.get('Alerts', 'minflowhours'))
+
+    return value
+
+
+
+###############################################################################
+###############################################################################
+def setMinFlowHours(value):
+    global parser
+
+    if (parser.has_option('Alerts', 'minflowhours')):
+        parser.set('Alerts', 'minflowhours', str(value))
+
+
+###############################################################################
+###############################################################################
+def getMaxFlowHours():
+    global parser
+
+    value = 0
+
+    # Read the entire CONFIG file
+    parser.read(CONFIG_FILE)
+
+    # Extract our SETTING and return it if available
+    if (parser.has_option('Alerts', 'maxflowhours')):
+        value = parser.get('Alerts', 'maxflowhours')
+
+    return value
+
+
+###############################################################################
+###############################################################################
+def setMaxFlowHours(value):
+    global parser
+
+    if (parser.has_option('Alerts', 'maxflowhours')):
+        parser.set('Alerts', 'maxflowhours', str(value))
 
 
 ###############################################################################
@@ -133,15 +203,16 @@ def setFlowHighThreshold(value):
 def getLTankCalOffset():
     global parser
 
+    value = 0
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Calibration', 'ltankcaloffset')):
-        return parser.get('Calibration', 'ltankcaloffset')
+        value = int(parser.get('Calibration', 'ltankcaloffset'), 10)
 
-    return '0'
-
+    return value
 
 
 ###############################################################################
@@ -150,7 +221,7 @@ def setLTankCalOffset(value):
     global parser
 
     if (parser.has_option('Calibration', 'ltankcaloffset')):
-        parser.set('Calibration', 'ltankcaloffset', value)
+        parser.set('Calibration', 'ltankcaloffset', str(value))
 
 
 ###############################################################################
@@ -158,14 +229,16 @@ def setLTankCalOffset(value):
 def getRTankCalOffset():
     global parser
 
+    value = 0
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Calibration', 'rtankcaloffset')):
-        return parser.get('Calibration', 'rtankcaloffset')
+        value = int(parser.get('Calibration', 'rtankcaloffset'), 10)
 
-    return '0'
+    return value
 
 
 
@@ -175,7 +248,7 @@ def setRTankCalOffset(value):
     global parser
 
     if (parser.has_option('Calibration', 'rtankcaloffset')):
-        parser.set('Calibration', 'rtankcaloffset', value)
+        parser.set('Calibration', 'rtankcaloffset', str(value))
 
 
 ###############################################################################
@@ -183,14 +256,17 @@ def setRTankCalOffset(value):
 def getPlayKeyPressTone():
     global parser
 
+    value = False
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Audio', 'playkeypresstone')):
-        return parser.get('Audio', 'playkeypresstone')
+        if (parser.get('Audio', 'playkeypresstone') == '1'):
+            value = True
 
-    return '0'
+    return value
 
 
 
@@ -200,7 +276,10 @@ def setPlayKeyPressTone(value):
     global parser
 
     if (parser.has_option('Audio', 'playkeypresstone')):
-        parser.set('Audio', 'playkeypresstone', value)
+        if (value == True):
+            parser.set('Audio', 'playkeypresstone', '1')
+        else:
+            parser.set('Audio', 'playkeypresstone', '0')
 
 
 ###############################################################################
@@ -208,14 +287,17 @@ def setPlayKeyPressTone(value):
 def getPlayWarningTone():
     global parser
 
+    value = False
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Audio', 'playwarningtone')):
-        return parser.get('Audio', 'playwarningtone')
+        if (parser.get('Audio', 'playwarningtone') == '1'):
+            value = True
 
-    return '0'
+    return value
 
 
 
@@ -225,7 +307,10 @@ def setPlayWarningTone(value):
     global parser
 
     if (parser.has_option('Audio', 'playwarningtone')):
-        parser.set('Audio', 'playwarningtone', value)
+        if (value == True):
+            parser.set('Audio', 'playwarningtone', '1')
+        else:
+            parser.set('Audio', 'playwarningtone', '0')
 
 
 ###############################################################################
@@ -233,14 +318,17 @@ def setPlayWarningTone(value):
 def getPlayAlarmTone():
     global parser
 
+    value = False
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Audio', 'playalarmtone')):
-        return parser.get('Audio', 'playalarmtone')
+        if (parser.get('Audio', 'playalarmtone') == '1'):
+            value = True
 
-    return '0'
+    return value
 
 
 
@@ -250,7 +338,10 @@ def setPlayAlarmTone(value):
     global parser
 
     if (parser.has_option('Audio', 'playalarmtone')):
-        parser.set('Audio', 'playalarmtone', value)
+        if (value == True):
+            parser.set('Audio', 'playalarmtone', '1')
+        else:
+            parser.set('Audio', 'playalarmtone', '0')
 
 
 ###############################################################################
@@ -258,14 +349,16 @@ def setPlayAlarmTone(value):
 def getTankLightsConfig():
     global parser
 
+    value = 'Off'
+
     # Read the entire CONFIG file
     parser.read(CONFIG_FILE)
 
     # Extract our SETTING and return it if available
     if (parser.has_option('Lights', 'tanklightconfig')):
-        return parser.get('Lights', 'tanklightconfig')
+        value = parser.get('Lights', 'tanklightconfig')
 
-    return '0'
+    return value
 
 
 

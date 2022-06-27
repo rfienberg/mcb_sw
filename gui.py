@@ -7,8 +7,6 @@ import shutdown
 import screens
 import titlebar
 import statusbar
-import analyzescreen
-import statusscreen
 
 
 ###############################################################################

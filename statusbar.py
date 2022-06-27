@@ -23,10 +23,10 @@ def create_bar(window):
 
     # Open up the image files and size them correctly
     global plugged_in_icon
-    plugged_in_img = Image.open("Icons/plugged_in_yes.png").resize((30,30), Image.ANTIALIAS)
+    plugged_in_img = Image.open("Graphics/plugged_in_yes.png").resize((30,30), Image.ANTIALIAS)
     plugged_in_icon = ImageTk.PhotoImage(plugged_in_img)
     global unplugged_icon
-    unplugged_img = Image.open("Icons/plugged_in_no.png").resize((30,30), Image.ANTIALIAS)
+    unplugged_img = Image.open("Graphics/plugged_in_no.png").resize((30,30), Image.ANTIALIAS)
     unplugged_icon = ImageTk.PhotoImage(unplugged_img)
 
     # Create the Frame for this screen

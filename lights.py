@@ -1,6 +1,5 @@
 from globals import *
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 import dcb
 import mcb_config
@@ -10,44 +9,22 @@ ConfigTankLights = 'Off'
 
 
 ###############################################################################
-# Creates the screen for tank light SETUP
 ###############################################################################
-def create_setup_screen(frame):
-    global setup_screen
+def pull_light_settings():
+    global ConfigTankLights
 
-    # Open up the image files and size them correctly
-    global checkbox_yes_icon
-    checkbox_yes_img = Image.open("Icons/checkbox_yes.png").resize((25,25), Image.ANTIALIAS)
-    checkbox_yes_icon = ImageTk.PhotoImage(checkbox_yes_img)
-    global checkbox_no_icon
-    checkbox_no_img = Image.open("Icons/checkbox_no.png").resize((25,25), Image.ANTIALIAS)
-    checkbox_no_icon = ImageTk.PhotoImage(checkbox_no_img)
+    ConfigTankLights = mcb_config.getTankLightsConfig()
 
-    global ok_btn_icon
-    ok_btn_img = Image.open("Icons/blue_ok_btn.png").resize((150,50), Image.ANTIALIAS)
-    ok_btn_icon = ImageTk.PhotoImage(ok_btn_img)
-    global cancel_btn_icon
-    cancel_btn_img = Image.open("Icons/blue_cancel_btn.png").resize((150,50), Image.ANTIALIAS)
-    cancel_btn_icon = ImageTk.PhotoImage(cancel_btn_img)
 
-    # Create and place the Screen
-    setup_screen = tk.LabelFrame(frame)
-    setup_screen.grid(row=0, column=0, sticky='nsew')
+###############################################################################
+###############################################################################
+def push_light_settings():
+    global ConfigTankLights
 
-    # Create the screen Widgets
-    top_frm = create_setup_top_line(setup_screen)
-    mid_frm = create_radio_buttons(setup_screen)
-    bot_frm = create_bottom_line(setup_screen)
+    mcb_config.setTankLightsConfig(ConfigTankLights)
 
-    # Place the Widgets onto the screen
-    top_frm.grid(row=0, column=0, sticky='nw')
-    mid_frm.grid(row=1, column=0, padx=40, pady=30, sticky='w')
-    bot_frm.grid(row=2, column=0, padx=40, pady=30, sticky='w')
-
-    # Update the radio buttons based on the local settings
-    update_radio_buttons()
-
-    return setup_screen
+    # Write the new CONFIG values to file
+    mcb_config.writeConfigSettings()
 
 
 ###############################################################################
@@ -104,18 +81,68 @@ def update_radio_buttons():
     global ConfigTankLights
 
     if (ConfigTankLights == 'Off'):
-        opt1_btn.configure(image=checkbox_yes_icon)
-        opt2_btn.configure(image=checkbox_no_icon)
-        opt3_btn.configure(image=checkbox_no_icon)
+        opt1_btn.configure(image=screens.checkbox_yes_icon)
+        opt2_btn.configure(image=screens.checkbox_no_icon)
+        opt3_btn.configure(image=screens.checkbox_no_icon)
     elif (ConfigTankLights == 'On'):
-        opt1_btn.configure(image=checkbox_no_icon)
-        opt2_btn.configure(image=checkbox_yes_icon)
-        opt3_btn.configure(image=checkbox_no_icon)
+        opt1_btn.configure(image=screens.checkbox_no_icon)
+        opt2_btn.configure(image=screens.checkbox_yes_icon)
+        opt3_btn.configure(image=screens.checkbox_no_icon)
     else:
         ConfigTankLights = 'Dark'
-        opt1_btn.configure(image=checkbox_no_icon)
-        opt2_btn.configure(image=checkbox_no_icon)
-        opt3_btn.configure(image=checkbox_yes_icon)
+        opt1_btn.configure(image=screens.checkbox_no_icon)
+        opt2_btn.configure(image=screens.checkbox_no_icon)
+        opt3_btn.configure(image=screens.checkbox_yes_icon)
+
+
+###############################################################################
+# Handles a press of the CANCEL button
+###############################################################################
+def on_cancel_press():
+    # Pull the CONFIG file values into local settings
+    pull_light_settings()
+
+    screens.play_key_tone()
+
+    screens.show_setup_main_screen()
+
+
+###############################################################################
+# Handles a press of the OK button
+###############################################################################
+def on_ok_press():
+    # Push local settings to CONFIG file
+    push_light_settings()
+
+    screens.play_key_tone()
+
+    screens.show_setup_main_screen()
+
+
+###############################################################################
+# Creates the screen for tank light SETUP
+###############################################################################
+def create_setup_screen(frame):
+    global setup_screen
+
+    # Create and place the Screen
+    setup_screen = tk.LabelFrame(frame)
+    setup_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the screen Widgets
+    top_frm = create_setup_top_line(setup_screen)
+    mid_frm = create_radio_buttons(setup_screen)
+    bot_frm = create_bottom_line(setup_screen)
+
+    # Place the Widgets onto the screen
+    top_frm.grid(row=0, column=0, sticky='nw')
+    mid_frm.grid(row=1, column=0, padx=40, pady=30, sticky='w')
+    bot_frm.grid(row=2, column=0, padx=40, pady=30, sticky='w')
+
+    # Update the radio buttons based on the local settings
+    update_radio_buttons()
+
+    return setup_screen
 
 
 ###############################################################################
@@ -181,13 +208,13 @@ def create_bottom_line(frame):
     this_frame = tk.Frame(frame)
 
     ok_button = tk.Button(this_frame)
-    ok_button.configure(image=ok_btn_icon, borderwidth=0)
+    ok_button.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
     ok_button.configure(command=on_ok_press)
 
     spacer_label = tk.Label(this_frame)
 
     cancel_button = tk.Button(this_frame)
-    cancel_button.configure(image=cancel_btn_icon, borderwidth=0)
+    cancel_button.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
     cancel_button.configure(command=on_cancel_press)
 
     ok_button.grid(    row=0, column=0, pady=10)
@@ -197,42 +224,14 @@ def create_bottom_line(frame):
     return this_frame
 
 
-###############################################################################
-# Handles a press of the CANCEL button
-###############################################################################
-def on_cancel_press():
-    # Pull the CONFIG file values into local settings
-    pull_light_settings()
-
-    screens.play_key_tone()
-
-    screens.show_setup_main_screen()
-
-
-###############################################################################
-# Handles a press of the OK button
-###############################################################################
-def on_ok_press():
-    # Push local settings to CONFIG file
-    push_light_settings()
-
-    screens.play_key_tone()
-
-    screens.show_setup_main_screen()
 
 
 
-
-###############################################################################
+##############################################################################
 # Creates the screen for tank light CONTROL
 ###############################################################################
 def create_control_screen(frame):
     global control_screen
-
-    # Open up the image files and size them correctly
-    global control_ok_btn_icon
-    control_ok_btn_img = Image.open("Icons/green_ok_btn.png").resize((150,50), Image.ANTIALIAS)
-    control_ok_btn_icon = ImageTk.PhotoImage(control_ok_btn_img)
 
     # Create and place the Screen
     control_screen = tk.LabelFrame(frame)
@@ -244,7 +243,7 @@ def create_control_screen(frame):
 
     # Place the Widgets
     top_frm.grid(row=0, column=0, sticky='nw')
-    bot_frm.grid(row=1, column=0, sticky='nsew')
+    bot_frm.grid(row=1, column=0, padx=40, pady=20)
 
     return control_screen
 
@@ -290,40 +289,22 @@ def create_control_top_line(frame):
 def create_control_bot_line(frame):
     this_frame = tk.Frame(frame)
 
-    label_1 = tk.Label(this_frame)
-    label_1.configure(font=MD_FONT, fg=CONTROL_COLOR)
-    label_1.configure(text="Tank Lights are now ON")
+    l1 = tk.Label(this_frame)
+    l1.configure(font=MD_FONT, fg=CONTROL_COLOR)
+    l1.configure(text="Tank Lights are now ON")
 
-    label_2 = tk.Label(this_frame)
-    label_2.configure(font=MD_FONT, fg=CONTROL_COLOR)
-    label_2.configure(text="Press OK when done...")
+    l2 = tk.Label(this_frame)
+    l2.configure(font=MD_FONT, fg=CONTROL_COLOR)
+    l2.configure(text="Press OK when done...")
 
-    ok_button = tk.Button(this_frame)
-    ok_button.configure(image=control_ok_btn_icon, borderwidth=0)
-    ok_button.configure(command=on_control_exit)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.grn_ok_btn_icon, borderwidth=0)
+    b1.configure(command=on_control_exit)
 
-    label_1.grid(  row=0, column=0, padx=20, pady=20, sticky='ew')
-    label_2.grid(  row=1, column=0, padx=20, sticky='ew')
-    ok_button.grid(row=2, column=0, pady=30)
+    l1.grid(  row=0, column=0, padx=20, pady=20, sticky='ew')
+    l2.grid(  row=1, column=0, padx=20, sticky='ew')
+    b1.grid(row=2, column=0, pady=30)
 
     return this_frame
 
-
-###############################################################################
-###############################################################################
-def pull_light_settings():
-    global ConfigTankLights
-
-    ConfigTankLights = mcb_config.getTankLightsConfig()
-
-
-###############################################################################
-###############################################################################
-def push_light_settings():
-    global ConfigTankLights
-
-    mcb_config.setTankLightsConfig(ConfigTankLights)
-
-    # Write the new CONFIG values to file
-    mcb_config.writeConfigSettings()
 

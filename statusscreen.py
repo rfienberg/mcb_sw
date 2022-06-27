@@ -1,6 +1,5 @@
 from globals import *
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 import telemetry
 
@@ -13,20 +12,6 @@ TANK_WIDTH = 100
 ###############################################################################
 def create_main_screen(frame):
     global this_screen
-
-    # Open up the image files and size them correctly
-    global gohome_btn_icon
-    gohome_btn_img = Image.open("Icons/home_icon.png").resize((50,50), Image.ANTIALIAS)
-    gohome_btn_icon = ImageTk.PhotoImage(gohome_btn_img)
-    global no_flow_icon
-    no_flow_img = Image.open("Icons/flow_no.png").resize((25,25), Image.ANTIALIAS)
-    no_flow_icon = ImageTk.PhotoImage(no_flow_img)
-    global yes_flow_icon
-    yes_flow_img = Image.open("Icons/flow_yes.png").resize((25,25), Image.ANTIALIAS)
-    yes_flow_icon = ImageTk.PhotoImage(yes_flow_img)
-    global light_bulb_icon
-    light_bulb_img = Image.open("Icons/status_lightbulb_icon.png").resize((50,50), Image.ANTIALIAS)
-    light_bulb_icon = ImageTk.PhotoImage(light_bulb_img)
 
     # Create the Frame for this screen
     this_screen = tk.LabelFrame(frame)
@@ -66,9 +51,9 @@ def update_screen():
 
     # Update the Left Tank flow status based on its valve status
     if (lvalve == "Opened"):
-        ltank_droplet.configure(image=yes_flow_icon)
+        ltank_droplet.configure(image=screens.yes_flow_icon)
     else:
-        ltank_droplet.configure(image=no_flow_icon)
+        ltank_droplet.configure(image=screens.no_flow_icon)
 
     # Update the Left Tank fill status based on the specified volume (in mL)
     percent = lvolume / 10
@@ -83,9 +68,9 @@ def update_screen():
 
     # Update the Right Tank flow status based on its valve status
     if (rvalve == "Opened"):
-        rtank_droplet.configure(image=yes_flow_icon)
+        rtank_droplet.configure(image=screens.yes_flow_icon)
     else:
-        rtank_droplet.configure(image=no_flow_icon)
+        rtank_droplet.configure(image=screens.no_flow_icon)
 
     # Update the Right Tank fill status based on the specified volume (in mL)
     percent = rvolume / 10
@@ -111,15 +96,15 @@ def on_home_press():
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    # Create the Go Home button
-    gohome_btn_button = tk.Button(this_frame, image=gohome_btn_icon, borderwidth=0)
-    gohome_btn_button.configure(command=on_home_press)
-    gohome_btn_button.grid(row=0, column=0, padx=5, pady=10, sticky='w')
+    # Create the widgets
+    b1 = tk.Button(this_frame)
+    l1 = tk.Label(this_frame, text="Status:")
+    l1.configure(font=LG_FONT, fg=STATUS_COLOR)
+    b1.configure(image=screens.pur_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=on_home_press)
 
-    # Create the Title label
-    title_label = tk.Label(this_frame, text="Status:")
-    title_label.configure(font=LG_FONT, fg=STATUS_COLOR)
-    title_label.grid(row=0, column=1, padx=5, pady=10)
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=5)
 
     return this_frame
 
@@ -132,7 +117,7 @@ def create_ltank_widget(frame):
     this_frame = tk.LabelFrame(frame, text="Left Tank")
 
     ltank_droplet = tk.Label(this_frame)
-    ltank_droplet.configure(image=no_flow_icon)
+    ltank_droplet.configure(image=screens.no_flow_icon)
     ltank_droplet.grid(row=0, column=0)
 
     ltank_cv = tk.Canvas(this_frame)
@@ -158,7 +143,7 @@ def create_rtank_widget(frame):
     this_frame = tk.LabelFrame(frame, text="Right Tank")
 
     rtank_droplet = tk.Label(this_frame)
-    rtank_droplet.configure(image=no_flow_icon)
+    rtank_droplet.configure(image=screens.no_flow_icon)
     rtank_droplet.grid(row=0, column=0)
 
     rtank_cv = tk.Canvas(this_frame)
@@ -183,7 +168,7 @@ def create_lighting_widget(frame):
 
     """
     lighting_bulb = tk.Label(this_frame)
-    lighting_bulb.configure(image=light_bulb_icon)
+    lighting_bulb.configure(image=screens.light_bulb_icon)
     lighting_bulb.grid(row=0, column=0, columnspan=2, pady=10)
     """
 

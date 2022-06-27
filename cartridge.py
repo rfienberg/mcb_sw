@@ -1,6 +1,5 @@
 from globals import *
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 import dcb
 
@@ -10,11 +9,6 @@ import dcb
 ###############################################################################
 def create_control_screen(frame):
     global this_screen, unlock_msg, ready_msg
-
-    # Open up the image files and size them correctly
-    global ok_btn_icon
-    ok_btn_img = Image.open("Icons/green_ok_btn.png").resize((150,50), Image.ANTIALIAS)
-    ok_btn_icon = ImageTk.PhotoImage(ok_btn_img)
 
     # Create and place the Screen
     this_screen = tk.Frame(frame)
@@ -27,8 +21,8 @@ def create_control_screen(frame):
 
     # Place the Widgets
     top.grid(row=0, column=0, sticky='nw')
-    unlock_msg.grid(row=1, column=0, sticky='nsew')
-    ready_msg.grid(row=1, column=0, sticky='nsew')
+    unlock_msg.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
+    ready_msg.grid( row=1, column=0, padx=40, pady=20, sticky='nsew')
 
     return this_screen
 
@@ -107,7 +101,7 @@ def create_safe_widget(frame):
     label_2.configure(text="Press OK when done...")
     label_2.grid(row=1, column=0, padx=20, sticky='ew')
 
-    ok_button = tk.Button(this_frame, image=ok_btn_icon, borderwidth=0)
+    ok_button = tk.Button(this_frame, image=screens.grn_ok_btn_icon, borderwidth=0)
     ok_button.configure(command=on_ok_press)
     ok_button.grid(row=2, column=0, pady=30)
 

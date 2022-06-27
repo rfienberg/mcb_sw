@@ -1,6 +1,5 @@
 from globals import *
 import tkinter as tk
-from PIL import ImageTk, Image
 import screens
 
 MY_FONT = ('Calibri', 14)
@@ -10,35 +9,6 @@ MY_FONT = ('Calibri', 14)
 ###############################################################################
 def create_main_screen(frame):
     global this_screen
-
-    # Open the images for this screen
-    global gohome_btn_icon
-    image = Image.open("Icons/blue_home_icon.png").resize((50,50), Image.ANTIALIAS)
-    gohome_btn_icon = ImageTk.PhotoImage(image)
-    global patient_btn_icon
-    image = Image.open("Icons/set_patient_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    patient_btn_icon = ImageTk.PhotoImage(image)
-    global datetime_btn_icon
-    image = Image.open("Icons/set_datetime_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    datetime_btn_icon = ImageTk.PhotoImage(image)
-    global timeouts_btn_icon
-    image = Image.open("Icons/set_timeouts_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    timeouts_btn_icon = ImageTk.PhotoImage(image)
-    global alarms_btn_icon
-    image = Image.open("Icons/set_alarms_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    alarms_btn_icon = ImageTk.PhotoImage(image)
-    global audio_btn_icon
-    image = Image.open("Icons/set_audio_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    audio_btn_icon = ImageTk.PhotoImage(image)
-    global logging_btn_icon
-    image = Image.open("Icons/logging_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    logging_btn_icon = ImageTk.PhotoImage(image)
-    global calibrate_btn_icon
-    image = Image.open("Icons/set_calibrate_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    calibrate_btn_icon = ImageTk.PhotoImage(image)
-    global lights_btn_icon
-    image = Image.open("Icons/set_lights_btn.png").resize((100,100), Image.ANTIALIAS)
-    lights_btn_icon = ImageTk.PhotoImage(image)
 
     # Create and place this Screen
     this_screen = tk.LabelFrame(frame)
@@ -53,7 +23,7 @@ def create_main_screen(frame):
     # Create the screen Widgets
     pat_btn = create_patient_button(bot_frm)
     aud_btn = create_audio_button(bot_frm)
-    alm_btn = create_alarms_button(bot_frm)
+    alt_btn = create_alerts_button(bot_frm)
     cal_btn = create_calibrate_button(bot_frm)
     clk_btn = create_clock_button(bot_frm)
     lit_btn = create_lights_button(bot_frm)
@@ -63,7 +33,7 @@ def create_main_screen(frame):
     # Place the Widgets into the frame
     pat_btn.grid(row=0, column=0, padx=20, pady=5)
     aud_btn.grid(row=0, column=1, padx=20, pady=5)
-    alm_btn.grid(row=0, column=2, padx=20, pady=5)
+    alt_btn.grid(row=0, column=2, padx=20, pady=5)
     cal_btn.grid(row=0, column=3, padx=20, pady=5)
     clk_btn.grid(row=1, column=0, padx=20, pady=5)
     lit_btn.grid(row=1, column=1, padx=20, pady=5)
@@ -103,9 +73,9 @@ def on_set_audio_press():
 
 ###############################################################################
 ###############################################################################
-def on_set_alarms_press():
+def on_set_alerts_press():
     screens.play_key_tone()
-    screens.show_set_alarms_screen()
+    screens.show_set_alerts_screen()
 
 
 ###############################################################################
@@ -148,15 +118,15 @@ def on_set_lights_press():
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    # Create the Go Home button
-    gohome_btn_button = tk.Button(this_frame, image=gohome_btn_icon, borderwidth=0)
-    gohome_btn_button.configure(command=on_home_press)
-    gohome_btn_button.grid(row=0, column=0, padx=5, pady=10, sticky='w')
+    # Create the widgets
+    l1 = tk.Label(this_frame, text="Setup:")
+    b1 = tk.Button(this_frame)
+    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=on_home_press)
 
-    # Create the Title label
-    title_label = tk.Label(this_frame, text="Setup:")
-    title_label.configure(font=LG_FONT, fg=SETUP_COLOR)
-    title_label.grid(row=0, column=1, padx=5, pady=10)
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=5)
 
     return this_frame
 
@@ -166,7 +136,7 @@ def create_top_line(frame):
 def create_patient_button(frame):
     this_frame = tk.Frame(frame)
 
-    patient_btn_button = tk.Button(this_frame, image=patient_btn_icon, borderwidth=0)
+    patient_btn_button = tk.Button(this_frame, image=screens.patient_btn_icon, borderwidth=0)
     patient_btn_button.configure(command=on_set_patient_press)
     patient_btn_button.grid(row=0, column=0)
 
@@ -182,7 +152,7 @@ def create_patient_button(frame):
 def create_audio_button(frame):
     this_frame = tk.Frame(frame)
 
-    audio_btn_button = tk.Button(this_frame, image=audio_btn_icon, borderwidth=0)
+    audio_btn_button = tk.Button(this_frame, image=screens.audio_btn_icon, borderwidth=0)
     audio_btn_button.configure(command=on_set_audio_press)
     audio_btn_button.grid(row=0, column=0)
 
@@ -195,16 +165,16 @@ def create_audio_button(frame):
 
 ###############################################################################
 ###############################################################################
-def create_alarms_button(frame):
+def create_alerts_button(frame):
     this_frame = tk.Frame(frame)
 
-    alarms_btn_button = tk.Button(this_frame, image=alarms_btn_icon, borderwidth=0)
-    alarms_btn_button.configure(command=on_set_alarms_press)
-    alarms_btn_button.grid(row=0, column=0)
+    alerts_btn_button = tk.Button(this_frame, image=screens.alerts_btn_icon, borderwidth=0)
+    alerts_btn_button.configure(command=on_set_alerts_press)
+    alerts_btn_button.grid(row=0, column=0)
 
-    alarms_btn_label = tk.Label(this_frame, text="Alarms")
-    alarms_btn_label.configure(font=MY_FONT, fg=SETUP_COLOR)
-    alarms_btn_label.grid(row=1, column=0)
+    alerts_btn_label = tk.Label(this_frame, text="Alerts")
+    alerts_btn_label.configure(font=MY_FONT, fg=SETUP_COLOR)
+    alerts_btn_label.grid(row=1, column=0)
 
     return this_frame
 
@@ -214,7 +184,7 @@ def create_alarms_button(frame):
 def create_calibrate_button(frame):
     this_frame = tk.Frame(frame)
 
-    calibrate_btn_button = tk.Button(this_frame, image=calibrate_btn_icon, borderwidth=0)
+    calibrate_btn_button = tk.Button(this_frame, image=screens.calibrate_btn_icon, borderwidth=0)
     calibrate_btn_button.configure(command=on_set_calibrate_press)
     calibrate_btn_button.grid(row=0, column=0)
 
@@ -230,7 +200,7 @@ def create_calibrate_button(frame):
 def create_clock_button(frame):
     this_frame = tk.Frame(frame)
 
-    datetime_btn_button = tk.Button(this_frame, image=datetime_btn_icon, borderwidth=0)
+    datetime_btn_button = tk.Button(this_frame, image=screens.datetime_btn_icon, borderwidth=0)
     datetime_btn_button.configure(command=on_set_clock_press)
     datetime_btn_button.grid(row=0, column=0)
 
@@ -246,7 +216,7 @@ def create_clock_button(frame):
 def create_timeouts_button(frame):
     this_frame = tk.Frame(frame)
 
-    timeouts_btn_button = tk.Button(this_frame, image=timeouts_btn_icon, borderwidth=0)
+    timeouts_btn_button = tk.Button(this_frame, image=screens.timeouts_btn_icon, borderwidth=0)
     timeouts_btn_button.configure(command=on_set_timeouts_press)
     timeouts_btn_button.grid(row=0, column=0)
 
@@ -262,7 +232,7 @@ def create_timeouts_button(frame):
 def create_logging_button(frame):
     this_frame = tk.Frame(frame)
 
-    logging_btn_button = tk.Button(this_frame, image=logging_btn_icon, borderwidth=0)
+    logging_btn_button = tk.Button(this_frame, image=screens.logging_btn_icon, borderwidth=0)
     logging_btn_button.configure(command=on_set_logging_press)
     logging_btn_button.grid(row=0, column=0)
 
@@ -278,7 +248,7 @@ def create_logging_button(frame):
 def create_lights_button(frame):
     this_frame = tk.Frame(frame)
 
-    lights_btn_button = tk.Button(this_frame, image=lights_btn_icon, borderwidth=0)
+    lights_btn_button = tk.Button(this_frame, image=screens.blu_lights_btn_icon, borderwidth=0)
     lights_btn_button.configure(command=on_set_lights_press)
     lights_btn_button.grid(row=0, column=0)
 
