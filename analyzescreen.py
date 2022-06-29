@@ -7,10 +7,17 @@ import turbidity
 import time
 
 
+BOX_START_Y = 35
+BOX_HEIGHT  = 50
+BOX_START_X = 20
+BOX_WIDTH   = 180
+
 FLOW_COLOR = '#00B050'
 FLOW_FONT  = ("Arial Narrow", 80)
 TINY_FONT  = ("Arial Narrow", 12)
 TITLE_FONT = ('Calibri', 30)
+
+FLOW_COLOR = '#49CF13'
 
 
 ###############################################################################
@@ -52,11 +59,11 @@ def show_main_screen():
 # Periodically update the ANALYZE main screen
 ###############################################################################
 def periodic_screen_update():
-    global this_screen, flowrate_items, color_items, turbid_items
+    global this_screen, flow_items, color_items, turbid_items
 
     # Update with the last hour's total FLOW
     flow_text = str(flow.getCurrentHourlyFlow()).rjust(4, '0')
-    flowrate_items[0].itemconfig(flowrate_items[1], text=flow_text)
+    flow_items[0].itemconfig(flow_items[1], text=flow_text)
 
     # Update with last minute's COLOR
     color_rating = color.getColorRating()
@@ -117,14 +124,14 @@ def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
     # Create the widgets
-    l1 = tk.Label(this_frame, text="Analyze:")
     b1 = tk.Button(this_frame)
+    l1 = tk.Label(this_frame, text="Analysis Summary")
     l1.configure(font=LG_FONT, fg=ANALYZE_COLOR)
     b1.configure(image=screens.brn_gohome_btn_icon, borderwidth=0)
     b1.configure(command=on_home_press)
 
     b1.grid(row=0, column=0, padx=5, pady=10)
-    l1.grid(row=0, column=1, padx=5)
+    l1.grid(row=0, column=1, padx=80)
 
     return this_frame
 
@@ -133,7 +140,7 @@ def create_top_line(frame):
 # Creates the ANALYZE FLOW widget
 ###############################################################################
 def create_flowrate_widget(frame):
-    global flowrate_items
+    global flow_items
 
     # Define a frame to encompass all of the widgets
     this_frame = tk.LabelFrame(frame)
@@ -155,15 +162,14 @@ def create_flowrate_widget(frame):
     l2.grid(row=0, column=1, sticky='s')
 
     # Define the middle frame widget
-    c1 = tk.Canvas(f2, width=240, height=120)
-    c1.grid(row=0, column=0, padx=10)
+    c1 = tk.Canvas(f2, width=220, height=120)
     flow = c1.create_text(100, 60)
-    unit = c1.create_text(220, 100)
-    c1.itemconfig(flow, font=FLOW_FONT, fill=CONTROL_COLOR)
-    c1.itemconfig(unit, font=("Arial Narrow", 16), fill=CONTROL_COLOR)
+    unit = c1.create_text(200, 100)
+    c1.itemconfig(flow, font=FLOW_FONT, fill=FLOW_COLOR)
+    c1.itemconfig(unit, font=TINY_FONT, fill=FLOW_COLOR)
     c1.itemconfig(flow, text="----")
     c1.itemconfig(unit, text="mL")
-    flowrate_items = (c1, flow, unit)
+    c1.grid(row=0, column=0, padx=10)
 
     # Define the bottom frame widget
     my_spacer = tk.Label(f3)
@@ -171,6 +177,8 @@ def create_flowrate_widget(frame):
     history_btn.configure(image=screens.history_btn_icon, borderwidth=0)
     history_btn.configure(command=on_flow_history_press)
     history_btn.grid(row=1, column=0)
+
+    flow_items = (c1, flow, unit)
 
     # Return the encompassing frame so it can be placed anywhere
     return this_frame
@@ -196,17 +204,17 @@ def create_color_widget(frame):
     l1.configure(text="Color")
     l1.configure(font=TITLE_FONT, fg=ANALYZE_COLOR)
     l2 = tk.Label(f1)
-    l2.configure(text="(Last Minute)")
+    l2.configure(text="(This Minute)")
     l2.configure(font=TINY_FONT, fg=ANALYZE_COLOR, anchor='s')
     l1.grid(row=0, column=0)
     l2.grid(row=0, column=1, sticky='s')
 
     # Define the middle frame widget
-    c1 = tk.Canvas(f2, width=220, height=120)
+    c1 = tk.Canvas(f2, width=BOX_WIDTH+40, height=120)
+    rect_item = c1.create_rectangle(BOX_START_X, BOX_START_Y, BOX_START_X+BOX_WIDTH, BOX_START_Y+BOX_HEIGHT)
+    c1.itemconfig(rect_item, width=3, outline=ANALYZE_COLOR)
+    text_item = c1.create_text(110, 60, font=("Arial", 18))
     c1.grid(row=0, column=0)
-    rect_item = c1.create_rectangle(20, 35, 200, 85, width=3, outline=ANALYZE_COLOR)
-    text_item = c1.create_text(110, 60, font=("Arial", 22))
-    color_items = (c1, rect_item, text_item)
 
     # Define the bottom frame widget
     b1 = tk.Button(f3)
@@ -215,6 +223,7 @@ def create_color_widget(frame):
     b1.grid(row=0, column=0)
 
     # Populate the updatable items with default values
+    color_items = (c1, rect_item, text_item)
     color_index = color.getColorRating()
     color.populateRatingBox(color_items, color_index)
 
@@ -242,18 +251,18 @@ def create_turbidity_widget(frame):
     l1.configure(text="Turbidity")
     l1.configure(font=TITLE_FONT, fg=ANALYZE_COLOR)
     l2 = tk.Label(f1)
-    l2.configure(text="(Last Minute)")
+    l2.configure(text="(This Minute)")
     l2.configure(font=TINY_FONT, fg=ANALYZE_COLOR, anchor='s')
     l1.grid(row=0, column=0)
     l2.grid(row=0, column=1, sticky='s')
 
     # Define the middle frame widget
-    c1 = tk.Canvas(f2, width=220, height=120)
+    c1 = tk.Canvas(f2, width=BOX_WIDTH+40, height=120)
     c1.grid(row=0, column=0)
-    rect_item = c1.create_rectangle(20, 35, 200, 85, width=3, outline=ANALYZE_COLOR)
+    rect_item = c1.create_rectangle(BOX_START_X, BOX_START_Y, BOX_START_X+BOX_WIDTH, BOX_START_Y+BOX_HEIGHT)
+    c1.itemconfig(rect_item, width=3, outline=ANALYZE_COLOR)
     text_item = c1.create_text(110, 60, font=("Arial", 22))
-    image_item = c1.create_image(110, 65)
-    turbid_items = (c1, rect_item, text_item, image_item)
+    image_item = c1.create_image(110, 64)
 
     # Define the bottom frame widget
     b1 = tk.Button(f3)
@@ -262,6 +271,7 @@ def create_turbidity_widget(frame):
     b1.grid(row=0, column=0)
 
     # Populate the updatable items with default values
+    turbid_items = (c1, rect_item, image_item)
     turbid_rating = turbidity.getTurbidRating()
     turbidity.populateRatingBox(turbid_items, turbid_rating)
 

@@ -119,14 +119,14 @@ def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
     # Create the widgets
-    l1 = tk.Label(this_frame, text="Setup:")
+    l1 = tk.Label(this_frame, text="Setup Options")
     b1 = tk.Button(this_frame)
     l1.configure(font=LG_FONT, fg=SETUP_COLOR)
     b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
     b1.configure(command=on_home_press)
 
     b1.grid(row=0, column=0, padx=5, pady=10)
-    l1.grid(row=0, column=1, padx=5)
+    l1.grid(row=0, column=1, padx=80)
 
     return this_frame
 

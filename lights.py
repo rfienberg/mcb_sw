@@ -275,10 +275,10 @@ def on_control_exit():
 def create_control_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame)
-    title_label.configure(font=LG_FONT, fg=CONTROL_COLOR)
-    title_label.configure(text="Control Lights:")
-    title_label.grid(row=0, column=0, padx=10)
+    l1 = tk.Label(this_frame)
+    l1.configure(font=LG_FONT, fg=CONTROL_COLOR)
+    l1.configure(text="Control Lights:")
+    l1.grid(row=0, column=0, padx=10)
 
     return this_frame
 

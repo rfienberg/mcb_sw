@@ -5,7 +5,7 @@ RUN_ON_CM4 = True
 #RUN_ON_CM4 = False
 
 # Define the dimensions of the touch screen display
-SCREEN_WIDTH = 780
+SCREEN_WIDTH  = 780
 SCREEN_HEIGHT = 480
 
 # Define parameters needed for serial port communication with DCB

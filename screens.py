@@ -24,6 +24,8 @@ import turbidity
 import cartridge
 import lights
 
+import tanks
+
 import shutdown
 
 
@@ -150,6 +152,12 @@ def show_verify_shutdown_screen():
 
 ###############################################################################
 ###############################################################################
+def show_tank_status_screen():
+    tanks.show_status_screen()
+
+
+###############################################################################
+###############################################################################
 def show_shutting_down_screen():
     shutdown.show_shutting_down_screen()
 
@@ -174,29 +182,31 @@ def create_screens(window):
     # Create the individual Screens
     s1  = homescreen.create_menu_screen(this_frame)
 
-    s2  = setupscreen.create_main_screen(this_frame)
-    s3  = analyzescreen.create_main_screen(this_frame)
+    s2  = analyzescreen.create_main_screen(this_frame)
+    s3  = controlscreen.create_main_screen(this_frame)
     s4  = statusscreen.create_main_screen(this_frame)
-    s5  = controlscreen.create_main_screen(this_frame)
+    s5  = setupscreen.create_main_screen(this_frame)
 
-    s6  = patient.create_setup_screen(this_frame)
-    s7  = audio.create_setup_screen(this_frame)
-    s8  = alerts.create_setup_screen(this_frame)
-    s9  = calibrate.create_setup_screen(this_frame)
-    s10 = clock.create_setup_screen(this_frame)
-    s11 = timeouts.create_setup_screen(this_frame)
-    s12 = mcb_logging.create_setup_screen(this_frame)
-    s13 = lights.create_setup_screen(this_frame)
+    s6 = flow.create_history_screen(this_frame)
+    s7 = color.create_details_screen(this_frame)
+    s8 = turbidity.create_details_screen(this_frame)
 
-    s14 = lights.create_control_screen(this_frame)
-    s15 = cartridge.create_control_screen(this_frame)
-    s16 = shutdown.create_control_shutdown_screen(this_frame)
+    s9  = lights.create_control_screen(this_frame)
+    s10 = cartridge.create_control_screen(this_frame)
+    s11 = shutdown.create_control_shutdown_screen(this_frame)
+    s12 = shutdown.create_shutting_down_screen(this_frame)
 
-    s17 = flow.create_history_screen(this_frame)
-    s18 = color.create_details_screen(this_frame)
-    s19 = turbidity.create_details_screen(this_frame)
+    s21 = tanks.create_status_screen(this_frame)
 
-    s20 = shutdown.create_shutting_down_screen(this_frame)
+
+    s13 = patient.create_setup_screen(this_frame)
+    s14 = audio.create_setup_screen(this_frame)
+    s15 = alerts.create_setup_screen(this_frame)
+    s16 = calibrate.create_setup_screen(this_frame)
+    s17 = clock.create_setup_screen(this_frame)
+    s18 = timeouts.create_setup_screen(this_frame)
+    s19 = mcb_logging.create_setup_screen(this_frame)
+    s20 = lights.create_setup_screen(this_frame)
 
     """
     s20 = tankfullscreen.create(this_frame)
@@ -309,6 +319,15 @@ def create_graphics():
     """
 
     # Open up the images for this screen and keep them global
+    global pur_ok_btn_icon
+    this_graphic = Image.open("Graphics/purp_btn_ok.png").resize((150,50), Image.ANTIALIAS)
+    pur_ok_btn_icon = ImageTk.PhotoImage(this_graphic)
+    global tank_levels_icon
+    this_graphic = Image.open("Graphics/purp_tanks.png").resize((100,100), Image.ANTIALIAS)
+    tank_levels_icon = ImageTk.PhotoImage(this_graphic)
+    global room_lights_icon
+    this_graphic = Image.open("Graphics/purp_lighting.png").resize((100,100), Image.ANTIALIAS)
+    room_lights_icon = ImageTk.PhotoImage(this_graphic)
     global no_flow_icon
     this_graphic = Image.open("Graphics/purp_flow_no.png").resize((40,40), Image.ANTIALIAS)
     no_flow_icon = ImageTk.PhotoImage(this_graphic)
@@ -316,11 +335,6 @@ def create_graphics():
     this_graphic = Image.open("Graphics/purp_flow_yes.png").resize((40,40), Image.ANTIALIAS)
     yes_flow_icon = ImageTk.PhotoImage(this_graphic)
 
-    """
-    global light_bulb_icon
-    light_bulb_img = Image.open("Graphics/status_lightbulb_icon.png").resize((50,50), Image.ANTIALIAS)
-    light_bulb_icon = ImageTk.PhotoImage(light_bulb_img)
-    """
 
     # Open up the images for this screen and keep them global
     global back_btn_icon
@@ -329,20 +343,23 @@ def create_graphics():
     global past_arrow_icon
     this_graphic = Image.open("Graphics/brn_to_past.png").resize((150,40), Image.ANTIALIAS)
     past_arrow_icon = ImageTk.PhotoImage(this_graphic)
-    global analyze_color_img # Keeps it persistent in memory
-    this_graphic = Image.open(SNAP_COLOR_IMG).resize((200,200), Image.ANTIALIAS)
-    analyze_color_img = ImageTk.PhotoImage(this_graphic)
-    global match_color_img # Keeps it persistent in memory
-    this_graphic = Image.open("Graphics/color_chart.png").resize((150,260), Image.ANTIALIAS)
-    match_color_img = ImageTk.PhotoImage(this_graphic)
-    global match_turbidity_img # Keeps it persistent in memory
+    global match_turbidity_icon # Keeps it persistent in memory
     this_graphic = Image.open("Graphics/turbidity_chart.png").resize((110,280), Image.ANTIALIAS)
-    match_turbidity_img = ImageTk.PhotoImage(this_graphic)
-    """
+    match_turbidity_icon = ImageTk.PhotoImage(this_graphic)
+
+    global turb_analyzing_icon
+    this_graphic = Image.open("Graphics/turbidity_analyzing.png").resize((175,55), Image.ANTIALIAS)
+    turb_analyzing_icon = ImageTk.PhotoImage(this_graphic)
     global turb_clear_icon
-    this_graphic = Image.open("Graphics/turb_clear.png").resize((200,70), Image.ANTIALIAS)
+    this_graphic = Image.open("Graphics/turbidity_clear.png").resize((175,55), Image.ANTIALIAS)
     turb_clear_icon = ImageTk.PhotoImage(this_graphic)
-    """
+    global turb_partly_icon
+    this_graphic = Image.open("Graphics/turbidity_partly.png").resize((175,55), Image.ANTIALIAS)
+    turb_partly_icon = ImageTk.PhotoImage(this_graphic)
+    global turb_cloudy_icon
+    this_graphic = Image.open("Graphics/turbidity_cloudy.png").resize((175,55), Image.ANTIALIAS)
+    turb_cloudy_icon = ImageTk.PhotoImage(this_graphic)
+
 
     # Open up the images for this screen and keep them global
     global start_btn_icon

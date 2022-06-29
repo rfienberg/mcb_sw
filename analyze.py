@@ -71,7 +71,7 @@ def runAnalyzeTask():
             color.start_analysis()
             if (RUN_ON_CM4):
                 color.take_snapshot(camera)
-            color.analyze()
+            color.analyze_snapshot()
             color.stop_analysis()
             my_color = color.getColorRating()
 
@@ -80,7 +80,7 @@ def runAnalyzeTask():
             turbidity.start_analysis()
             if (RUN_ON_CM4):
                 turbidity.take_snapshot(camera)
-            turbidity.analyze()
+            turbidity.analyze_snapshot()
             turbidity.stop_analysis()
             my_turbidity = turbidity.getTurbidRating()
 

@@ -282,7 +282,7 @@ def create_min_alert_disabled_widget(frame):
     b1.configure(image=screens.checkbox_no_icon)
     l1 = tk.Label(f1)
     l1.configure(font=MD_FONT, fg=DISABLED_COLOR)
-    l1.configure(text="Set-up a minimum flow alert...")
+    l1.configure(text="Enable low flow alert")
     b1.grid(row=0, column=0)
     l1.grid(row=0, column=1, padx=10)
 
@@ -309,7 +309,7 @@ def create_max_alert_disabled_widget(frame):
     b1.configure(image=screens.checkbox_no_icon)
     l1 = tk.Label(f1)
     l1.configure(font=MD_FONT, fg=DISABLED_COLOR)
-    l1.configure(text="Set-up a maximum flow alert...")
+    l1.configure(text="Enable high flow alert")
     b1.grid(row=0, column=0)
     l1.grid(row=0, column=1, padx=10)
 

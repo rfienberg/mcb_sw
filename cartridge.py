@@ -7,28 +7,6 @@ import dcb
 
 ###############################################################################
 ###############################################################################
-def create_control_screen(frame):
-    global this_screen, unlock_msg, ready_msg
-
-    # Create and place the Screen
-    this_screen = tk.Frame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    # Create the Widgets
-    top = create_top_line(this_screen)
-    unlock_msg = create_unlocking_widget(this_screen)
-    ready_msg = create_safe_widget(this_screen)
-
-    # Place the Widgets
-    top.grid(row=0, column=0, sticky='nw')
-    unlock_msg.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
-    ready_msg.grid( row=1, column=0, padx=40, pady=20, sticky='nsew')
-
-    return this_screen
-
-
-###############################################################################
-###############################################################################
 def show_control_screen():
     global this_screen, unlock_msg
 
@@ -64,11 +42,35 @@ def on_ok_press():
 
 ###############################################################################
 ###############################################################################
+def create_control_screen(frame):
+    global this_screen, unlock_msg, ready_msg
+
+    # Create and place the Screen
+    this_screen = tk.Frame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the Widgets
+    top = create_top_line(this_screen)
+    unlock_msg = create_unlocking_widget(this_screen)
+    ready_msg = create_safe_widget(this_screen)
+
+    # Place the Widgets
+    top.grid(row=0, column=0, sticky='nw')
+    unlock_msg.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
+    ready_msg.grid( row=1, column=0, padx=40, pady=20, sticky='nsew')
+
+    return this_screen
+
+
+###############################################################################
+###############################################################################
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame, text="Remove Cartridge:", font=LG_FONT, fg=CONTROL_COLOR)
-    title_label.grid(row=0, column=0, padx=10)
+    l1 = tk.Label(this_frame)
+    l1.configure(font=LG_FONT, fg=CONTROL_COLOR)
+    l1.configure(text="Remove Cartridge:")
+    l1.grid(row=0, column=0, padx=10)
 
     return this_frame
 
@@ -78,10 +80,10 @@ def create_top_line(frame):
 def create_unlocking_widget(frame):
     this_frame = tk.Frame(frame)
 
-    my_label = tk.Label(this_frame)
-    my_label.configure(font=MD_FONT, fg=CONTROL_COLOR)
-    my_label.configure(text="Unlocking Cartridge! Please wait...")
-    my_label.grid(row=0, column=0, columnspan=10, padx=20, pady=40)
+    l1 = tk.Label(this_frame)
+    l1.configure(font=MD_FONT, fg=CONTROL_COLOR)
+    l1.configure(text="Unlocking Cartridge! Please wait...")
+    l1.grid(row=0, column=0, columnspan=10, padx=20, pady=40)
 
     return this_frame
 
@@ -91,19 +93,19 @@ def create_unlocking_widget(frame):
 def create_safe_widget(frame):
     this_frame = tk.Frame(frame)
 
-    label_1 = tk.Label(this_frame)
-    label_1.configure(font=MD_FONT, fg=CONTROL_COLOR)
-    label_1.configure(text="It is now safe to remove the Cartridge")
-    label_1.grid(row=0, column=0, padx=20, pady=20, sticky='ew')
+    l1 = tk.Label(this_frame)
+    l1.configure(font=MD_FONT, fg=CONTROL_COLOR)
+    l1.configure(text="It is now safe to remove the Cartridge")
+    l1.grid(row=0, column=0, padx=20, pady=20, sticky='ew')
 
-    label_2 = tk.Label(this_frame)
-    label_2.configure(font=MD_FONT, fg=CONTROL_COLOR)
-    label_2.configure(text="Press OK when done...")
-    label_2.grid(row=1, column=0, padx=20, sticky='ew')
+    l2 = tk.Label(this_frame)
+    l2.configure(font=MD_FONT, fg=CONTROL_COLOR)
+    l2.configure(text="Press OK when done...")
+    l2.grid(row=1, column=0, padx=20, sticky='ew')
 
-    ok_button = tk.Button(this_frame, image=screens.grn_ok_btn_icon, borderwidth=0)
-    ok_button.configure(command=on_ok_press)
-    ok_button.grid(row=2, column=0, pady=30)
+    b1 = tk.Button(this_frame, image=screens.grn_ok_btn_icon, borderwidth=0)
+    b1.configure(command=on_ok_press)
+    b1.grid(row=2, column=0, pady=30)
 
     return this_frame
 
