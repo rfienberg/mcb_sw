@@ -25,7 +25,6 @@ FlowVolumes  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 def getFlowSample():
     global FlowVolumePrev
 
-    # Accumulate more flow into the accumulator
     # Compute the total volume in the two tanks
     lvolume = telemetry.getRealTankVolume("Left")
     rvolume = telemetry.getRealTankVolume("Right")
@@ -36,7 +35,15 @@ def getFlowSample():
         delta_volume = new_volume - FlowVolumePrev
     else:
         delta_volume = 0
-    FlowVolumePrev = new_volume
+
+    # In order to put a little hysteresis into the mechanism, 
+    # we will only accept a delta once it becomes 5mL (or more)
+    if (delta_volume < 5):
+        # Report a zero delta instead
+        delta_volume = 0
+    else:
+        # Record the accepted previous volume
+        FlowVolumePrev = new_volume
 
     # Return the new delta volume as the flow sample
     return delta_volume

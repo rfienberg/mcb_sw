@@ -17,24 +17,25 @@ def create_menu_screen(frame):
     # Create the Widgets for this screen
     title_label = tk.Label(this_screen)
     title_label.configure(text="Welcome to Tessefi Medical", font=LG_FONT, fg=STATUS_COLOR)
-    setup_btn_button = tk.Button(  buttons, image=screens.setup_btn_icon, borderwidth=0)
     analyze_btn_button = tk.Button(buttons, image=screens.analyze_btn_icon, borderwidth=0)
     control_btn_button = tk.Button(buttons, image=screens.control_btn_icon, borderwidth=0)
-    status_btn_button = tk.Button( buttons, image=screens.status_btn_icon, borderwidth=0)
+    setup_btn_button   = tk.Button(buttons, image=screens.setup_btn_icon, borderwidth=0)
+    info_btn_button    = tk.Button(buttons, image=screens.info_btn_icon, borderwidth=0)
+
     analyze_btn_button.grid(row=0, column=0, padx=20)
     control_btn_button.grid(row=0, column=1, padx=20)
     setup_btn_button.grid(  row=0, column=2, padx=20)
-    status_btn_button.grid( row=0, column=3, padx=20)
+    info_btn_button.grid(   row=0, column=3, padx=20)
 
     # Bind button press events to functions
-    setup_btn_button.configure(command=on_setup_press)
     analyze_btn_button.configure(command=on_analyze_press)
     control_btn_button.configure(command=on_control_press)
-    status_btn_button.configure(command=on_status_press)
+    setup_btn_button.configure(  command=on_setup_press)
+    info_btn_button.configure(   command=on_info_press)
 
     # Place the Widgets into the Frame
     title_label.grid(row=0, column=0, pady=20)
-    buttons.grid(row=1, column=0, padx=10, pady=10)
+    buttons.grid(    row=1, column=0, padx=10, pady=10)
 
     return this_screen
 
@@ -62,9 +63,9 @@ def on_analyze_press():
 
 ###############################################################################
 ###############################################################################
-def on_status_press():
+def on_info_press():
     screens.play_key_tone()
-    screens.show_status_main_screen()
+    screens.show_info_main_screen()
     #screens.popup_tank_warning()
 
 

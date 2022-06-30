@@ -36,7 +36,7 @@ def startup():
 
 
 ###############################################################################
-# Updates the GUI screens once every second
+# Updates the GUI bars once every second
 ###############################################################################
 def periodic_update():
     # Get the latest Telemetry
@@ -46,17 +46,12 @@ def periodic_update():
     # Update the Title Bar widgets
     titlebar.update_bar()
 
-    # As long as we have new Telemetry...
-    if (len(telem) > 0):
-
-        # Update the Status Bar widgets
-        statusbar.update_bar()
-
-        # Update the Screen widgets
-        screens.update_screens()
+    # Update the Status Bar widgets
+    statusbar.update_bar()
 
     # As long as we are not shutting down...
     if (shutdown.isShutDownRequested() == False):
+
         # After 1 second, perform another update
         window.after(1000, periodic_update)
 

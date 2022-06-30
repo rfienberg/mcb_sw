@@ -4,10 +4,10 @@ from PIL import ImageTk, Image
 
 import homescreen
 
-import setupscreen
 import analyzescreen
-import statusscreen
 import controlscreen
+import setupscreen
+import infoscreen
 
 import patient
 import clock
@@ -33,7 +33,7 @@ import shutdown
 ###############################################################################
 ###############################################################################
 def update_screens():
-    statusscreen.update_screen()
+    infoscreen.update_screen()
 
 
 ###############################################################################
@@ -56,8 +56,8 @@ def show_analyze_main_screen():
 
 ###############################################################################
 ###############################################################################
-def show_status_main_screen():
-    statusscreen.show_main_screen()
+def show_info_main_screen():
+    infoscreen.show_main_screen()
 
 
 ###############################################################################
@@ -184,8 +184,8 @@ def create_screens(window):
 
     s2  = analyzescreen.create_main_screen(this_frame)
     s3  = controlscreen.create_main_screen(this_frame)
-    s4  = statusscreen.create_main_screen(this_frame)
-    s5  = setupscreen.create_main_screen(this_frame)
+    s4  = setupscreen.create_main_screen(this_frame)
+    s5  = infoscreen.create_main_screen(this_frame)
 
     s6 = flow.create_history_screen(this_frame)
     s7 = color.create_details_screen(this_frame)
@@ -196,7 +196,7 @@ def create_screens(window):
     s11 = shutdown.create_control_shutdown_screen(this_frame)
     s12 = shutdown.create_shutting_down_screen(this_frame)
 
-    s21 = tanks.create_status_screen(this_frame)
+    s21 = tanks.create_info_screen(this_frame)
 
 
     s13 = patient.create_setup_screen(this_frame)
@@ -231,9 +231,9 @@ def create_graphics():
     global setup_btn_icon
     this_graphic = Image.open("Graphics/blue_setup.png").resize((140,250), Image.ANTIALIAS)
     setup_btn_icon = ImageTk.PhotoImage(this_graphic)
-    global status_btn_icon
-    this_graphic = Image.open("Graphics/purp_status.png").resize((140,250), Image.ANTIALIAS)
-    status_btn_icon = ImageTk.PhotoImage(this_graphic)
+    global info_btn_icon
+    this_graphic = Image.open("Graphics/purp_info.png").resize((140,250), Image.ANTIALIAS)
+    info_btn_icon = ImageTk.PhotoImage(this_graphic)
 
     # Open up the image files and size them correctly
     global brn_gohome_btn_icon
@@ -309,15 +309,6 @@ def create_graphics():
     this_graphic = Image.open("Graphics/blue_thumbs_up.png").resize((130,130), Image.ANTIALIAS)
     cal_complete_icon = ImageTk.PhotoImage(this_graphic)
 
-    """
-    global timeouts_btn_icon
-    image = Image.open("Graphics/set_timeouts_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    timeouts_btn_icon = ImageTk.PhotoImage(image)
-    global logging_btn_icon
-    image = Image.open("Graphics/logging_btn_img.png").resize((100,100), Image.ANTIALIAS)
-    logging_btn_icon = ImageTk.PhotoImage(image)
-    """
-
     # Open up the images for this screen and keep them global
     global pur_ok_btn_icon
     this_graphic = Image.open("Graphics/purp_btn_ok.png").resize((150,50), Image.ANTIALIAS)
@@ -325,9 +316,12 @@ def create_graphics():
     global tank_levels_icon
     this_graphic = Image.open("Graphics/purp_tanks.png").resize((100,100), Image.ANTIALIAS)
     tank_levels_icon = ImageTk.PhotoImage(this_graphic)
-    global room_lights_icon
-    this_graphic = Image.open("Graphics/purp_lighting.png").resize((100,100), Image.ANTIALIAS)
-    room_lights_icon = ImageTk.PhotoImage(this_graphic)
+    global patient_info_icon
+    this_graphic = Image.open("Graphics/purp_patient.png").resize((100,100), Image.ANTIALIAS)
+    patient_info_icon = ImageTk.PhotoImage(this_graphic)
+    global about_icon
+    this_graphic = Image.open("Graphics/purp_about.png").resize((100,100), Image.ANTIALIAS)
+    about_icon = ImageTk.PhotoImage(this_graphic)
     global no_flow_icon
     this_graphic = Image.open("Graphics/purp_flow_no.png").resize((40,40), Image.ANTIALIAS)
     no_flow_icon = ImageTk.PhotoImage(this_graphic)
