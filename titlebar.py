@@ -6,6 +6,8 @@ import telemetry
 import patient
 from time import strftime
 import screens
+import shutdown
+
 
 MY_BG = '#0070C0'
 MY_FG = 'white'
@@ -43,6 +45,9 @@ def create_bar(window):
     tstamp.grid( row=0, column=1, padx=40)
     battery.grid(row=0, column=2, padx=80)
 
+    # Start the periodic update
+    update_bar()
+
     return this_frame
 
 
@@ -71,6 +76,12 @@ def update_bar():
         charging_yes.tkraise()
     else:
         charging_no.tkraise()
+
+    # As long as we are not shutting down...
+    if (shutdown.isShutDownRequested() == False):
+
+        # After 1 second, perform another update
+        this_frame.after(1000, update_bar)
 
 
 ###############################################################################

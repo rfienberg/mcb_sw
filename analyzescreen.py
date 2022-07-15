@@ -27,7 +27,7 @@ def create_main_screen(frame):
     global this_screen
 
     # Create and place the Screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets
@@ -59,7 +59,8 @@ def show_main_screen():
 # Periodically update the ANALYZE main screen
 ###############################################################################
 def periodic_screen_update():
-    global this_screen, flow_items, color_items, turbid_items
+    global this_screen, updates
+    global flow_items, color_items, turbid_items
 
     # Update with the last hour's total FLOW
     flow_text = str(flow.getCurrentHourlyFlow()).rjust(4, '0')
@@ -74,19 +75,19 @@ def periodic_screen_update():
     turbidity.populateRatingBox(turbid_items, turbid_rating)
 
     # Schedule the next screen update
-    this_screen.after(2000, periodic_screen_update)
+    updates = this_screen.after(2000, periodic_screen_update)
 
 
 ###############################################################################
 ###############################################################################
 def on_home_press():
-    global this_screen
+    global this_screen, updates
 
     # Chirp
     screens.play_key_tone()
 
     # Cancel the periodic screen updates
-    this_screen.after_cancel(periodic_screen_update)
+    this_screen.after_cancel(updates)
 
     screens.show_home_screen()
 

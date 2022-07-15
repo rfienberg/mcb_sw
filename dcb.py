@@ -47,24 +47,6 @@ def sendValveFlowCommand(control):
 def sendTankLightCommand(control):
     if (control == 'On'):
         cmd = ">SC: FFF2\n"
-    elif (control == '10 seconds'):
-        cmd = ">SC: FFF3\n"
-    elif (control == '30 seconds'):
-        cmd = ">SC: FFF4\n"
-    elif (control == '1 minute'):
-        cmd = ">SC: FFF5\n"
-    elif (control == '5 minutes'):
-        cmd = ">SC: FFF6\n"
-    elif (control == '30 minutes'):
-        cmd = ">SC: FFF7\n"
-    elif (control == '1 hour'):
-        cmd = ">SC: FFF8\n"
-    elif (control == '2 hours'):
-        cmd = ">SC: FFF9\n"
-    elif (control == '4 hours'):
-        cmd = ">SC: FFFA\n"
-    elif (control == '8 hours'):
-        cmd = ">SC: FFFB\n"
     else:
         cmd = ">SC: FFF1\n"
 

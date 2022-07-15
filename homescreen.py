@@ -10,7 +10,7 @@ def create_menu_screen(frame):
     global this_screen
 
     # Create the Frame for this screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
     buttons = tk.Frame(this_screen)
 

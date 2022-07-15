@@ -44,7 +44,7 @@ def create_main_screen(frame):
     global this_screen
 
     # Create and place the Screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets

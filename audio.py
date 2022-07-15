@@ -2,35 +2,48 @@ from globals import *
 import tkinter as tk
 import screens
 import time
+import mcb_config
 if (RUN_ON_CM4):
     import RPi.GPIO as GPIO
-import mcb_config
 
-BIG_FONT = ("Georgia", 30)
+AUDIO_PWM_PIN = 12
 
 # Temporary Audio Settings
 ConfigKeyPressToneEnabled = True
 ConfigWarningToneEnabled = True
 ConfigAlarmToneEnabled = True
 
+AudioTone = None
+
 
 ###############################################################################
 ###############################################################################
-def play_key_tone():
-    global this_screen
+def startup():
+    global AudioTone
 
-    if (ConfigKeyPressToneEnabled):
-        if (RUN_ON_CM4):
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(12, GPIO.OUT)
-            pwm = GPIO.PWM(12, 2500)
-            pwm.start(25)
+    if (RUN_ON_CM4):
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(AUDIO_PWM_PIN, GPIO.OUT)
+        AudioTone = GPIO.PWM(AUDIO_PWM_PIN, 2500)
+    else:
+        pass
 
-        time.sleep(.100)
 
-        if (RUN_ON_CM4):
-            pwm.stop()
-            #GPIO.cleanup()
+###############################################################################
+###############################################################################
+def play_audio_tone(freq, duty=50):
+    global AudioTone
+
+    if (RUN_ON_CM4):
+        # Start/Stop the PWM at the specified duty cycle
+        if (freq == 0):
+            AudioTone.stop()
+        else:
+            AudioTone.ChangeFrequency(freq)
+            AudioTone.start(duty)
+    else:
+        pass
 
 
 ###############################################################################

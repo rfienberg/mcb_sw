@@ -126,7 +126,7 @@ def create_setup_screen(frame):
     global setup_screen
 
     # Create and place the Screen
-    setup_screen = tk.LabelFrame(frame)
+    setup_screen = tk.Frame(frame)
     setup_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the screen Widgets
@@ -207,19 +207,19 @@ def create_radio_buttons(frame):
 def create_bottom_line(frame):
     this_frame = tk.Frame(frame)
 
-    ok_button = tk.Button(this_frame)
-    ok_button.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    ok_button.configure(command=on_ok_press)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
+    b1.configure(command=on_ok_press)
 
-    spacer_label = tk.Label(this_frame)
+    l1 = tk.Label(this_frame)
 
-    cancel_button = tk.Button(this_frame)
-    cancel_button.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    cancel_button.configure(command=on_cancel_press)
+    b2 = tk.Button(this_frame)
+    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
+    b2.configure(command=on_cancel_press)
 
-    ok_button.grid(    row=0, column=0, pady=10)
-    spacer_label.grid( row=0, column=1, padx=80)
-    cancel_button.grid(row=0, column=2, pady=10)
+    b1.grid(row=0, column=0, pady=10)
+    l1.grid(row=0, column=1, padx=80)
+    b2.grid(row=0, column=2, pady=10)
 
     return this_frame
 
@@ -234,7 +234,7 @@ def create_control_screen(frame):
     global control_screen
 
     # Create and place the Screen
-    control_screen = tk.LabelFrame(frame)
+    control_screen = tk.Frame(frame)
     control_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets

@@ -1,6 +1,7 @@
 from globals import *
 import tkinter as tk
 import screens
+import flow
 import mcb_config
 
 
@@ -9,15 +10,92 @@ ENABLED_COLOR  = SETUP_COLOR
 ADJ_FONT = ('Calibri', 22)
 
 
-# Temporary Alert Settings
+# Define default Alert configuration settings
 ConfigMinFlowAlertEnabled = False
 ConfigMaxFlowAlertEnabled = False
-
-ConfigMinFlowThreshold = 100
-ConfigMaxFlowThreshold = 500
-
+ConfigMinFlowVolume = 100
+ConfigMaxFlowVolume = 500
 ConfigMinFlowHours = 1
 ConfigMaxFlowHours = 1
+
+# Flags for TOO LOW and TOO HIGH
+FlowIsTooLow  = False
+FlowIsTooHigh = False
+
+
+###############################################################################
+###############################################################################
+def testForFlowTooLow(time_in_secs):
+    global FlowIsTooLow
+
+    # As long as this ALERT mechanism is enabled...
+    if (mcb_config.getMinFlowAlertEnabled()):
+        # Compute the timestamp range we will sum over
+        end_ts = time_in_secs
+        start_ts = end_ts - (3600 * ConfigMinFlowHours)
+
+        # Sum up the flow deltas over this range
+        (flow_total, count) = flow.compute_flow_over_period(start_ts, end_ts)
+
+        # Don't test the sum until we have enough data
+        if (count < (60 * ConfigMinFlowHours)):
+            FlowIsTooLow = False
+        # Test if this sum falls below the threshold
+        elif (flow_total < ConfigMinFlowVolume):
+            FlowIsTooLow = True
+        else:
+            FlowIsTooLow = False
+    else:
+        FlowIsTooLow = False
+
+
+###############################################################################
+###############################################################################
+def testForFlowTooHigh(time_in_secs):
+    global FlowIsTooHigh
+
+    # As long as this ALERT mechanism is enabled...
+    if (mcb_config.getMaxFlowAlertEnabled()):
+        # Compute the timestamp range we will search over
+        end_ts = time_in_secs
+        start_ts = end_ts - (3600 * ConfigMaxFlowHours)
+
+        # Sum up the flow deltas over this range
+        (flow_total, count) = flow.compute_flow_over_period(start_ts, end_ts)
+
+        # Test if this sum rises above the threshold
+        if (flow_total > ConfigMaxFlowVolume):
+            FlowIsTooHigh = True
+        else:
+            FlowIsTooHigh = False
+    else:
+        FlowIsTooHigh = False
+
+
+###############################################################################
+###############################################################################
+def isFlowTooLow():
+    global FlowIsTooLow
+
+    # If this ALERT is disabled...
+    if (mcb_config.getMinFlowAlertEnabled() == False):
+        return False
+
+    # Otherwise, return our flag's value
+    return FlowIsTooLow
+
+
+###############################################################################
+###############################################################################
+def isFlowTooHigh():
+    global FlowIsTooHigh
+
+    # If this ALERT is disabled...
+    if (mcb_config.getMaxFlowAlertEnabled() == False):
+        return False
+
+    # Otherwise, return our flag's value
+    return FlowIsTooHigh
 
 
 ###############################################################################
@@ -35,7 +113,7 @@ def show_setup_screen():
 ###############################################################################
 def pull_alert_settings():
     global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
-    global ConfigMinFlowThreshold, ConfigMaxFlowThreshold
+    global ConfigMinFlowVolume, ConfigMaxFlowVolume
     global ConfigMinFlowHours, ConfigMaxFlowHours
 
     # Pull the CONFIG settings from the INI file 
@@ -43,15 +121,15 @@ def pull_alert_settings():
     ConfigMinFlowAlertEnabled = mcb_config.getMinFlowAlertEnabled()
     ConfigMaxFlowAlertEnabled = mcb_config.getMaxFlowAlertEnabled()
 
-    ConfigMinFlowThreshold = mcb_config.getMinFlowThreshold()
-    ConfigMaxFlowThreshold = mcb_config.getMaxFlowThreshold()
+    ConfigMinFlowVolume = mcb_config.getMinFlowVolume()
+    ConfigMaxFlowVolume = mcb_config.getMaxFlowVolume()
 
     ConfigMinFlowHours = mcb_config.getMinFlowHours()
     ConfigMaxFlowHours = mcb_config.getMaxFlowHours()
 
     # Populate the controls with these local variable values
-    min_flow_threshold.set(str(ConfigMinFlowThreshold))
-    max_flow_threshold.set(str(ConfigMaxFlowThreshold))
+    min_flow_threshold.set(str(ConfigMinFlowVolume))
+    max_flow_threshold.set(str(ConfigMaxFlowVolume))
     min_hours_threshold.set(str(ConfigMinFlowHours))
     max_hours_threshold.set(str(ConfigMaxFlowHours))
 
@@ -70,12 +148,12 @@ def pull_alert_settings():
 ###############################################################################
 def push_alert_settings():
     global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
-    global ConfigMinFlowThreshold, ConfigMaxFlowThreshold
+    global ConfigMinFlowVolume, ConfigMaxFlowVolume
     global ConfigMinFlowHours, ConfigMaxFlowHours
 
     # Pull local variable values from the widgets
-    ConfigMinFlowThreshold = int(min_flow_threshold.get())
-    ConfigMaxFlowThreshold = int(max_flow_threshold.get())
+    ConfigMinFlowVolume = int(min_flow_threshold.get())
+    ConfigMaxFlowVolume = int(max_flow_threshold.get())
     ConfigMinFlowHours = int(min_hours_threshold.get())
     ConfigMaxFlowHours = int(max_hours_threshold.get())
 
@@ -83,8 +161,8 @@ def push_alert_settings():
     mcb_config.setMinFlowAlertEnabled(ConfigMinFlowAlertEnabled)
     mcb_config.setMaxFlowAlertEnabled(ConfigMaxFlowAlertEnabled)
 
-    mcb_config.setMinFlowThreshold(ConfigMinFlowThreshold)
-    mcb_config.setMaxFlowThreshold(ConfigMaxFlowThreshold)
+    mcb_config.setMinFlowVolume(ConfigMinFlowVolume)
+    mcb_config.setMaxFlowVolume(ConfigMaxFlowVolume)
 
     mcb_config.setMinFlowHours(ConfigMinFlowHours)
     mcb_config.setMaxFlowHours(ConfigMaxFlowHours)
@@ -234,7 +312,7 @@ def on_cancel_press():
 def create_setup_screen(frame):
     global this_screen, min_dis, min_enb, max_dis, max_enb
 
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     top_line = create_top_line(this_screen)

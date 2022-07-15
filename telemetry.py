@@ -110,6 +110,11 @@ def runTelemetryTask():
             if (getShutdownStatus() == "Shutting-down"):
                 shutdown.requestShutdown()
 
+        else:
+            TelemetryLock.acquire()
+            TelemetryLatest = " 0000 0000 0000 0000 0000 0000 1B00 0000\n"
+            TelemetryLock.release()
+
 
 ###############################################################################
 # Returns True if telem is a valid Telemetry Response, False otherwise

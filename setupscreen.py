@@ -11,7 +11,7 @@ def create_main_screen(frame):
     global this_screen
 
     # Create and place this Screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create and place the main frames
@@ -27,8 +27,6 @@ def create_main_screen(frame):
     cal_btn = create_calibrate_button(bot_frm)
     clk_btn = create_clock_button(bot_frm)
     lit_btn = create_lights_button(bot_frm)
-    #tim_btn = create_timeouts_button(bot_frm)
-    #log_btn = create_logging_button(bot_frm)
 
     # Place the Widgets into the frame
     pat_btn.grid(row=0, column=0, padx=20, pady=5)
@@ -37,8 +35,6 @@ def create_main_screen(frame):
     cal_btn.grid(row=0, column=3, padx=20, pady=5)
     clk_btn.grid(row=1, column=0, padx=20, pady=5)
     lit_btn.grid(row=1, column=1, padx=20, pady=5)
-    #tim_btn.grid(row=1, column=2, padx=20, pady=5)
-    #log_btn.grid(row=1, column=3, padx=20, pady=5)
 
     return this_screen
 
@@ -90,20 +86,6 @@ def on_set_calibrate_press():
 def on_set_clock_press():
     screens.play_key_tone()
     screens.show_set_clock_screen()
-
-
-###############################################################################
-###############################################################################
-def on_set_timeouts_press():
-    screens.play_key_tone()
-    screens.show_set_timeouts_screen()
-
-
-###############################################################################
-###############################################################################
-def on_set_logging_press():
-    screens.play_key_tone()
-    screens.show_set_logging_screen()
 
 
 ###############################################################################
@@ -207,38 +189,6 @@ def create_clock_button(frame):
     datetime_btn_label = tk.Label(this_frame, text="Clock")
     datetime_btn_label.configure(font=MY_FONT, fg=SETUP_COLOR)
     datetime_btn_label.grid(row=1, column=0)
-
-    return this_frame
-
-
-###############################################################################
-###############################################################################
-def create_timeouts_button(frame):
-    this_frame = tk.Frame(frame)
-
-    timeouts_btn_button = tk.Button(this_frame, image=screens.timeouts_btn_icon, borderwidth=0)
-    timeouts_btn_button.configure(command=on_set_timeouts_press)
-    timeouts_btn_button.grid(row=0, column=0)
-
-    timeouts_btn_label = tk.Label(this_frame, text="Timeouts")
-    timeouts_btn_label.configure(font=MY_FONT, fg=SETUP_COLOR)
-    timeouts_btn_label.grid(row=1, column=0)
-
-    return this_frame
-
-
-###############################################################################
-###############################################################################
-def create_logging_button(frame):
-    this_frame = tk.Frame(frame)
-
-    logging_btn_button = tk.Button(this_frame, image=screens.logging_btn_icon, borderwidth=0)
-    logging_btn_button.configure(command=on_set_logging_press)
-    logging_btn_button.grid(row=0, column=0)
-
-    logging_btn_label = tk.Label(this_frame, text="Logging")
-    logging_btn_label.configure(font=MY_FONT, fg=SETUP_COLOR)
-    logging_btn_label.grid(row=1, column=0)
 
     return this_frame
 

@@ -1,6 +1,7 @@
 from globals import *
 from os.path import exists
 import tkinter as tk
+
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg')
@@ -65,7 +66,7 @@ def updateHourlyFlow(time_in_secs):
 
     # Compute all of the FLOW that occurred between the specified 
     # time and 1 hour (3600 seconds) before that specified time
-    FlowHourly = compute_flow_over_period(time_in_secs-3600, time_in_secs)
+    (FlowHourly, count) = compute_flow_over_period(time_in_secs-3600, time_in_secs)
 
 
 ###############################################################################
@@ -106,7 +107,7 @@ def updateDailyFlows(timestamp):
             label = f"{hr}{pm}"
 
         # Compute the total flow within this 1 hour range
-        volume = compute_flow_over_period(start_ts, end_ts)
+        (volume, count) = compute_flow_over_period(start_ts, end_ts)
         #volume = 10 + (10 * hour)
 
         FlowLabels[hour]  = label
@@ -119,7 +120,7 @@ def updateDailyFlows(timestamp):
 def create_history_screen(frame):
     global this_screen
 
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     history = create_flow_history(this_screen)
@@ -151,21 +152,21 @@ def periodic_screen_update():
     plot_flow_history()
 
     # Schedule the next screen update
-    global this_screen
-    this_screen.after(30000, periodic_screen_update)
+    global this_screen, updates
+    updates = this_screen.after(30000, periodic_screen_update)
 
 
 ###############################################################################
 # Handles a press event of the BACK button
 ###############################################################################
 def on_back_press():
-    global this_screen
+    global this_screen, updates
 
     # Chirp
     screens.play_key_tone()
 
     # Cancel the periodic screen updates
-    this_screen.after_cancel(periodic_screen_update)
+    this_screen.after_cancel(updates)
 
     # Bring up the main ANALYZE screen
     screens.show_analyze_main_screen()
@@ -269,7 +270,7 @@ def compute_flow_over_period(start_sec, end_sec):
                         total_flow = total_flow + int(fields[1])
                         count = count + 1
 
-    return total_flow
+    return (total_flow, count)
 
 
 

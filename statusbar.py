@@ -3,7 +3,7 @@ import tkinter as tk
 from time import strftime
 from PIL import ImageTk, Image
 import telemetry
-
+import shutdown
 
 MY_BG = 'white'
 MY_FG = 'black'
@@ -73,6 +73,9 @@ def create_bar(window):
     plug_no.grid(row=0, column=10, padx=20)
     plug_yes.grid(row=0, column=10, padx=20)
 
+    # Start the periodic update
+    update_bar()
+
     return this_frame
 
 
@@ -122,6 +125,12 @@ def update_bar():
         plug_yes.tkraise()
     else:
         plug_no.tkraise()
+
+    # As long as we are not shutting down...
+    if (shutdown.isShutDownRequested() == False):
+
+        # After 1 second, perform another update
+        this_frame.after(1000, update_bar)
 
 
 ###############################################################################

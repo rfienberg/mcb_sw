@@ -8,6 +8,7 @@ import telemetry
 import flow
 import color
 import turbidity
+import alerts
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
@@ -88,6 +89,10 @@ def runAnalyzeTask():
         flow.updateHourlyFlow(my_sec)
         hr_flow = flow.getCurrentHourlyFlow()
 
+        # Test for flow ALERT conditions
+        alerts.testForFlowTooLow(my_sec)
+        alerts.testForFlowTooHigh(my_sec)
+
         # Record a new line into the ANALYZE log file
         printStatus("Analysis cycle #%d complete!" % my_sec)
         analyze_line = f"{my_sec}, {my_flow}, {hr_flow}, {my_color}, {my_turbidity}\n"
@@ -107,7 +112,7 @@ def IsFlowAllowed():
     lvalve = telemetry.getTankValveStatus("Left")
     rvalve = telemetry.getTankValveStatus("Right")
 
-    # If any valve is open...
+    # If any valve is OPEN then FLOW is "allowed"...
     if ((lvalve == "Opened") or (rvalve == "Opened")):
         return True
     else:

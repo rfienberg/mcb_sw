@@ -94,7 +94,7 @@ def setMaxFlowAlertEnabled(value):
 
 ###############################################################################
 ###############################################################################
-def getMinFlowThreshold():
+def getMinFlowVolume():
     global parser
 
     value = 0
@@ -112,7 +112,7 @@ def getMinFlowThreshold():
 
 ###############################################################################
 ###############################################################################
-def setMinFlowThreshold(value):
+def setMinFlowVolume(value):
     global parser
 
     if (parser.has_option('Alerts', 'minflowthreshold')):
@@ -121,7 +121,7 @@ def setMinFlowThreshold(value):
 
 ###############################################################################
 ###############################################################################
-def getMaxFlowThreshold():
+def getMaxFlowVolume():
     global parser
 
     value = 0
@@ -138,7 +138,7 @@ def getMaxFlowThreshold():
 
 ###############################################################################
 ###############################################################################
-def setMaxFlowThreshold(value):
+def setMaxFlowVolume(value):
     global parser
 
     if (parser.has_option('Alerts', 'maxflowthreshold')):

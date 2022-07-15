@@ -29,6 +29,7 @@ def show_status_screen():
 # Update the TANKS screen widgets based on the latest data
 ###############################################################################
 def periodic_screen_update():
+    global this_screen, updates
 
     # Update the LEFT Tank information
     valve = telemetry.getTankValveStatus("Left")
@@ -105,18 +106,20 @@ def periodic_screen_update():
     #tank.coords(liquid, 8,fill_line, TANK_WIDTH-6,TANK_HEIGHT-6)
 
     # Schedule the next screen update
-    this_screen.after(500, periodic_screen_update)
+    updates = this_screen.after(500, periodic_screen_update)
 
 
 ###############################################################################
 # Exits back to the INFO main screen
 ###############################################################################
 def on_back_press():
-    global this_screen
-    this_screen.after_cancel(periodic_screen_update)
+    global this_screen, updates
+
+    this_screen.after_cancel(updates)
 
     # Chirp
     screens.play_key_tone()
+
     screens.show_info_main_screen()
 
 
@@ -126,7 +129,7 @@ def create_info_screen(frame):
     global this_screen
 
     # Create the Frame for this screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets for this screen

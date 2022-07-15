@@ -1,6 +1,9 @@
 from globals import *
 import tkinter as tk
 from PIL import ImageTk, Image
+import time
+
+import mcb_config
 
 import homescreen
 
@@ -13,7 +16,6 @@ import patient
 import clock
 import alerts
 import audio
-import timeouts
 import mcb_logging
 import calibrate
 
@@ -25,9 +27,19 @@ import cartridge
 import lights
 
 import tanks
+import engineering
 
 import shutdown
 
+
+
+###############################################################################
+###############################################################################
+def play_key_tone():
+    if (mcb_config.getPlayKeyPressTone()):
+        audio.play_audio_tone(2500, 25)
+        time.sleep(.100)
+        audio.play_audio_tone(0)
 
 
 ###############################################################################
@@ -92,12 +104,6 @@ def show_set_audio_screen():
 
 ###############################################################################
 ###############################################################################
-def show_set_timeouts_screen():
-    timeouts.show_setup_screen()
-
-
-###############################################################################
-###############################################################################
 def show_set_logging_screen():
     mcb_logging.show_setup_screen()
 
@@ -158,14 +164,14 @@ def show_tank_status_screen():
 
 ###############################################################################
 ###############################################################################
+def show_engineering_screen():
+    engineering.show_status_screen()
+
+
+###############################################################################
+###############################################################################
 def show_shutting_down_screen():
     shutdown.show_shutting_down_screen()
-
-
-###############################################################################
-###############################################################################
-def play_key_tone():
-    audio.play_key_tone()
 
 
 ###############################################################################
@@ -197,6 +203,7 @@ def create_screens(window):
     s12 = shutdown.create_shutting_down_screen(this_frame)
 
     s21 = tanks.create_info_screen(this_frame)
+    s22 = engineering.create_info_screen(this_frame)
 
 
     s13 = patient.create_setup_screen(this_frame)
@@ -204,13 +211,9 @@ def create_screens(window):
     s15 = alerts.create_setup_screen(this_frame)
     s16 = calibrate.create_setup_screen(this_frame)
     s17 = clock.create_setup_screen(this_frame)
-    s18 = timeouts.create_setup_screen(this_frame)
+
     s19 = mcb_logging.create_setup_screen(this_frame)
     s20 = lights.create_setup_screen(this_frame)
-
-    """
-    s20 = tankfullscreen.create(this_frame)
-    """
 
     # Initialize to raise the 1st Screen
     show_home_screen()
@@ -379,30 +382,18 @@ def create_graphics():
     dec_btn_icon = ImageTk.PhotoImage(this_graphic)
 
 
-###############################################################################
-###############################################################################
-def popup_tank_warning():
-    global tank_level_warning
-
-    tank_level_warning = tk.Toplevel(this_frame)
-    tank_level_warning.title("Warning!")
-    tank_level_warning.minsize(800, 350)
-
-    f1 = tk.LabelFrame(tank_level_warning)
-    f1.grid(row=0, column=0, sticky='nsew')
-
-    b1 = tk.Button(f1)
-    b1.configure(text="OK")
-    b1.configure(command=popdown_tank_warning)
-    b1.grid(row=0, column=0, sticky='nsew')
-
-    tank_level_warning.mainloop()
-
-
-###############################################################################
-###############################################################################
-def popdown_tank_warning():
-    global tank_level_warning
-    tank_level_warning.destroy()
+    # Open up the images for this screen and keep them global
+    global warning_icon
+    this_graphic = Image.open("Graphics/warning_icon.png").resize((90,110), Image.ANTIALIAS)
+    warning_icon = ImageTk.PhotoImage(this_graphic)
+    global alert_icon
+    this_graphic = Image.open("Graphics/alert_icon.png").resize((90,110), Image.ANTIALIAS)
+    alert_icon = ImageTk.PhotoImage(this_graphic)
+    global urgent_icon
+    this_graphic = Image.open("Graphics/urgent_icon.png").resize((90,110), Image.ANTIALIAS)
+    urgent_icon = ImageTk.PhotoImage(this_graphic)
+    global blk_dismiss_btn_icon
+    this_graphic = Image.open("Graphics/black_btn_dismiss.png").resize((150,60), Image.ANTIALIAS)
+    blk_dismiss_btn_icon = ImageTk.PhotoImage(this_graphic)
 
 

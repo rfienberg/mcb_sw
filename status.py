@@ -7,19 +7,11 @@ import scram
 import telemetry
 import shutdown
 
+STATUS_SLEEP_TIME = 0.400
+Status1SecServiceTime = 0
 
-StatusUpdateServiceTime = 0
-
-LeftTankFullServiceTime = 0
-
-RightTankFullServiceTime = 0
-
-BothTanksFullServiceTime = 0
-
-BatteryLowServiceTime = 0
-
-BatteryDepletedServiceTime = 0
-
+BATTERY_PERCENT_BAD = 10
+BATTERY_PERCENT_LOW = 50
 
 
 ###############################################################################
@@ -45,110 +37,52 @@ def stop_thread():
 # Run the STATUS thread
 ###############################################################################
 def runStatusTask():
+
     # Endless loop running STATUS operations...
     while True:
+        # Run the once per second service
+        run_one_second_service()
+
         # Sleep to allow other things to occur
-        time.sleep(0.200)
+        time.sleep(STATUS_SLEEP_TIME)
+
+
+###############################################################################
+###############################################################################
+def run_one_second_service():
+    # If it is time for the once-per-second service...
+    global Status1SecServiceTime
+    if ((time.time() - Status1SecServiceTime) >= 1.00):
+        Status1SecServiceTime = time.time()
 
         # Send a periodic STATUS report to the DCB
         status_update_send_service()
-
-        run_left_tank_full_service()
-
-        run_right_tank_full_service()
-
-        run_both_tanks_full_service()
-
-        run_battery_low_service()
-
-        run_battery_depleted_service()
 
 
 ###############################################################################
 # Periodically build and send a STATUS UPDATE message to the DCB
 ###############################################################################
 def status_update_send_service():
-    # If it is time for service...
-    global StatusUpdateServiceTime
-    if ((time.time() - StatusUpdateServiceTime) >= 1.00):
-        StatusUpdateServiceTime = time.time()
+    # Default to: Shut-Down Status=Not Requested, Tanks=Not Full
+    status_string = ">SU: 0000\n"
+    my_status = list(status_string)
 
-        # Default to: Shut-Down Status=Not Requested, Tanks=Not Full
-        status_string = ">SU: 0000\n"
-        my_status = list(status_string)
+    # If a shut-down has been requested...
+    if (shutdown.isShutDownRequested()):
+        my_status[5] = '1'
 
-        # If a shut-down has been requested...
-        if (shutdown.isShutDownRequested()):
-            my_status[5] = '1'
+    # If the Left Tank is not fillable...
+    if (isTankFull("Left")):
+        my_status[6] = '1'
 
-        # If the Left Tank is fillable...
-        if (isTankFull("Left")):
-            my_status[6] = '1'
+    # If the Right Tank is not fillable...
+    if (isTankFull("Right")):
+        my_status[7] = '1'
 
-        # If the Right Tank is fillable...
-        if (isTankFull("Right")):
-            my_status[7] = '1'
-
-        # Send our latest STATUS to the DCB
-        status_string = "".join(my_status)
-        #printStatus(status_string)
-        rsp = scram.SendCommand(status_string)
-
-
-###############################################################################
-###############################################################################
-def run_left_tank_full_service():
-    # If it is time for service...
-    global LeftTankFullServiceTime
-    if ((time.time() - LeftTankFullServiceTime) >= 0.200):
-        LeftTankFullServiceTime = time.time()
-
-    #printStatus("Left Tank Full Service")
-
-
-###############################################################################
-###############################################################################
-def run_right_tank_full_service():
-    # If it is time for service...
-    global RightTankFullServiceTime
-    if ((time.time() - RightTankFullServiceTime) >= 0.200):
-        RightTankFullServiceTime = time.time()
-
-    #printStatus("Right Tank Full Service")
-
-
-###############################################################################
-###############################################################################
-def run_both_tanks_full_service():
-    # If it is time for service...
-    global BothTanksFullServiceTime
-    if ((time.time() - BothTanksFullServiceTime) >= 0.200):
-        BothTanksFullServiceTime = time.time()
-
-    #printStatus("Both Tanks Full Service")
-
-
-###############################################################################
-###############################################################################
-def run_battery_low_service():
-    # If it is time for service...
-    global BatteryLowServiceTime
-    if ((time.time() - BatteryLowServiceTime) >= 0.200):
-        BatteryLowServiceTime = time.time()
-
-    #printStatus("Battery Low Service")
-
-
-###############################################################################
-###############################################################################
-def run_battery_depleted_service():
-    # If it is time for service...
-    global BatteryDepletedServiceTime
-    if ((time.time() - BatteryDepletedServiceTime) >= 0.200):
-        BatteryDepletedServiceTime = time.time()
-
-    #printStatus("Battery Depleted Service")
-
+    # Send our latest STATUS to the DCB
+    status_string = "".join(my_status)
+    #printStatus(status_string)
+    rsp = scram.SendCommand(status_string)
 
 
 
@@ -158,11 +92,52 @@ def run_battery_depleted_service():
 def isTankFull(side="Left"):
     # Get the latest volume reading for this tank
     volume = telemetry.getRealTankVolume(side)
+    space  = telemetry.getTankSpaceStatus(side)
 
-    # Is this tank's volume indicate that it is full?
-    if (volume >= TANK_FULL_VOLUME):
+    # Does this tank's space indicate that it is full?
+    if (space == "Overfilled"):
+        return True
+    # Does this tank's volume indicate that it is full?
+    elif (volume >= TANK_FULL_VOLUME):
         return True
     else:
         return False
+
+
+###############################################################################
+# Returns True if the BATTERY is in the "LOW" range, False otherwise
+###############################################################################
+def isBatteryLow():
+    # If the BATTERY is charging then we won't call it "LOW"
+    if (telemetry.getBatteryChargeStatus() == "Charging"):
+        return False
+
+    # Get the latest BATTERY percentage from the DCB
+    percent = telemetry.getBatteryChargePercent()
+
+    # Is the BATTERY percentage within the LOW threshold?
+    if ((percent < BATTERY_PERCENT_LOW) and (percent > BATTERY_PERCENT_BAD)):
+        return True
+    else:
+        return False
+
+
+###############################################################################
+# Returns True if the BATTERY is in the "DEPLETED" range, False otherwise
+###############################################################################
+def isBatteryDepleted():
+    # If the BATTERY is charging then we won't call it "DEPLETED"
+    if (telemetry.getBatteryChargeStatus() == "Charging"):
+        return False
+
+    # Get the latest BATTERY percentage from the DCB
+    percent = telemetry.getBatteryChargePercent()
+
+    # Is the BATTERY percentage below the DEPLETED threshold?
+    if (percent < BATTERY_PERCENT_BAD):
+        return True
+    else:
+        return False
+
 
 

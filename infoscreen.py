@@ -26,8 +26,9 @@ def on_tanks_press():
 
 ###############################################################################
 ###############################################################################
-def on_lights_press():
+def on_about_press():
     screens.play_key_tone()
+    screens.show_engineering_screen()
 
 
 ###############################################################################
@@ -36,7 +37,7 @@ def create_main_screen(frame):
     global this_screen
 
     # Create and place the Screen
-    this_screen = tk.LabelFrame(frame)
+    this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets
@@ -120,7 +121,7 @@ def create_about_button(frame):
     this_frame = tk.Frame(frame)
 
     b1 = tk.Button(this_frame, image=screens.about_icon, borderwidth=0)
-    #b1.configure(command=on_lights_press)
+    b1.configure(command=on_about_press)
     b1.grid(row=0, column=0)
     l1 = tk.Label(this_frame, text="About...")
     l1.configure(font=SM_FONT, fg=STATUS_COLOR)

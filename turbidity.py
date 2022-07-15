@@ -101,7 +101,7 @@ def show_details_screen():
 ###############################################################################
 ###############################################################################
 def periodic_screen_update():
-    global this_screen
+    global this_screen, updates
 
     # Update with the latest snapshot image
     if (exists(SNAP_TURBID_IMG)):
@@ -148,14 +148,15 @@ def periodic_screen_update():
         arrow.coords(rectangle, x4,y4, x5,y5)
 
     # Schedule the next screen update
-    this_screen.after(5000, periodic_screen_update)
+    updates = this_screen.after(5000, periodic_screen_update)
 
 
 ###############################################################################
 ###############################################################################
 def on_back_press():
-    global this_screen
-    this_screen.after_cancel(periodic_screen_update)
+    global this_screen, updates
+
+    this_screen.after_cancel(updates)
 
     screens.play_key_tone()
     screens.show_analyze_main_screen()

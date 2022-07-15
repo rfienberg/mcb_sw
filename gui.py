@@ -1,12 +1,11 @@
 from globals import *
 import tkinter as tk
 
-import telemetry
-import shutdown
-
-import screens
 import titlebar
+import screens
 import statusbar
+
+import alarms
 
 
 ###############################################################################
@@ -32,28 +31,13 @@ def startup():
     sb = statusbar.create_bar(window)
 
     # Start periodic screen updates
-    periodic_update()
+    start_screen_updates(window)
 
 
 ###############################################################################
-# Updates the GUI bars once every second
 ###############################################################################
-def periodic_update():
-    # Get the latest Telemetry
-    telem = telemetry.getLatestTelemetry()
-    #print("telem = %s" % telem)
-
-    # Update the Title Bar widgets
-    titlebar.update_bar()
-
-    # Update the Status Bar widgets
-    statusbar.update_bar()
-
-    # As long as we are not shutting down...
-    if (shutdown.isShutDownRequested() == False):
-
-        # After 1 second, perform another update
-        window.after(1000, periodic_update)
+def start_screen_updates(window):
+    alarms.start_periodic_popup_checks(window)
 
 
 ###############################################################################

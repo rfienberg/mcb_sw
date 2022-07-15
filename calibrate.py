@@ -29,7 +29,7 @@ def create_setup_screen(frame):
     global cal_screen, instruct, progress, finished, start_btns
 
     # Create and place this Screen
-    cal_screen = tk.LabelFrame(frame)
+    cal_screen = tk.Frame(frame)
     cal_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the screen Widgets
