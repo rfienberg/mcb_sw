@@ -7,11 +7,19 @@ import scram
 import telemetry
 import shutdown
 
-STATUS_SLEEP_TIME = 0.400
-Status1SecServiceTime = 0
+import mcb_config
+import lights
+
 
 BATTERY_PERCENT_BAD = 10
 BATTERY_PERCENT_LOW = 50
+
+TANK_LIGHTS_CONFIG_OFF = '0'
+TANK_LIGHTS_CONFIG_ON  = '1'
+TANK_LIGHTS_CONFIG_ALS = '2'
+
+STATUS_SLEEP_TIME = 0.400
+Status1SecServiceTime = 0
 
 
 ###############################################################################
@@ -79,11 +87,29 @@ def status_update_send_service():
     if (isTankFull("Right")):
         my_status[7] = '1'
 
+    # Populate the Tank Light AUTO config STATUS character...
+    my_status[8] = getTankLightsConfigCharacter()
+
     # Send our latest STATUS to the DCB
     status_string = "".join(my_status)
     #printStatus(status_string)
     rsp = scram.SendCommand(status_string)
 
+
+###############################################################################
+###############################################################################
+def getTankLightsConfigCharacter():
+    auto = mcb_config.getLightsAutoConfig()
+
+    # Convert the text string  into a single character
+    if (auto == lights.LIGHT_AUTO_OFF):
+        return TANK_LIGHTS_CONFIG_OFF
+    elif (auto == lights.LIGHT_AUTO_ON):
+        return TANK_LIGHTS_CONFIG_ON
+    elif (auto == lights.LIGHT_AUTO_ALS):
+        return TANK_LIGHTS_CONFIG_ALS
+    else:
+        return 'F'
 
 
 ###############################################################################

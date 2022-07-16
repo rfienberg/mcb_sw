@@ -346,7 +346,7 @@ def setPlayAlarmTone(value):
 
 ###############################################################################
 ###############################################################################
-def getTankLightsConfig():
+def getLightsAutoConfig():
     global parser
 
     value = 'Off'
@@ -364,7 +364,7 @@ def getTankLightsConfig():
 
 ###############################################################################
 ###############################################################################
-def setTankLightsConfig(value):
+def setLightsAutoConfig(value):
     global parser
 
     if (parser.has_option('Lights', 'tanklightconfig')):

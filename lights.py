@@ -1,3 +1,12 @@
+###############################################################################
+# This module supports the TANK LIGHTS - both their manual control aspacts 
+# and their automatic control aspects.
+#
+# The TANK LIGHTS can be commanded to go either: 
+#     OFF, ON, or AUTO 
+# The AUTO option can be configured, by the USER to either: 
+#     OFF, ON, or ALS (controlled by ambient light sensor)
+###############################################################################
 from globals import *
 import tkinter as tk
 import screens
@@ -5,91 +14,97 @@ import dcb
 import mcb_config
 
 
-ConfigTankLights = 'Off'
+LIGHT_AUTO_OFF  = 'Off'
+LIGHT_AUTO_ON   = 'On'
+LIGHT_AUTO_ALS  = 'ALS'
+
+# RAM copy of the Tank Lights AUTO configuration setting
+ConfigLightsAuto = LIGHT_AUTO_OFF
 
 
 ###############################################################################
 ###############################################################################
 def pull_light_settings():
-    global ConfigTankLights
-
-    ConfigTankLights = mcb_config.getTankLightsConfig()
+    # Read the saved CONFIG values from file
+    global ConfigLightsAuto
+    ConfigLightsAuto = mcb_config.getLightsAutoConfig()
 
 
 ###############################################################################
 ###############################################################################
 def push_light_settings():
-    global ConfigTankLights
-
-    mcb_config.setTankLightsConfig(ConfigTankLights)
-
     # Write the new CONFIG values to file
+    global ConfigLightsAuto
+    mcb_config.setLightsAutoConfig(ConfigLightsAuto)
     mcb_config.writeConfigSettings()
 
 
 ###############################################################################
-# Shows the screen for tank light SETUP
+# Shows the screen for tank light SETUP/CONFIG
 ###############################################################################
 def show_setup_screen():
-    global setup_screen
-
     # Pull the CONFIG file values into local settings
     pull_light_settings()
 
     # Update the radio buttons based on the local settings
     update_radio_buttons()
 
+    global setup_screen
     setup_screen.tkraise()
 
 
 ###############################################################################
 ###############################################################################
-def opt1_select():
-    global ConfigTankLights
-    ConfigTankLights = 'Off'
+def upon_opt1_select():
+    # Chirp
+    screens.play_key_tone()
+
+    global ConfigLightsAuto
+    ConfigLightsAuto = LIGHT_AUTO_OFF
 
     update_radio_buttons()
 
+
+###############################################################################
+###############################################################################
+def upon_opt2_select():
+    # Chirp
     screens.play_key_tone()
 
-
-###############################################################################
-###############################################################################
-def opt2_select():
-    global ConfigTankLights
-    ConfigTankLights = 'On'
+    global ConfigLightsAuto
+    ConfigLightsAuto = LIGHT_AUTO_ON
 
     update_radio_buttons()
 
+
+###############################################################################
+###############################################################################
+def upon_opt3_select():
+    # Chirp
     screens.play_key_tone()
 
-
-###############################################################################
-###############################################################################
-def opt3_select():
-    global ConfigTankLights
-    ConfigTankLights = 'Dark'
+    global ConfigLightsAuto
+    ConfigLightsAuto = LIGHT_AUTO_ALS
 
     update_radio_buttons()
-
-    screens.play_key_tone()
 
 
 ###############################################################################
 ###############################################################################
 def update_radio_buttons():
-    global ConfigTankLights
+    global ConfigLightsAuto
 
-    if (ConfigTankLights == 'Off'):
+    # Operate the checkboxes as radio buttons (i.e. only 1 selected at a time)
+    if (ConfigLightsAuto == LIGHT_AUTO_OFF):
         opt1_btn.configure(image=screens.checkbox_yes_icon)
         opt2_btn.configure(image=screens.checkbox_no_icon)
         opt3_btn.configure(image=screens.checkbox_no_icon)
-    elif (ConfigTankLights == 'On'):
+    elif (ConfigLightsAuto == LIGHT_AUTO_ON):
         opt1_btn.configure(image=screens.checkbox_no_icon)
         opt2_btn.configure(image=screens.checkbox_yes_icon)
         opt3_btn.configure(image=screens.checkbox_no_icon)
     else:
-        ConfigTankLights = 'Dark'
+        ConfigLightsAuto = LIGHT_AUTO_ALS
         opt1_btn.configure(image=screens.checkbox_no_icon)
         opt2_btn.configure(image=screens.checkbox_no_icon)
         opt3_btn.configure(image=screens.checkbox_yes_icon)
@@ -98,11 +113,12 @@ def update_radio_buttons():
 ###############################################################################
 # Handles a press of the CANCEL button
 ###############################################################################
-def on_cancel_press():
+def upon_cancel_press():
+    # Chirp
+    screens.play_key_tone()
+
     # Pull the CONFIG file values into local settings
     pull_light_settings()
-
-    screens.play_key_tone()
 
     screens.show_setup_main_screen()
 
@@ -110,17 +126,22 @@ def on_cancel_press():
 ###############################################################################
 # Handles a press of the OK button
 ###############################################################################
-def on_ok_press():
+def upon_ok_press():
+    # Chirp
+    screens.play_key_tone()
+
     # Push local settings to CONFIG file
     push_light_settings()
 
-    screens.play_key_tone()
+    # Command the DCB with the new AUTO setting
+    commandLightsAuto()
 
+    # Go back to display the MAIN screen 
     screens.show_setup_main_screen()
 
 
 ###############################################################################
-# Creates the screen for tank light SETUP
+# Creates the screen for tank light SETUP/CONFIG
 ###############################################################################
 def create_setup_screen(frame):
     global setup_screen
@@ -175,7 +196,7 @@ def create_radio_buttons(frame):
     f3.grid(row=2, column=0, sticky='w')
 
     opt1_btn = tk.Button(f1)
-    opt1_btn.configure(relief="flat", command=opt1_select)
+    opt1_btn.configure(relief="flat", command=upon_opt1_select)
     opt1_lbl = tk.Label(f1)
     opt1_lbl.configure(font=MD_FONT, fg=SETUP_COLOR)
     opt1_lbl.configure(text="Tank lights normally off")
@@ -183,7 +204,7 @@ def create_radio_buttons(frame):
     opt1_lbl.grid(row=0, column=1, padx=10)
 
     opt2_btn = tk.Button(f2)
-    opt2_btn.configure(relief="flat", command=opt2_select)
+    opt2_btn.configure(relief="flat", command=upon_opt2_select)
     opt2_lbl = tk.Label(f2)
     opt2_lbl.configure(font=MD_FONT, fg=SETUP_COLOR)
     opt2_lbl.configure(text="Tank lights normally on")
@@ -191,7 +212,7 @@ def create_radio_buttons(frame):
     opt2_lbl.grid(row=0, column=1, padx=10)
 
     opt3_btn = tk.Button(f3)
-    opt3_btn.configure(relief="flat", command=opt3_select)
+    opt3_btn.configure(relief="flat", command=upon_opt3_select)
     opt3_lbl = tk.Label(f3)
     opt3_lbl.configure(font=MD_FONT, fg=SETUP_COLOR)
     opt3_lbl.configure(text="Tank lights on when room is dark")
@@ -209,13 +230,13 @@ def create_bottom_line(frame):
 
     b1 = tk.Button(this_frame)
     b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    b1.configure(command=on_ok_press)
+    b1.configure(command=upon_ok_press)
 
     l1 = tk.Label(this_frame)
 
     b2 = tk.Button(this_frame)
     b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    b2.configure(command=on_cancel_press)
+    b2.configure(command=upon_cancel_press)
 
     b1.grid(row=0, column=0, pady=10)
     l1.grid(row=0, column=1, padx=80)
@@ -225,6 +246,31 @@ def create_bottom_line(frame):
 
 
 
+
+
+###############################################################################
+# Shows the screen for tank light CONTROL
+###############################################################################
+def show_control_screen():
+    global control_screen
+    control_screen.tkraise()
+
+    # Command the DCB to turn the Tank Lights to ON
+    commandLightsOn()
+
+
+###############################################################################
+# Exits back to the CONTROL main screen
+###############################################################################
+def on_control_exit():
+    # Chirp
+    screens.play_key_tone()
+
+    # Command the DCB to turn the Tank Lights back to AUTO setting
+    commandLightsAuto()
+
+    # Go back to display the MAIN screen 
+    screens.show_control_main_screen()
 
 
 ##############################################################################
@@ -246,27 +292,6 @@ def create_control_screen(frame):
     bot_frm.grid(row=1, column=0, padx=40, pady=20)
 
     return control_screen
-
-
-###############################################################################
-# Shows the screen for tank light CONTROL
-###############################################################################
-def show_control_screen():
-    global control_screen
-    control_screen.tkraise()
-
-    dcb.sendTankLightCommand('On')
-
-
-###############################################################################
-# Exits back to the CONTROL main screen
-###############################################################################
-def on_control_exit():
-    screens.play_key_tone()
-
-    screens.show_control_main_screen()
-
-    dcb.sendTankLightCommand('Off')
 
 
 ###############################################################################
@@ -306,5 +331,17 @@ def create_control_bot_line(frame):
     b1.grid(row=2, column=0, pady=30)
 
     return this_frame
+
+
+###############################################################################
+###############################################################################
+def commandLightsOn():
+    dcb.sendTankLightCommand('On')
+
+
+###############################################################################
+###############################################################################
+def commandLightsAuto():
+    dcb.sendTankLightCommand('Auto')
 
 

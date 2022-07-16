@@ -45,10 +45,14 @@ def sendValveFlowCommand(control):
 ###############################################################################
 ###############################################################################
 def sendTankLightCommand(control):
-    if (control == 'On'):
-        cmd = ">SC: FFF2\n"
-    else:
+    if (control == 'Off'):
         cmd = ">SC: FFF1\n"
+    elif (control == 'On'):
+        cmd = ">SC: FFF2\n"
+    elif (control == 'Auto'):
+        cmd = ">SC: FFF3\n"
+    else:
+        cmd = ">SC: FFF3\n"
 
     rsp = scram.SendCommand(cmd)
 
