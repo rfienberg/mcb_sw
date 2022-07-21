@@ -12,7 +12,7 @@ import controlscreen
 import setupscreen
 import infoscreen
 
-import patient
+import newpatient
 import clock
 import alerts
 import audio
@@ -81,7 +81,7 @@ def show_control_main_screen():
 ###############################################################################
 ###############################################################################
 def show_set_patient_screen():
-    patient.show_setup_screen()
+    newpatient.show_setup_screen()
 
 
 ###############################################################################
@@ -206,7 +206,7 @@ def create_screens(window):
     s22 = engineering.create_info_screen(this_frame)
 
 
-    s13 = patient.create_setup_screen(this_frame)
+    s13 = newpatient.create_setup_screen(this_frame)
     s14 = audio.create_setup_screen(this_frame)
     s15 = alerts.create_setup_screen(this_frame)
     s16 = calibrate.create_setup_screen(this_frame)

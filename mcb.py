@@ -10,7 +10,7 @@ import telemetry
 import calibrate
 import audio
 import lights
-import patient
+import patientinfo
 
 MCB_VERSION = "0.1.00"
 
@@ -22,8 +22,8 @@ if __name__ == "__main__":
     # Log the startup event
     log_line = getDateTimeStamp() + "MCB started up!"
     print(log_line.rstrip())
-    patient.write_log_line("\n------------------------------------------")
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line("\n------------------------------------------")
+    patientinfo.write_log_line(log_line)
 
     # Start the CONFIG File parser
     mcb_config.startup()
@@ -43,17 +43,17 @@ if __name__ == "__main__":
     # Log the SCRAM startup results
     log_line = getDateTimeStamp() + scram_status
     print(log_line)
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line(log_line)
 
     # Log the SW version
     log_line = getDateTimeStamp() + "MCB Version=" + MCB_VERSION
     print(log_line)
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line(log_line)
 
     # Log the FW version
     log_line = getDateTimeStamp() + "DCB Version=" + dcb.getDcbFwVersionString()
     print(log_line)
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line(log_line)
 
     # Start the TELEMETRY logger thread
     telemetry.start_thread()
@@ -76,12 +76,12 @@ if __name__ == "__main__":
     offset = calibrate.getCalibrationOffset('Left')
     log_line = getDateTimeStamp() + "Left  Cal Offset = " + str(offset)
     print(log_line)
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line(log_line)
 
     offset = calibrate.getCalibrationOffset('Right')
     log_line = getDateTimeStamp() + "Right Cal Offset = " + str(offset)
     print(log_line)
-    patient.write_log_line(log_line)
+    patientinfo.write_log_line(log_line)
 
     # Start running the Graphical User Interface
     gui.mainloop()

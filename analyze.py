@@ -9,7 +9,7 @@ import flow
 import color
 import turbidity
 import alerts
-import patient
+import patientinfo
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
@@ -106,7 +106,7 @@ def runAnalyzeTask():
         log_line = log_line + " COLOR=" + color_text
         log_line = log_line + " TURBIDITY=" + turbid_text
         print(log_line)
-        patient.write_log_line(log_line)
+        patientinfo.write_log_line(log_line)
 
         # Update today's FLOW information
         flow.updateDailyFlows(my_sec)

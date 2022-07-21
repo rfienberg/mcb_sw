@@ -8,7 +8,7 @@ import telemetry
 import shutdown
 
 import mcb_config
-import patient
+import patientinfo
 import lights
 
 
@@ -117,7 +117,7 @@ def log_status_changes():
         StatusTankDoor = new_status
         log_line = getDateTimeStamp() + "Tank Door is now " + new_status
         print(log_line)
-        patient.write_log_line(log_line)
+        patientinfo.write_log_line(log_line)
 
     # Check for a STATUS change of the Analysis Cartridge
     new_status = telemetry.getInstalledStatus('Cart')
@@ -125,7 +125,7 @@ def log_status_changes():
         StatusCartridge = new_status
         log_line = getDateTimeStamp() + "Analysis Cartridge is now " + new_status
         print(log_line)
-        patient.write_log_line(log_line)
+        patientinfo.write_log_line(log_line)
 
     # Check for a STATUS change of the Left Tank
     new_status = telemetry.getInstalledStatus('Left')
@@ -133,7 +133,7 @@ def log_status_changes():
         StatusTankLeft = new_status
         log_line = getDateTimeStamp() + "Left Tank is now " + new_status
         print(log_line)
-        patient.write_log_line(log_line)
+        patientinfo.write_log_line(log_line)
 
     # Check for a STATUS change of the Right Tank
     new_status = telemetry.getInstalledStatus('Right')
@@ -141,7 +141,7 @@ def log_status_changes():
         StatusTankRight = new_status
         log_line = getDateTimeStamp() + "Right Tank is now " + new_status
         print(log_line)
-        patient.write_log_line(log_line)
+        patientinfo.write_log_line(log_line)
 
 
 ###############################################################################

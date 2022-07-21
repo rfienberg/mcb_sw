@@ -4,7 +4,7 @@ import screens
 import analyze
 import status
 import telemetry
-import patient
+import patientinfo
 
 ShutDownRequested = False
 
@@ -20,7 +20,7 @@ def requestShutdown():
     dts = getDateTimeStamp()
     shutdown_line = dts + "Shutting-down!"
     print(shutdown_line)
-    patient.write_log_line(shutdown_line)
+    patientinfo.write_log_line(shutdown_line)
 
     # Bring up the "Shutting Down" screen
     screens.show_shutting_down_screen()
