@@ -82,40 +82,40 @@ def create_bar(window):
 ###############################################################################
 ###############################################################################
 def update_bar():
-    door = telemetry.getSeatedStatus('Door')
-    ltank = telemetry.getSeatedStatus('Left')
-    rtank = telemetry.getSeatedStatus('Right')
-    cartridge = telemetry.getSeatedStatus('Cartridge')
+    door = telemetry.getTankDoorStatus()
+    ltank = telemetry.getInstalledStatus('Left')
+    rtank = telemetry.getInstalledStatus('Right')
+    cartridge = telemetry.getInstalledStatus('Cart')
     charger = telemetry.getBatteryPlugStatus()
 
     # Update the Tank Door status LED based on the latest data
-    if (door == "Seated"):
+    if (door == "Closed"):
         set_led_color(door_led, GOOD_COLOR)
-    elif (door == "Unseated"):
+    elif (door == "Opened"):
         set_led_color(door_led, BAD_COLOR)
     else:
         set_led_color(door_led, UNKNOWN_COLOR)
 
-    # Update the Left Tank Seated status LED based on the latest data
-    if (ltank == "Seated"):
+    # Update the Left Tank Installed status LED based on the latest data
+    if (ltank == "Installed"):
         set_led_color(ltank_led, GOOD_COLOR)
-    elif (ltank == "Unseated"):
+    elif (ltank == "Removed"):
         set_led_color(ltank_led, BAD_COLOR)
     else:
         set_led_color(ltank_led, UNKNOWN_COLOR)
 
-    # Update the Right Tank Seated status LED based on the latest data
-    if (rtank == "Seated"):
+    # Update the Right Tank Installed status LED based on the latest data
+    if (rtank == "Installed"):
         set_led_color(rtank_led, GOOD_COLOR)
-    elif (rtank == "Unseated"):
+    elif (rtank == "Removed"):
         set_led_color(rtank_led, BAD_COLOR)
     else:
         set_led_color(rtank_led, UNKNOWN_COLOR)
 
-    # Update the Cartridge Seated status LED based on the latest data
-    if (cartridge == "Seated"):
+    # Update the Cartridge Installed status LED based on the latest data
+    if (cartridge == "Installed"):
         set_led_color(cart_led, GOOD_COLOR)
-    elif (cartridge == "Unseated"):
+    elif (cartridge == "Removed"):
         set_led_color(cart_led, BAD_COLOR)
     else:
         set_led_color(cart_led, UNKNOWN_COLOR)

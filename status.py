@@ -8,6 +8,7 @@ import telemetry
 import shutdown
 
 import mcb_config
+import patient
 import lights
 
 
@@ -20,6 +21,12 @@ TANK_LIGHTS_CONFIG_ALS = '2'
 
 STATUS_SLEEP_TIME = 0.400
 Status1SecServiceTime = 0
+
+# Variables to keep the latest status of the break-the-beam sensors
+StatusTankDoor  = "Unknown"
+StatusCartridge = "Unknown"
+StatusTankLeft  = "Unknown"
+StatusTankRight = "Unknown"
 
 
 ###############################################################################
@@ -66,6 +73,9 @@ def run_one_second_service():
         # Send a periodic STATUS report to the DCB
         status_update_send_service()
 
+        # Check for changes in STATUS that should be logged
+        log_status_changes()
+
 
 ###############################################################################
 # Periodically build and send a STATUS UPDATE message to the DCB
@@ -94,6 +104,44 @@ def status_update_send_service():
     status_string = "".join(my_status)
     #printStatus(status_string)
     rsp = scram.SendCommand(status_string)
+
+
+###############################################################################
+###############################################################################
+def log_status_changes():
+    global StatusTankDoor, StatusCartridge, StatusTankLeft, StatusTankRight
+
+    # Check for a STATUS change of the Tank Door
+    new_status = telemetry.getTankDoorStatus()
+    if (new_status != StatusTankDoor):
+        StatusTankDoor = new_status
+        log_line = getDateTimeStamp() + "Tank Door is now " + new_status
+        print(log_line)
+        patient.write_log_line(log_line)
+
+    # Check for a STATUS change of the Analysis Cartridge
+    new_status = telemetry.getInstalledStatus('Cart')
+    if (new_status != StatusCartridge):
+        StatusCartridge = new_status
+        log_line = getDateTimeStamp() + "Analysis Cartridge is now " + new_status
+        print(log_line)
+        patient.write_log_line(log_line)
+
+    # Check for a STATUS change of the Left Tank
+    new_status = telemetry.getInstalledStatus('Left')
+    if (new_status != StatusTankLeft):
+        StatusTankLeft = new_status
+        log_line = getDateTimeStamp() + "Left Tank is now " + new_status
+        print(log_line)
+        patient.write_log_line(log_line)
+
+    # Check for a STATUS change of the Right Tank
+    new_status = telemetry.getInstalledStatus('Right')
+    if (new_status != StatusTankRight):
+        StatusTankRight = new_status
+        log_line = getDateTimeStamp() + "Right Tank is now " + new_status
+        print(log_line)
+        patient.write_log_line(log_line)
 
 
 ###############################################################################

@@ -73,7 +73,7 @@ def analyze_snapshot():
         cv.imwrite(SNAP_TURBID_IMG, cropped_image)
 
         blur_score = cv.Laplacian(cropped_image, cv.CV_64F).var()
-        print("Turbidity Score = %d" % blur_score)
+        #print("Turbidity Score = %d" % blur_score)
 
         if (blur_score <= CLOUDY_SCORE_THRESHOLD):
             TurbidRating = CLOUDY_RATING
@@ -294,6 +294,20 @@ def create_rating_arrow(frame):
     rating_arrow = (c1, t1, r1)
 
     return this_frame
+
+
+###############################################################################
+###############################################################################
+def getTurbidityRatingText(turbid_rating):
+    if (turbid_rating == CLEAR_RATING):
+        turb_text = "Clear"
+    elif (turbid_rating == PARTLY_RATING):
+        turb_text = "Partly"
+    elif (turbid_rating == CLOUDY_RATING):
+        turb_text = "Cloudy"
+    else:
+        turb_text = "Unknown"
+    return turb_text
 
 
 ###############################################################################

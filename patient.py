@@ -8,33 +8,6 @@ KEY_FONT = ('Calibri', 14)
 
 
 ###############################################################################
-# Creates the PATIENT setup screen
-###############################################################################
-def create_setup_screen(frame):
-    global this_screen, kb_lower, kb_upper
-
-    # Create the Frame for this screen
-    this_screen = tk.Frame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    # Create the Widgets for this screen
-    top_line = create_top_line(this_screen)
-    pat_name = create_patient_name(this_screen)
-    kb_upper = create_keyboard(this_screen, True)
-    kb_lower = create_keyboard(this_screen, False)
-    bot_line = create_bottom_line(this_screen)
-
-    # Place the Widgets into the Frame
-    top_line.grid(row=0, column=0, sticky='nw')
-    pat_name.grid(row=1, column=0, pady=10, sticky='w')
-    kb_upper.grid(row=2, column=0, pady=10)
-    kb_lower.grid(row=2, column=0, pady=10)
-    bot_line.grid(row=3, column=0, pady=10)
-
-    return this_screen
-
-
-###############################################################################
 # Shows the PATIENT setup screen
 ###############################################################################
 def show_setup_screen():
@@ -63,7 +36,7 @@ def show_keyboard(type):
 ###############################################################################
 # Handles the OK button press event
 ###############################################################################
-def on_ok_press():
+def upon_ok_press():
     # Chirp
     screens.play_key_tone()
 
@@ -87,14 +60,14 @@ def on_ok_press():
 ###############################################################################
 # Handles the CANCEL button press event
 ###############################################################################
-def on_cancel_press():
+def upon_cancel_press():
     screens.play_key_tone()
     screens.show_setup_main_screen()
 
 
 ###############################################################################
 ###############################################################################
-def on_key_press(key):
+def upon_key_press(key):
     global use_caps
 
     screens.play_key_tone()
@@ -120,15 +93,42 @@ def on_key_press(key):
 
 
 ###############################################################################
+# Creates the PATIENT setup screen
+###############################################################################
+def create_setup_screen(frame):
+    global this_screen, kb_lower, kb_upper
+
+    # Create the Frame for this screen
+    this_screen = tk.Frame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the Widgets for this screen
+    top_line = create_top_line(this_screen)
+    pat_name = create_patient_name(this_screen)
+    kb_upper = create_keyboard(this_screen, True)
+    kb_lower = create_keyboard(this_screen, False)
+    bot_line = create_bottom_line(this_screen)
+
+    # Place the Widgets into the Frame
+    top_line.grid(row=0, column=0, sticky='nw')
+    pat_name.grid(row=1, column=0, pady=10, sticky='w')
+    kb_upper.grid(row=2, column=0, pady=10)
+    kb_lower.grid(row=2, column=0, pady=10)
+    bot_line.grid(row=3, column=0, pady=10)
+
+    return this_screen
+
+
+###############################################################################
 ###############################################################################
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame)
-    title_label.configure(font=LG_FONT, fg=SETUP_COLOR)
-    title_label.configure(text="New Patient")
+    l1 = tk.Label(this_frame)
+    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
+    l1.configure(text="New Patient")
 
-    title_label.grid(row=0, column=0, padx=10)
+    l1.grid(row=0, column=0, padx=10)
 
     return this_frame
 
@@ -174,7 +174,7 @@ def create_keyboard(frame, uppercase=False):
         if (uppercase == True):
             key = key.upper()
 
-        command = lambda x=key: on_key_press(x)
+        command = lambda x=key: upon_key_press(x)
 
         my_relief = tk.RAISED
         my_bg = '#DAE3F3'
@@ -234,19 +234,19 @@ def create_keyboard(frame, uppercase=False):
 def create_bottom_line(frame):
     this_frame = tk.Frame(frame)
 
-    ok_button = tk.Button(this_frame)
-    ok_button.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    ok_button.configure(command=on_ok_press)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
+    b1.configure(command=upon_ok_press)
 
-    spacer_label = tk.Label(this_frame)
+    l1 = tk.Label(this_frame)
 
-    cancel_button = tk.Button(this_frame)
-    cancel_button.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    cancel_button.configure(command=on_cancel_press)
+    b2 = tk.Button(this_frame)
+    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
+    b2.configure(command=upon_cancel_press)
 
-    ok_button.grid(    row=0, column=0, pady=10)
-    spacer_label.grid( row=0, column=1, padx=80)
-    cancel_button.grid(row=0, column=2, pady=10)
+    b1.grid(row=0, column=0, pady=10)
+    l1.grid(row=0, column=1, padx=80)
+    b2.grid(row=0, column=2, pady=10)
 
     return this_frame
 
@@ -259,14 +259,15 @@ def get_patient_name():
     # Open (or create) the Patient Log File
     file = open_log_file("r")
 
-    # Read the top line (i.e. Patient's Name)
+    # Read the 1st line (i.e. Patient's Name)
     file.seek(0)
     line = file.readline()
     file.close()
 
-    # If the Patient's Name is successfully found...
-    if ('Patient:' in line):
-        name = (line.split(':')[1]).rstrip()
+    # If the 1st line is successfully found...
+    if ('Created' in line):
+        # Extract the patient's name string from the 1st line
+        name = (line.split(':')[4]).rstrip()
 
     # If the Patient's Name is not found...
     else:
@@ -279,9 +280,17 @@ def get_patient_name():
 # Creates a new Patient Log File for the specified name
 ###############################################################################
 def create_log_file(name):
-    print("Created new patient log file: " + PATIENT_FILE + " for " + name)
+    # Create the new patient log file
     file = open(PATIENT_FILE, "w")
-    file.write("Patient: " + name + "\n")
+
+    # Build the 1st log line
+    log_line = getDateTimeStamp()
+    log_line = log_line + "Created patient log file for: "
+    log_line = log_line + name
+    print(log_line)
+
+    # Write the 1st line and exit
+    file.write(log_line + "\n")
     file.close()
 
 
@@ -298,8 +307,8 @@ def open_log_file(mode="a"):
 ###############################################################################
 ###############################################################################
 def write_log_line(line):
-    file = open(PATIENT_FILE, "a")
-    file.write(line)
+    file = open_log_file("a")
+    file.write(line + "\n")
     file.close()
 
 

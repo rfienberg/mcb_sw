@@ -71,9 +71,9 @@ def wait_for_tanks_removed():
     global cal_screen
 
     if (RUN_ON_CM4):
-        if ((telemetry.getSeatedStatus("Left") == "Unseated") and 
-        (telemetry.getSeatedStatus("Right") == "Unseated") and 
-        (telemetry.getSeatedStatus("Door")  == "Seated")):
+        if ((telemetry.getTankDoorStatus()     == "Closed") and 
+        (telemetry.getInstalledStatus("Left")  == "Removed") and 
+        (telemetry.getInstalledStatus("Right") == "Removed")):
             start_button.configure(state='normal')
         else:
             cal_screen.after(200, wait_for_tanks_removed)
@@ -184,7 +184,7 @@ def create_cal_instructions(frame):
     f1 = tk.Frame(this_frame)
     f2 = tk.Frame(this_frame)
 
-    instr_msg = "In order to properly calibrate the device, \n first insure that both tanks are removed...\n\n Press Start when ready"
+    instr_msg = "In order to properly calibrate the device, \n first ensure that both tanks are removed...\n\n Press Start when ready"
 
     instr_text = tk.Label(f1)
     instr_text.configure(font=MD_FONT, fg=SETUP_COLOR)

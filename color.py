@@ -101,7 +101,7 @@ def analyze_snapshot():
 
         # Find the best match to one of our base colors
         ColorRating = getColorMatch(color)
-        print("Matched Color #" + str(ColorRating))
+        #print("Matched Color #" + str(ColorRating))
 
 
 ###############################################################################
@@ -123,7 +123,7 @@ def getDominantColor(rgb_img):
 
     # the cluster centers are our dominant colors.
     rgb_dom = kmeans.cluster_centers_.astype(int)
-    print(rgb_dom[0])
+    #print(rgb_dom[0])
 
     return rgb_dom[0]
 
@@ -358,7 +358,7 @@ def create_rating_arrow(frame):
 
 ###############################################################################
 ###############################################################################
-def populateRatingBox(rating_box, color_rating):
+def getColorRatingParams(color_rating):
     if (color_rating == 0):
         text_string = "Pink"
         text_color  = '#D22805'
@@ -399,6 +399,15 @@ def populateRatingBox(rating_box, color_rating):
         text_string = "Analyzing..."
         text_color  = ANALYZE_COLOR
         color_fill  = '#FFFFFF'
+
+    return (text_string, text_color, color_fill)
+
+
+###############################################################################
+###############################################################################
+def populateRatingBox(rating_box, color_rating):
+    # Get this Color Rating's corresponding parameters
+    (text_string, text_color, color_fill) = getColorRatingParams(color_rating)
 
     # Unpack the "rating_box" argument:
     canvas  = rating_box[0]

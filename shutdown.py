@@ -18,7 +18,8 @@ def requestShutdown():
 
     # Write this event into the log file
     dts = getDateTimeStamp()
-    shutdown_line = dts + "Shutting-down!\n"
+    shutdown_line = dts + "Shutting-down!"
+    print(shutdown_line)
     patient.write_log_line(shutdown_line)
 
     # Bring up the "Shutting Down" screen

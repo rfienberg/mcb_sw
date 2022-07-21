@@ -9,6 +9,7 @@ import flow
 import color
 import turbidity
 import alerts
+import patient
 
 if (RUN_ON_CM4):
     from picamera import PiCamera
@@ -62,12 +63,12 @@ def runAnalyzeTask():
         old_minute = new_minute
 
         # Snap a new FLOW sample for analyzing FLOW
-        printStatus("Computing FLOW...")
+        #printStatus("Computing FLOW...")
         my_flow = flow.getFlowSample()
-        print("Delta Flow = %d" % my_flow)
+        #print("Delta Flow = %d" % my_flow)
 
         # Snap a new COLOR sample for analyzing COLOR
-        printStatus("Computing COLOR...")
+        #printStatus("Computing COLOR...")
         color.start_analysis()
         if (RUN_ON_CM4):
             color.take_snapshot(camera)
@@ -76,7 +77,7 @@ def runAnalyzeTask():
         my_color = color.getColorRating()
 
         # Snap a new TURBIDITY sample for analyzing TURBIDITY
-        printStatus("Computing TURBIDITY...")
+        #printStatus("Computing TURBIDITY...")
         turbidity.start_analysis()
         if (RUN_ON_CM4):
             turbidity.take_snapshot(camera)
@@ -94,9 +95,18 @@ def runAnalyzeTask():
         alerts.testForFlowTooHigh(my_sec)
 
         # Record a new line into the ANALYZE log file
-        printStatus("Analysis cycle #%d complete!" % my_sec)
-        analyze_line = f"{my_sec}, {my_flow}, {hr_flow}, {my_color}, {my_turbidity}\n"
+        #printStatus("Analysis cycle #%d complete!" % my_sec)
+        analyze_line = f"{my_sec}, {my_flow}, {hr_flow}, {my_color}, {my_turbidity}"
         write_log_line(analyze_line)
+
+        # Record a new line into the PATIENT log file
+        (color_text,_,_) = color.getColorRatingParams(my_color)
+        turbid_text = turbidity.getTurbidityRatingText(my_turbidity)
+        log_line = getDateTimeStamp() + "FLOW=" + str(my_flow)
+        log_line = log_line + " COLOR=" + color_text
+        log_line = log_line + " TURBIDITY=" + turbid_text
+        print(log_line)
+        patient.write_log_line(log_line)
 
         # Update today's FLOW information
         flow.updateDailyFlows(my_sec)
@@ -123,9 +133,10 @@ def IsFlowAllowed():
 # Creates a new ANALYZE Log File for the specified patient name
 ###############################################################################
 def create_log_file(name):
-    print("Created new analyze log file: " + ANALYZE_FILE + " for " + name)
+    log_line = "Started ANALYZE Log for: " + name
+    print(log_line)
     file = open(ANALYZE_FILE, "w")
-    file.write("Started Analyze Log for: " + name + "\n")
+    file.write(log_line + "\n")
     file.close()
 
 
@@ -137,7 +148,7 @@ def write_log_line(line):
         create_log_file("UNKNOWN PATIENT")
 
     file = open(ANALYZE_FILE, 'a')
-    file.write(line)
+    file.write(line + "\n")
     file.close()
 
 

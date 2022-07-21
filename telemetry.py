@@ -65,6 +65,7 @@ def start_thread():
     y.start()
 
 
+
 ###############################################################################
 # Stops the TELEMETRY thread
 ###############################################################################
@@ -193,9 +194,28 @@ def getShutdownStatus():
 
 
 ###############################################################################
-# Returns the latest Seated Status string for the specified side
+# Returns the latest Opened/Closed Status string for the tank door
 ###############################################################################
-def getSeatedStatus(side):
+def getTankDoorStatus():
+    telem = getLatestTelemetry()
+
+    if (len(telem) == 0):
+        tds = 'F'
+    else:
+        tds = telem[TDS_IDX]
+
+    if (tds == '0'):
+        return "Opened"
+    elif (tds == '1'):
+        return "Closed"
+    else:
+        return "Unknown"
+
+
+###############################################################################
+# Returns the latest Installed Status string for the specified side
+###############################################################################
+def getInstalledStatus(side):
     telem = getLatestTelemetry()
 
     if (len(telem) == 0):
@@ -210,9 +230,9 @@ def getSeatedStatus(side):
         sss = telem[CSS_IDX]
 
     if (sss == '0'):
-        return "Unseated"
+        return "Removed"
     elif (sss == '1'):
-        return "Seated"
+        return "Installed"
     else:
         return "Unknown"
 

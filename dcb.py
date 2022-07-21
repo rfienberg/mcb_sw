@@ -10,6 +10,25 @@ import scram
 
 ###############################################################################
 ###############################################################################
+def getDcbFwVersionString():
+    version = ['0','.','0','.','0','0']
+
+    # Get the DCB version string
+    rsp = scram.SendCommand(">GV?\n")
+
+    # Expected response: <GV: 0100
+    if (len(rsp) >= 9):
+        version[0] = rsp[5]
+        version[2] = rsp[6]
+        version[4] = rsp[7]
+        version[5] = rsp[8]
+
+    # Return the version as a string
+    return ''.join(version)
+
+
+###############################################################################
+###############################################################################
 def sendBacklightCommand(pattern):
     if (pattern == 'white'):
         cmd = ">SC: F2FF\n"

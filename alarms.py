@@ -376,7 +376,6 @@ def isBatteryDepleted():
 def post_alarm_message(msg):
     global AlarmMessage
     AlarmMessage = msg
-    #print(msg)
 
 
 ###############################################################################
@@ -384,7 +383,6 @@ def post_alarm_message(msg):
 def post_alert_message(msg):
     global AlertMessage
     AlertMessage = msg
-    #print(msg)
 
 
 ###############################################################################
@@ -392,7 +390,6 @@ def post_alert_message(msg):
 def post_warning_message(msg):
     global WarningMessage
     WarningMessage = msg
-    #print(msg)
 
 
 ###############################################################################
