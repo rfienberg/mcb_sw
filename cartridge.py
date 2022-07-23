@@ -8,56 +8,58 @@ import dcb
 ###############################################################################
 ###############################################################################
 def show_control_screen():
-    global this_screen, unlock_msg
+    global this_screen, message1
 
     # Display the "Unlocking" message screen
-    unlock_msg.tkraise()
+    message1.tkraise()
     this_screen.tkraise()
 
     # Stop fluid flow (i.e. close all valves) to unlock cartridge
     dcb.sendValveFlowCommand("Stop")
 
     # Now display the "Ready" message screen
-    this_screen.after(1000, on_remove_ready)
+    this_screen.after(1000, upon_remove_ready)
 
 
 ###############################################################################
 ###############################################################################
-def on_remove_ready():
-    global ready_msg
-
+def upon_remove_ready():
     # Display the "Ready" message screen
-    ready_msg.tkraise()
+    global message2
+    message2.tkraise()
 
 
 ###############################################################################
 ###############################################################################
-def on_ok_press():
+def upon_ok_press():
+    # Chirp
     screens.play_key_tone()
-    screens.show_control_main_screen()
 
-    # Allow fluid flow again
+    # Allow fluid to flow again
     dcb.sendValveFlowCommand("Auto")
+
+    # Go back to the CONTROL main screen
+    screens.show_control_main_screen()
 
 
 ###############################################################################
 ###############################################################################
 def create_control_screen(frame):
-    global this_screen, unlock_msg, ready_msg
+    global this_screen, message1, message2
 
     # Create and place the Screen
     this_screen = tk.Frame(frame)
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets
-    top = create_top_line(this_screen)
-    unlock_msg = create_unlocking_widget(this_screen)
-    ready_msg = create_safe_widget(this_screen)
+    top_line = create_top_line(this_screen)
+    message1 = create_unlocking_message(this_screen)
+    message2 = create_completed_widget(this_screen)
 
     # Place the Widgets
-    top.grid(row=0, column=0, sticky='nw')
-    unlock_msg.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
-    ready_msg.grid( row=1, column=0, padx=40, pady=20, sticky='nsew')
+    top_line.grid(row=0, column=0, sticky='nw')
+    message1.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
+    message2.grid(row=1, column=0, padx=40, pady=20, sticky='nsew')
 
     return this_screen
 
@@ -77,7 +79,7 @@ def create_top_line(frame):
 
 ###############################################################################
 ###############################################################################
-def create_unlocking_widget(frame):
+def create_unlocking_message(frame):
     this_frame = tk.Frame(frame)
 
     l1 = tk.Label(this_frame)
@@ -90,21 +92,22 @@ def create_unlocking_widget(frame):
 
 ###############################################################################
 ###############################################################################
-def create_safe_widget(frame):
+def create_completed_widget(frame):
     this_frame = tk.Frame(frame)
 
     l1 = tk.Label(this_frame)
     l1.configure(font=MD_FONT, fg=CONTROL_COLOR)
     l1.configure(text="It is now safe to remove the Cartridge")
-    l1.grid(row=0, column=0, padx=20, pady=20, sticky='ew')
 
     l2 = tk.Label(this_frame)
     l2.configure(font=MD_FONT, fg=CONTROL_COLOR)
     l2.configure(text="Press OK when done...")
-    l2.grid(row=1, column=0, padx=20, sticky='ew')
 
     b1 = tk.Button(this_frame, image=screens.grn_ok_btn_icon, borderwidth=0)
-    b1.configure(command=on_ok_press)
+    b1.configure(command=upon_ok_press)
+
+    l1.grid(row=0, column=0, padx=20, pady=20, sticky='ew')
+    l2.grid(row=1, column=0, padx=20, sticky='ew')
     b1.grid(row=2, column=0, pady=30)
 
     return this_frame

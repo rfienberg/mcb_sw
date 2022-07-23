@@ -16,7 +16,7 @@ import newpatient
 import clock
 import alerts
 import audio
-import mcb_logging
+import lights
 import calibrate
 
 import flow
@@ -24,7 +24,7 @@ import color
 import turbidity
 
 import cartridge
-import lights
+import lightup
 
 import tankinfo
 import patientinfo
@@ -105,12 +105,6 @@ def show_set_audio_screen():
 
 ###############################################################################
 ###############################################################################
-def show_set_logging_screen():
-    mcb_logging.show_setup_screen()
-
-
-###############################################################################
-###############################################################################
 def show_set_lights_screen():
     lights.show_setup_screen()
 
@@ -148,7 +142,7 @@ def show_control_cartridge_screen():
 ###############################################################################
 ###############################################################################
 def show_control_lights_screen():
-    lights.show_control_screen()
+    lightup.show_control_screen()
 
 
 ###############################################################################
@@ -204,7 +198,7 @@ def create_screens(window):
     s7 = color.create_details_screen(this_frame)
     s8 = turbidity.create_details_screen(this_frame)
 
-    s9  = lights.create_control_screen(this_frame)
+    s9  = lightup.create_control_screen(this_frame)
     s10 = cartridge.create_control_screen(this_frame)
     s11 = shutdown.create_control_shutdown_screen(this_frame)
     s12 = shutdown.create_shutting_down_screen(this_frame)
@@ -218,9 +212,7 @@ def create_screens(window):
     s18 = alerts.create_setup_screen(this_frame)
     s19 = calibrate.create_setup_screen(this_frame)
     s20 = clock.create_setup_screen(this_frame)
-
-    s21 = mcb_logging.create_setup_screen(this_frame)
-    s22 = lights.create_setup_screen(this_frame)
+    s21 = lights.create_setup_screen(this_frame)
 
     # Initialize to raise the HOME Screen
     show_home_screen()
