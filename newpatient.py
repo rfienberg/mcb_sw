@@ -41,9 +41,9 @@ def upon_ok_press():
 
 
 ###############################################################################
-# Handles the CANCEL button press event
+# Handles the BACK button press event
 ###############################################################################
-def upon_cancel_press():
+def upon_back_press():
     # Chirp
     screens.play_key_tone()
 
@@ -101,7 +101,7 @@ def create_setup_screen(frame):
     pat_name.grid(row=1, column=0, pady=10, sticky='w')
     kb_upper.grid(row=2, column=0, pady=10)
     kb_lower.grid(row=2, column=0, pady=10)
-    bot_line.grid(row=3, column=0, pady=10)
+    bot_line.grid(row=3, column=0, padx=40, sticky='w')
 
     return this_screen
 
@@ -111,11 +111,16 @@ def create_setup_screen(frame):
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
     l1 = tk.Label(this_frame)
     l1.configure(font=LG_FONT, fg=SETUP_COLOR)
     l1.configure(text="New Patient")
 
-    l1.grid(row=0, column=0, padx=10)
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -241,16 +246,7 @@ def create_bottom_line(frame):
     b1 = tk.Button(this_frame)
     b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
     b1.configure(command=upon_ok_press)
-
-    l1 = tk.Label(this_frame)
-
-    b2 = tk.Button(this_frame)
-    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    b2.configure(command=upon_cancel_press)
-
-    b1.grid(row=0, column=0, pady=10)
-    l1.grid(row=0, column=1, padx=80)
-    b2.grid(row=0, column=2, pady=10)
+    b1.grid(row=0, column=0)
 
     return this_frame
 

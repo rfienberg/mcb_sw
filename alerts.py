@@ -25,6 +25,68 @@ FlowIsTooHigh = False
 
 ###############################################################################
 ###############################################################################
+def pull_alert_settings():
+    global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
+    global ConfigMinFlowVolume, ConfigMaxFlowVolume
+    global ConfigMinFlowHours, ConfigMaxFlowHours
+
+    # Pull the CONFIG settings from the INI file 
+    # and store them into local variables
+    ConfigMinFlowAlertEnabled = mcb_config.getMinFlowAlertEnabled()
+    ConfigMaxFlowAlertEnabled = mcb_config.getMaxFlowAlertEnabled()
+
+    ConfigMinFlowVolume = mcb_config.getMinFlowVolume()
+    ConfigMaxFlowVolume = mcb_config.getMaxFlowVolume()
+
+    ConfigMinFlowHours = mcb_config.getMinFlowHours()
+    ConfigMaxFlowHours = mcb_config.getMaxFlowHours()
+
+    # Populate the controls with these local variable values
+    min_flow_threshold.set(str(ConfigMinFlowVolume))
+    max_flow_threshold.set(str(ConfigMaxFlowVolume))
+    min_hours_threshold.set(str(ConfigMinFlowHours))
+    max_hours_threshold.set(str(ConfigMaxFlowHours))
+
+    if (ConfigMinFlowAlertEnabled):
+        min_enb.tkraise()
+    else:
+        min_dis.tkraise()
+
+    if (ConfigMaxFlowAlertEnabled):
+        max_enb.tkraise()
+    else:
+        max_dis.tkraise()
+
+
+###############################################################################
+###############################################################################
+def push_alert_settings():
+    global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
+    global ConfigMinFlowVolume, ConfigMaxFlowVolume
+    global ConfigMinFlowHours, ConfigMaxFlowHours
+
+    # Pull local variable values from the widgets
+    ConfigMinFlowVolume = int(min_flow_threshold.get())
+    ConfigMaxFlowVolume = int(max_flow_threshold.get())
+    ConfigMinFlowHours = int(min_hours_threshold.get())
+    ConfigMaxFlowHours = int(max_hours_threshold.get())
+
+    # Push local variable values into the INI file
+    mcb_config.setMinFlowAlertEnabled(ConfigMinFlowAlertEnabled)
+    mcb_config.setMaxFlowAlertEnabled(ConfigMaxFlowAlertEnabled)
+
+    mcb_config.setMinFlowVolume(ConfigMinFlowVolume)
+    mcb_config.setMaxFlowVolume(ConfigMaxFlowVolume)
+
+    mcb_config.setMinFlowHours(ConfigMinFlowHours)
+    mcb_config.setMaxFlowHours(ConfigMaxFlowHours)
+
+    # Write the new CONFIG values to the INI file
+    mcb_config.writeConfigSettings()
+
+
+###############################################################################
+###############################################################################
 def testForFlowTooLow(time_in_secs):
     global FlowIsTooLow
 
@@ -111,64 +173,26 @@ def show_setup_screen():
 
 ###############################################################################
 ###############################################################################
-def pull_alert_settings():
-    global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
-    global ConfigMinFlowVolume, ConfigMaxFlowVolume
-    global ConfigMinFlowHours, ConfigMaxFlowHours
+def upon_ok_press():
+    # Chirp
+    screens.play_key_tone()
 
-    # Pull the CONFIG settings from the INI file 
-    # and store them into local variables
-    ConfigMinFlowAlertEnabled = mcb_config.getMinFlowAlertEnabled()
-    ConfigMaxFlowAlertEnabled = mcb_config.getMaxFlowAlertEnabled()
+    # Push local settings to INI file
+    push_alert_settings()
 
-    ConfigMinFlowVolume = mcb_config.getMinFlowVolume()
-    ConfigMaxFlowVolume = mcb_config.getMaxFlowVolume()
-
-    ConfigMinFlowHours = mcb_config.getMinFlowHours()
-    ConfigMaxFlowHours = mcb_config.getMaxFlowHours()
-
-    # Populate the controls with these local variable values
-    min_flow_threshold.set(str(ConfigMinFlowVolume))
-    max_flow_threshold.set(str(ConfigMaxFlowVolume))
-    min_hours_threshold.set(str(ConfigMinFlowHours))
-    max_hours_threshold.set(str(ConfigMaxFlowHours))
-
-    if (ConfigMinFlowAlertEnabled):
-        min_enb.tkraise()
-    else:
-        min_dis.tkraise()
-
-    if (ConfigMaxFlowAlertEnabled):
-        max_enb.tkraise()
-    else:
-        max_dis.tkraise()
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
 ###############################################################################
-def push_alert_settings():
-    global ConfigMinFlowAlertEnabled, ConfigMaxFlowAlertEnabled
-    global ConfigMinFlowVolume, ConfigMaxFlowVolume
-    global ConfigMinFlowHours, ConfigMaxFlowHours
+def upon_back_press():
+    # Chirp
+    screens.play_key_tone()
 
-    # Pull local variable values from the widgets
-    ConfigMinFlowVolume = int(min_flow_threshold.get())
-    ConfigMaxFlowVolume = int(max_flow_threshold.get())
-    ConfigMinFlowHours = int(min_hours_threshold.get())
-    ConfigMaxFlowHours = int(max_hours_threshold.get())
+    # Pull the CONFIG file values into local settings
+    pull_alert_settings()
 
-    # Push local variable values into the INI file
-    mcb_config.setMinFlowAlertEnabled(ConfigMinFlowAlertEnabled)
-    mcb_config.setMaxFlowAlertEnabled(ConfigMaxFlowAlertEnabled)
-
-    mcb_config.setMinFlowVolume(ConfigMinFlowVolume)
-    mcb_config.setMaxFlowVolume(ConfigMaxFlowVolume)
-
-    mcb_config.setMinFlowHours(ConfigMinFlowHours)
-    mcb_config.setMaxFlowHours(ConfigMaxFlowHours)
-
-    # Write the new CONFIG values to the INI file
-    mcb_config.writeConfigSettings()
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
@@ -285,30 +309,6 @@ def dec_max_hours():
 
 ###############################################################################
 ###############################################################################
-def on_ok_press():
-    # Chirp
-    screens.play_key_tone()
-
-    # Push local settings to INI file
-    push_alert_settings()
-
-    screens.show_setup_main_screen()
-
-
-###############################################################################
-###############################################################################
-def on_cancel_press():
-    # Chirp
-    screens.play_key_tone()
-
-    # Pull the CONFIG file values into local settings
-    pull_alert_settings()
-
-    screens.show_setup_main_screen()
-
-
-###############################################################################
-###############################################################################
 def create_setup_screen(frame):
     global this_screen, min_dis, min_enb, max_dis, max_enb
 
@@ -322,12 +322,12 @@ def create_setup_screen(frame):
     max_enb  = create_max_alert_enabled_widget(this_screen)
     bot_line = create_bottom_line(this_screen)
 
-    top_line.grid(row=0, column=0, columnspan=10, sticky='nw')
-    min_dis.grid( row=1, column=0, padx=30, pady=10, sticky='ew')
-    min_enb.grid( row=1, column=0, padx=30, pady=10, sticky='ew')
-    max_dis.grid( row=2, column=0, padx=30, pady=10, sticky='ew')
-    max_enb.grid( row=2, column=0, padx=30, pady=10, sticky='ew')
-    bot_line.grid(row=3, column=0, columnspan=10, pady=20)
+    top_line.grid(row=0, column=0, columnspan=5, sticky='nw')
+    min_dis.grid( row=1, column=0, padx=40, pady=10, sticky='w')
+    min_enb.grid( row=1, column=0, padx=40, pady=10, sticky='w')
+    max_dis.grid( row=2, column=0, padx=40, pady=10, sticky='w')
+    max_enb.grid( row=2, column=0, padx=40, pady=10, sticky='w')
+    bot_line.grid(row=3, column=0, padx=40, pady=5, sticky='w')
 
     return this_screen
 
@@ -337,10 +337,16 @@ def create_setup_screen(frame):
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
     l1 = tk.Label(this_frame)
     l1.configure(font=LG_FONT, fg=SETUP_COLOR)
     l1.configure(text="Flow Alert Setup:")
-    l1.grid(row=0, column=0, padx=10)
+
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -610,17 +616,8 @@ def create_bottom_line(frame):
 
     b1 = tk.Button(this_frame)
     b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    b1.configure(command=on_ok_press)
-
-    sl = tk.Label(this_frame)
-
-    b2 = tk.Button(this_frame)
-    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    b2.configure(command=on_cancel_press)
-
-    b1.grid(row=0, column=0, pady=10)
-    sl.grid(row=0, column=1, padx=80)
-    b2.grid(row=0, column=2, pady=10)
+    b1.configure(command=upon_ok_press)
+    b1.grid(row=0, column=0)
 
     return this_frame
 

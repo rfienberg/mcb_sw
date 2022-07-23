@@ -2,7 +2,7 @@ from globals import *
 import threading
 import time
 import tkinter as tk
-import audio
+import tones
 import alerts
 import status
 import screens
@@ -146,11 +146,11 @@ def run_state_machine():
         AlarmTicks = AlarmTicks + 1
         if (mcb_config.getPlayAlarmTone()):
             if (AlarmTicks == 1):
-                audio.play_audio_tone(2500, 50)
+                tones.generate_tone(2500, 50)
             elif (AlarmTicks == (1 + (1 * ALARMING_TONE_TICKS))):
-                audio.play_audio_tone(2000, 50)
+                tones.generate_tone(2000, 50)
             elif (AlarmTicks == (1 + (2 * ALARMING_TONE_TICKS))):
-                audio.play_audio_tone(0)
+                tones.generate_tone(0)
             elif (AlarmTicks >= (1 + (2 * ALARMING_TONE_TICKS) + (ALARMING_GAP_TICKS))):
                 AlarmTicks = 0
 
@@ -161,11 +161,11 @@ def run_state_machine():
         # Run the ALERT tone
         AlarmTicks = AlarmTicks + 1
         if (AlarmTicks == 1):
-            audio.play_audio_tone(2500, 50)
+            tones.generate_tone(2500, 50)
         elif (AlarmTicks == (1 + (1 * ALERTING_TONE_TICKS))):
-            audio.play_audio_tone(2000, 50)
+            tones.generate_tone(2000, 50)
         elif (AlarmTicks == (1 + (2 * ALERTING_TONE_TICKS))):
-            audio.play_audio_tone(0)
+            tones.generate_tone(0)
         elif (AlarmTicks >= (1 + (2 * ALERTING_TONE_TICKS) + (ALERTING_GAP_TICKS))):
             AlarmTicks = 0
 
@@ -177,11 +177,11 @@ def run_state_machine():
         AlarmTicks = AlarmTicks + 1
         if (mcb_config.getPlayWarningTone()):
             if (AlarmTicks == 1):
-                audio.play_audio_tone(2500, 50)
+                tones.generate_tone(2500, 50)
             elif (AlarmTicks == (1 + (1 * WARNING_TONE_TICKS))):
-                audio.play_audio_tone(2000, 50)
+                tones.generate_tone(2000, 50)
             elif (AlarmTicks == (1 + (2 * WARNING_TONE_TICKS))):
-                audio.play_audio_tone(0)
+                tones.generate_tone(0)
             elif (AlarmTicks >= (1 + (2 * WARNING_TONE_TICKS) + (WARNING_GAP_TICKS))):
                 AlarmTicks = 0
 
@@ -202,7 +202,7 @@ def start_holdoff_period(secs):
     AlarmState = ALARM_STATE_HOLDOFF
 
     # Stop any alarm tones
-    audio.play_audio_tone(0)
+    tones.generate_tone(0)
 
 
 ###############################################################################

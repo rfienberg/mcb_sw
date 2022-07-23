@@ -1,4 +1,1004 @@
-Patient: John Smith
-2022-06-27 08:53:20: Shutting-down!
-2022-06-27 08:54:44: Shutting-down!
-2022-06-27 10:44:35: Shutting-down!
+2022-07-21 14:42:23: Created patient log file for: Ron Fienberg
+2022-07-21 14:42:28: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-21 14:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-21 14:44:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-21 14:45:21: MCB started up!
+2022-07-21 14:45:21: Error opening serial port
+2022-07-21 14:45:21: MCB Version=0.1.00
+2022-07-21 14:45:21: DCB Version=0.0.00
+2022-07-21 14:45:21: Left  Cal Offset = 100
+2022-07-21 14:45:21: Right Cal Offset = 100
+2022-07-21 14:45:22: Tank Door is now Opened
+2022-07-21 14:45:22: Analysis Cartridge is now Removed
+2022-07-21 14:45:22: Left Tank is now Removed
+2022-07-21 14:45:22: Right Tank is now Removed
+2022-07-21 14:45:57: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-21 14:47:38: MCB started up!
+2022-07-21 14:47:38: Error opening serial port
+2022-07-21 14:47:38: MCB Version=0.1.00
+2022-07-21 14:47:38: DCB Version=0.0.00
+2022-07-21 14:47:38: Left  Cal Offset = 100
+2022-07-21 14:47:38: Right Cal Offset = 100
+2022-07-21 14:47:40: Tank Door is now Opened
+2022-07-21 14:47:40: Analysis Cartridge is now Removed
+2022-07-21 14:47:40: Left Tank is now Removed
+2022-07-21 14:47:40: Right Tank is now Removed
+
+------------------------------------------
+2022-07-21 14:54:54: MCB started up!
+2022-07-21 14:54:54: Error opening serial port
+2022-07-21 14:54:54: MCB Version=0.1.00
+2022-07-21 14:54:54: DCB Version=0.0.00
+2022-07-21 14:54:54: Left  Cal Offset = 100
+2022-07-21 14:54:54: Right Cal Offset = 100
+2022-07-21 14:54:55: Tank Door is now Opened
+2022-07-21 14:54:55: Analysis Cartridge is now Removed
+2022-07-21 14:54:55: Left Tank is now Removed
+2022-07-21 14:54:55: Right Tank is now Removed
+
+------------------------------------------
+2022-07-21 15:08:15: MCB started up!
+2022-07-21 15:08:16: Error opening serial port
+2022-07-21 15:08:16: MCB Version=0.1.00
+2022-07-21 15:08:16: DCB Version=0.0.00
+2022-07-21 15:08:16: Left  Cal Offset = 100
+2022-07-21 15:08:16: Right Cal Offset = 100
+2022-07-21 15:08:17: Tank Door is now Opened
+2022-07-21 15:08:17: Analysis Cartridge is now Removed
+2022-07-21 15:08:17: Left Tank is now Removed
+2022-07-21 15:08:17: Right Tank is now Removed
+2022-07-21 15:08:51: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-21 15:09:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-21 15:10:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-21 15:11:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-21 15:11:30: MCB started up!
+2022-07-21 15:11:30: Error opening serial port
+2022-07-21 15:11:30: MCB Version=0.1.00
+2022-07-21 15:11:30: DCB Version=0.0.00
+2022-07-21 15:11:30: Left  Cal Offset = 100
+2022-07-21 15:11:30: Right Cal Offset = 100
+2022-07-21 15:11:31: Tank Door is now Opened
+2022-07-21 15:11:31: Analysis Cartridge is now Removed
+2022-07-21 15:11:31: Left Tank is now Removed
+2022-07-21 15:11:31: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:06:47: MCB started up!
+2022-07-23 10:06:48: Error opening serial port
+2022-07-23 10:06:48: MCB Version=0.1.00
+2022-07-23 10:06:48: DCB Version=0.0.00
+2022-07-23 10:06:48: Left  Cal Offset = 100
+2022-07-23 10:06:48: Right Cal Offset = 100
+2022-07-23 10:06:49: Tank Door is now Opened
+2022-07-23 10:06:49: Analysis Cartridge is now Removed
+2022-07-23 10:06:49: Left Tank is now Removed
+2022-07-23 10:06:49: Right Tank is now Removed
+2022-07-23 10:07:23: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:08:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:18:06: MCB started up!
+2022-07-23 10:18:07: Error opening serial port
+2022-07-23 10:18:07: MCB Version=0.1.00
+2022-07-23 10:18:07: DCB Version=0.0.00
+2022-07-23 10:18:07: Left  Cal Offset = 100
+2022-07-23 10:18:07: Right Cal Offset = 100
+2022-07-23 10:18:08: Tank Door is now Opened
+2022-07-23 10:18:08: Analysis Cartridge is now Removed
+2022-07-23 10:18:08: Left Tank is now Removed
+2022-07-23 10:18:08: Right Tank is now Removed
+2022-07-23 10:18:42: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:19:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:20:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:21:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:22:08: MCB started up!
+
+------------------------------------------
+2022-07-23 10:26:30: MCB started up!
+2022-07-23 10:26:30: Error opening serial port
+2022-07-23 10:26:30: MCB Version=0.1.00
+2022-07-23 10:26:30: DCB Version=0.0.00
+2022-07-23 10:26:30: Left  Cal Offset = 100
+2022-07-23 10:26:30: Right Cal Offset = 100
+2022-07-23 10:26:31: Tank Door is now Opened
+2022-07-23 10:26:31: Analysis Cartridge is now Removed
+2022-07-23 10:26:31: Left Tank is now Removed
+2022-07-23 10:26:31: Right Tank is now Removed
+2022-07-23 10:27:05: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:27:21: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:28:10: MCB started up!
+2022-07-23 10:28:10: Error opening serial port
+2022-07-23 10:28:10: MCB Version=0.1.00
+2022-07-23 10:28:10: DCB Version=0.0.00
+2022-07-23 10:28:10: Left  Cal Offset = 100
+2022-07-23 10:28:10: Right Cal Offset = 100
+2022-07-23 10:28:12: Tank Door is now Opened
+2022-07-23 10:28:12: Analysis Cartridge is now Removed
+2022-07-23 10:28:12: Left Tank is now Removed
+2022-07-23 10:28:12: Right Tank is now Removed
+2022-07-23 10:28:46: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:29:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:30:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:31:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:32:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:33:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:35:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:35:43: MCB started up!
+2022-07-23 10:35:43: Error opening serial port
+2022-07-23 10:35:43: MCB Version=0.1.00
+2022-07-23 10:35:43: DCB Version=0.0.00
+2022-07-23 10:35:43: Left  Cal Offset = 100
+2022-07-23 10:35:43: Right Cal Offset = 100
+2022-07-23 10:35:44: Tank Door is now Opened
+2022-07-23 10:35:44: Analysis Cartridge is now Removed
+2022-07-23 10:35:44: Left Tank is now Removed
+2022-07-23 10:35:44: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:36:35: MCB started up!
+2022-07-23 10:36:35: Error opening serial port
+2022-07-23 10:36:35: MCB Version=0.1.00
+2022-07-23 10:36:35: DCB Version=0.0.00
+2022-07-23 10:36:35: Left  Cal Offset = 100
+2022-07-23 10:36:35: Right Cal Offset = 100
+2022-07-23 10:36:36: Tank Door is now Opened
+2022-07-23 10:36:36: Analysis Cartridge is now Removed
+2022-07-23 10:36:36: Left Tank is now Removed
+2022-07-23 10:36:36: Right Tank is now Removed
+2022-07-23 10:37:10: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:37:26: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:38:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:39:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:41:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:42:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:44:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:45:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:46:03: MCB started up!
+2022-07-23 10:46:03: Error opening serial port
+2022-07-23 10:46:03: MCB Version=0.1.00
+2022-07-23 10:46:03: DCB Version=0.0.00
+2022-07-23 10:46:03: Left  Cal Offset = 100
+2022-07-23 10:46:03: Right Cal Offset = 100
+2022-07-23 10:46:05: Tank Door is now Opened
+2022-07-23 10:46:05: Analysis Cartridge is now Removed
+2022-07-23 10:46:05: Left Tank is now Removed
+2022-07-23 10:46:05: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:46:29: MCB started up!
+2022-07-23 10:46:30: Error opening serial port
+2022-07-23 10:46:30: MCB Version=0.1.00
+2022-07-23 10:46:30: DCB Version=0.0.00
+2022-07-23 10:46:30: Left  Cal Offset = 100
+2022-07-23 10:46:30: Right Cal Offset = 100
+2022-07-23 10:46:31: Tank Door is now Opened
+2022-07-23 10:46:31: Analysis Cartridge is now Removed
+2022-07-23 10:46:31: Left Tank is now Removed
+2022-07-23 10:46:31: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:47:08: MCB started up!
+2022-07-23 10:47:08: Error opening serial port
+2022-07-23 10:47:08: MCB Version=0.1.00
+2022-07-23 10:47:08: DCB Version=0.0.00
+2022-07-23 10:47:08: Left  Cal Offset = 100
+2022-07-23 10:47:08: Right Cal Offset = 100
+2022-07-23 10:47:09: Tank Door is now Opened
+2022-07-23 10:47:09: Analysis Cartridge is now Removed
+2022-07-23 10:47:09: Left Tank is now Removed
+2022-07-23 10:47:09: Right Tank is now Removed
+2022-07-23 10:47:43: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:48:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:48:44: MCB started up!
+2022-07-23 10:48:44: Error opening serial port
+2022-07-23 10:48:44: MCB Version=0.1.00
+2022-07-23 10:48:44: DCB Version=0.0.00
+2022-07-23 10:48:44: Left  Cal Offset = 100
+2022-07-23 10:48:44: Right Cal Offset = 100
+2022-07-23 10:48:45: Tank Door is now Opened
+2022-07-23 10:48:45: Analysis Cartridge is now Removed
+2022-07-23 10:48:45: Left Tank is now Removed
+2022-07-23 10:48:45: Right Tank is now Removed
+2022-07-23 10:49:19: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:50:24: MCB started up!
+2022-07-23 10:50:24: Error opening serial port
+2022-07-23 10:50:24: MCB Version=0.1.00
+2022-07-23 10:50:24: DCB Version=0.0.00
+2022-07-23 10:50:24: Left  Cal Offset = 100
+2022-07-23 10:50:24: Right Cal Offset = 100
+2022-07-23 10:50:26: Tank Door is now Opened
+2022-07-23 10:50:26: Analysis Cartridge is now Removed
+2022-07-23 10:50:26: Left Tank is now Removed
+2022-07-23 10:50:26: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:51:50: MCB started up!
+2022-07-23 10:51:51: Error opening serial port
+2022-07-23 10:51:51: MCB Version=0.1.00
+2022-07-23 10:51:51: DCB Version=0.0.00
+2022-07-23 10:51:51: Left  Cal Offset = 100
+2022-07-23 10:51:51: Right Cal Offset = 100
+2022-07-23 10:51:52: Tank Door is now Opened
+2022-07-23 10:51:52: Analysis Cartridge is now Removed
+2022-07-23 10:51:52: Left Tank is now Removed
+2022-07-23 10:51:52: Right Tank is now Removed
+2022-07-23 10:52:26: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:53:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:54:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:55:08: MCB started up!
+2022-07-23 10:55:09: Error opening serial port
+2022-07-23 10:55:09: MCB Version=0.1.00
+2022-07-23 10:55:09: DCB Version=0.0.00
+2022-07-23 10:55:09: Left  Cal Offset = 100
+2022-07-23 10:55:09: Right Cal Offset = 100
+2022-07-23 10:55:10: Tank Door is now Opened
+2022-07-23 10:55:10: Analysis Cartridge is now Removed
+2022-07-23 10:55:10: Left Tank is now Removed
+2022-07-23 10:55:10: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 10:55:40: MCB started up!
+2022-07-23 10:55:40: Error opening serial port
+2022-07-23 10:55:40: MCB Version=0.1.00
+2022-07-23 10:55:40: DCB Version=0.0.00
+2022-07-23 10:55:40: Left  Cal Offset = 100
+2022-07-23 10:55:40: Right Cal Offset = 100
+2022-07-23 10:55:42: Tank Door is now Opened
+2022-07-23 10:55:42: Analysis Cartridge is now Removed
+2022-07-23 10:55:42: Left Tank is now Removed
+2022-07-23 10:55:42: Right Tank is now Removed
+2022-07-23 10:56:16: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 10:56:30: MCB started up!
+2022-07-23 10:56:30: Error opening serial port
+2022-07-23 10:56:30: MCB Version=0.1.00
+2022-07-23 10:56:30: DCB Version=0.0.00
+2022-07-23 10:56:30: Left  Cal Offset = 100
+2022-07-23 10:56:30: Right Cal Offset = 100
+2022-07-23 10:56:31: Tank Door is now Opened
+2022-07-23 10:56:31: Analysis Cartridge is now Removed
+2022-07-23 10:56:31: Left Tank is now Removed
+2022-07-23 10:56:31: Right Tank is now Removed
+2022-07-23 10:57:05: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:57:20: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:58:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 10:59:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:00:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:01:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:02:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:03:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:04:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:05:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:06:04: MCB started up!
+2022-07-23 11:06:04: Error opening serial port
+2022-07-23 11:06:04: MCB Version=0.1.00
+2022-07-23 11:06:04: DCB Version=0.0.00
+2022-07-23 11:06:04: Left  Cal Offset = 100
+2022-07-23 11:06:04: Right Cal Offset = 100
+2022-07-23 11:06:06: Tank Door is now Opened
+2022-07-23 11:06:06: Analysis Cartridge is now Removed
+2022-07-23 11:06:06: Left Tank is now Removed
+2022-07-23 11:06:06: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 11:06:40: MCB started up!
+2022-07-23 11:06:41: Error opening serial port
+2022-07-23 11:06:41: MCB Version=0.1.00
+2022-07-23 11:06:41: DCB Version=0.0.00
+2022-07-23 11:06:41: Left  Cal Offset = 100
+2022-07-23 11:06:41: Right Cal Offset = 100
+2022-07-23 11:06:42: Tank Door is now Opened
+2022-07-23 11:06:42: Analysis Cartridge is now Removed
+2022-07-23 11:06:42: Left Tank is now Removed
+2022-07-23 11:06:42: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 11:07:39: MCB started up!
+2022-07-23 11:07:39: Error opening serial port
+2022-07-23 11:07:39: MCB Version=0.1.00
+2022-07-23 11:07:39: DCB Version=0.0.00
+2022-07-23 11:07:39: Left  Cal Offset = 100
+2022-07-23 11:07:39: Right Cal Offset = 100
+2022-07-23 11:07:40: Tank Door is now Opened
+2022-07-23 11:07:40: Analysis Cartridge is now Removed
+2022-07-23 11:07:40: Left Tank is now Removed
+2022-07-23 11:07:40: Right Tank is now Removed
+2022-07-23 11:08:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:09:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:10:04: MCB started up!
+2022-07-23 11:10:05: Error opening serial port
+2022-07-23 11:10:05: MCB Version=0.1.00
+2022-07-23 11:10:05: DCB Version=0.0.00
+2022-07-23 11:10:05: Left  Cal Offset = 100
+2022-07-23 11:10:05: Right Cal Offset = 100
+2022-07-23 11:10:06: Tank Door is now Opened
+2022-07-23 11:10:06: Analysis Cartridge is now Removed
+2022-07-23 11:10:06: Left Tank is now Removed
+2022-07-23 11:10:06: Right Tank is now Removed
+2022-07-23 11:10:40: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:11:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:12:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:12:19: MCB started up!
+2022-07-23 11:12:19: Error opening serial port
+2022-07-23 11:12:19: MCB Version=0.1.00
+2022-07-23 11:12:19: DCB Version=0.0.00
+2022-07-23 11:12:19: Left  Cal Offset = 100
+2022-07-23 11:12:19: Right Cal Offset = 100
+2022-07-23 11:12:20: Tank Door is now Opened
+2022-07-23 11:12:20: Analysis Cartridge is now Removed
+2022-07-23 11:12:20: Left Tank is now Removed
+2022-07-23 11:12:20: Right Tank is now Removed
+2022-07-23 11:12:54: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:13:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:14:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:14:33: MCB started up!
+2022-07-23 11:14:34: Error opening serial port
+2022-07-23 11:14:34: MCB Version=0.1.00
+2022-07-23 11:14:34: DCB Version=0.0.00
+2022-07-23 11:14:34: Left  Cal Offset = 100
+2022-07-23 11:14:34: Right Cal Offset = 100
+2022-07-23 11:14:35: Tank Door is now Opened
+2022-07-23 11:14:35: Analysis Cartridge is now Removed
+2022-07-23 11:14:35: Left Tank is now Removed
+2022-07-23 11:14:35: Right Tank is now Removed
+2022-07-23 11:15:09: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:15:24: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:15:52: MCB started up!
+2022-07-23 11:15:52: Error opening serial port
+2022-07-23 11:15:52: MCB Version=0.1.00
+2022-07-23 11:15:52: DCB Version=0.0.00
+2022-07-23 11:15:52: Left  Cal Offset = 100
+2022-07-23 11:15:52: Right Cal Offset = 100
+2022-07-23 11:15:53: Tank Door is now Opened
+2022-07-23 11:15:53: Analysis Cartridge is now Removed
+2022-07-23 11:15:53: Left Tank is now Removed
+2022-07-23 11:15:53: Right Tank is now Removed
+2022-07-23 11:16:28: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:17:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:18:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:19:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:20:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:21:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:22:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:23:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:24:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:25:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:26:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:27:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:28:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:29:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:30:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:31:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:31:42: Shutting-down!
+
+------------------------------------------
+2022-07-23 11:32:17: MCB started up!
+2022-07-23 11:32:18: Error opening serial port
+2022-07-23 11:32:18: MCB Version=0.1.00
+2022-07-23 11:32:18: DCB Version=0.0.00
+2022-07-23 11:32:18: Left  Cal Offset = 100
+2022-07-23 11:32:18: Right Cal Offset = 100
+2022-07-23 11:32:19: Tank Door is now Opened
+2022-07-23 11:32:19: Analysis Cartridge is now Removed
+2022-07-23 11:32:19: Left Tank is now Removed
+2022-07-23 11:32:19: Right Tank is now Removed
+2022-07-23 11:32:53: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:33:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:35:19: MCB started up!
+2022-07-23 11:35:19: Error opening serial port
+2022-07-23 11:35:19: MCB Version=0.1.00
+2022-07-23 11:35:19: DCB Version=0.0.00
+2022-07-23 11:35:19: Left  Cal Offset = 100
+2022-07-23 11:35:19: Right Cal Offset = 100
+2022-07-23 11:35:20: Tank Door is now Opened
+2022-07-23 11:35:20: Analysis Cartridge is now Removed
+2022-07-23 11:35:20: Left Tank is now Removed
+2022-07-23 11:35:20: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 11:35:55: MCB started up!
+2022-07-23 11:35:56: Error opening serial port
+2022-07-23 11:35:56: MCB Version=0.1.00
+2022-07-23 11:35:56: DCB Version=0.0.00
+2022-07-23 11:35:56: Left  Cal Offset = 100
+2022-07-23 11:35:56: Right Cal Offset = 100
+2022-07-23 11:35:57: Tank Door is now Opened
+2022-07-23 11:35:57: Analysis Cartridge is now Removed
+2022-07-23 11:35:57: Left Tank is now Removed
+2022-07-23 11:35:57: Right Tank is now Removed
+2022-07-23 11:36:31: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:37:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:38:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:39:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:41:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:42:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:43:36: MCB started up!
+
+------------------------------------------
+2022-07-23 11:44:04: MCB started up!
+2022-07-23 11:44:05: Error opening serial port
+2022-07-23 11:44:05: MCB Version=0.1.00
+2022-07-23 11:44:05: DCB Version=0.0.00
+2022-07-23 11:44:05: Left  Cal Offset = 100
+2022-07-23 11:44:05: Right Cal Offset = 100
+2022-07-23 11:44:06: Tank Door is now Opened
+2022-07-23 11:44:06: Analysis Cartridge is now Removed
+2022-07-23 11:44:06: Left Tank is now Removed
+2022-07-23 11:44:06: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 11:49:17: MCB started up!
+2022-07-23 11:49:18: Error opening serial port
+2022-07-23 11:49:18: MCB Version=0.1.00
+2022-07-23 11:49:18: DCB Version=0.0.00
+2022-07-23 11:49:18: Left  Cal Offset = 100
+2022-07-23 11:49:18: Right Cal Offset = 100
+2022-07-23 11:49:19: Tank Door is now Opened
+2022-07-23 11:49:19: Analysis Cartridge is now Removed
+2022-07-23 11:49:19: Left Tank is now Removed
+2022-07-23 11:49:19: Right Tank is now Removed
+2022-07-23 11:49:53: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:50:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:50:39: MCB started up!
+2022-07-23 11:50:40: Error opening serial port
+2022-07-23 11:50:40: MCB Version=0.1.00
+2022-07-23 11:50:40: DCB Version=0.0.00
+2022-07-23 11:50:40: Left  Cal Offset = 100
+2022-07-23 11:50:40: Right Cal Offset = 100
+2022-07-23 11:50:41: Tank Door is now Opened
+2022-07-23 11:50:41: Analysis Cartridge is now Removed
+2022-07-23 11:50:41: Left Tank is now Removed
+2022-07-23 11:50:41: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 11:52:36: MCB started up!
+2022-07-23 11:52:36: Error opening serial port
+2022-07-23 11:52:36: MCB Version=0.1.00
+2022-07-23 11:52:36: DCB Version=0.0.00
+2022-07-23 11:52:36: Left  Cal Offset = 100
+2022-07-23 11:52:36: Right Cal Offset = 100
+2022-07-23 11:52:37: Tank Door is now Opened
+2022-07-23 11:52:37: Analysis Cartridge is now Removed
+2022-07-23 11:52:37: Left Tank is now Removed
+2022-07-23 11:52:37: Right Tank is now Removed
+2022-07-23 11:53:11: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:53:26: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:54:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:55:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:56:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 11:56:48: MCB started up!
+2022-07-23 11:56:49: Error opening serial port
+2022-07-23 11:56:49: MCB Version=0.1.00
+2022-07-23 11:56:49: DCB Version=0.0.00
+2022-07-23 11:56:49: Left  Cal Offset = 100
+2022-07-23 11:56:49: Right Cal Offset = 100
+2022-07-23 11:56:50: Tank Door is now Opened
+2022-07-23 11:56:50: Analysis Cartridge is now Removed
+2022-07-23 11:56:50: Left Tank is now Removed
+2022-07-23 11:56:50: Right Tank is now Removed
+2022-07-23 11:57:24: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:58:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 11:59:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:00:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:01:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 12:02:04: MCB started up!
+2022-07-23 12:02:04: Error opening serial port
+2022-07-23 12:02:04: MCB Version=0.1.00
+2022-07-23 12:02:04: DCB Version=0.0.00
+2022-07-23 12:02:04: Left  Cal Offset = 100
+2022-07-23 12:02:04: Right Cal Offset = 100
+2022-07-23 12:02:05: Tank Door is now Opened
+2022-07-23 12:02:05: Analysis Cartridge is now Removed
+2022-07-23 12:02:05: Left Tank is now Removed
+2022-07-23 12:02:05: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 12:04:32: MCB started up!
+2022-07-23 12:04:33: Error opening serial port
+2022-07-23 12:04:33: MCB Version=0.1.00
+2022-07-23 12:04:33: DCB Version=0.0.00
+2022-07-23 12:04:33: Left  Cal Offset = 100
+2022-07-23 12:04:33: Right Cal Offset = 100
+2022-07-23 12:04:34: Tank Door is now Opened
+2022-07-23 12:04:34: Analysis Cartridge is now Removed
+2022-07-23 12:04:34: Left Tank is now Removed
+2022-07-23 12:04:34: Right Tank is now Removed
+2022-07-23 12:05:08: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:05:23: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:06:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:07:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:08:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:09:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:10:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:11:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:12:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:13:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:14:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:15:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:16:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:17:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:18:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:19:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:20:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:21:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:22:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:23:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:24:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:25:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:26:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:27:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:28:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:29:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:30:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:31:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:32:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:33:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:35:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:36:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:37:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:38:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:39:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:41:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:42:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:44:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:45:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:46:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:47:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:48:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:49:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:50:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:51:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:52:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:53:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:54:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:55:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:56:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:57:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:58:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 12:59:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:00:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:01:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:02:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:03:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:04:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:05:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:06:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:07:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:08:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:08:40: MCB started up!
+2022-07-23 13:08:41: Error opening serial port
+2022-07-23 13:08:41: MCB Version=0.1.00
+2022-07-23 13:08:41: DCB Version=0.0.00
+2022-07-23 13:08:41: Left  Cal Offset = 100
+2022-07-23 13:08:41: Right Cal Offset = 100
+2022-07-23 13:08:42: Tank Door is now Opened
+2022-07-23 13:08:42: Analysis Cartridge is now Removed
+2022-07-23 13:08:42: Left Tank is now Removed
+2022-07-23 13:08:42: Right Tank is now Removed
+2022-07-23 13:09:16: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:11:45: MCB started up!
+2022-07-23 13:11:45: Error opening serial port
+2022-07-23 13:11:45: MCB Version=0.1.00
+2022-07-23 13:11:45: DCB Version=0.0.00
+2022-07-23 13:11:45: Left  Cal Offset = 100
+2022-07-23 13:11:45: Right Cal Offset = 100
+2022-07-23 13:11:47: Tank Door is now Opened
+2022-07-23 13:11:47: Analysis Cartridge is now Removed
+2022-07-23 13:11:47: Left Tank is now Removed
+2022-07-23 13:11:47: Right Tank is now Removed
+2022-07-23 13:12:21: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:13:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:14:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:15:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:16:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:17:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:18:08: MCB started up!
+2022-07-23 13:18:09: Error opening serial port
+2022-07-23 13:18:09: MCB Version=0.1.00
+2022-07-23 13:18:09: DCB Version=0.0.00
+2022-07-23 13:18:09: Left  Cal Offset = 100
+2022-07-23 13:18:09: Right Cal Offset = 100
+2022-07-23 13:18:10: Tank Door is now Opened
+2022-07-23 13:18:10: Analysis Cartridge is now Removed
+2022-07-23 13:18:10: Left Tank is now Removed
+2022-07-23 13:18:10: Right Tank is now Removed
+2022-07-23 13:18:44: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:19:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:20:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:21:17: MCB started up!
+2022-07-23 13:21:18: Error opening serial port
+2022-07-23 13:21:18: MCB Version=0.1.00
+2022-07-23 13:21:18: DCB Version=0.0.00
+2022-07-23 13:21:18: Left  Cal Offset = 100
+2022-07-23 13:21:18: Right Cal Offset = 100
+2022-07-23 13:21:19: Tank Door is now Opened
+2022-07-23 13:21:19: Analysis Cartridge is now Removed
+2022-07-23 13:21:19: Left Tank is now Removed
+2022-07-23 13:21:19: Right Tank is now Removed
+2022-07-23 13:21:53: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:22:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:23:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:24:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:24:47: MCB started up!
+2022-07-23 13:24:48: Error opening serial port
+2022-07-23 13:24:48: MCB Version=0.1.00
+2022-07-23 13:24:48: DCB Version=0.0.00
+2022-07-23 13:24:48: Left  Cal Offset = 100
+2022-07-23 13:24:48: Right Cal Offset = 100
+2022-07-23 13:24:49: Tank Door is now Opened
+2022-07-23 13:24:49: Analysis Cartridge is now Removed
+2022-07-23 13:24:49: Left Tank is now Removed
+2022-07-23 13:24:49: Right Tank is now Removed
+2022-07-23 13:25:23: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:26:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:27:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:27:48: MCB started up!
+2022-07-23 13:27:49: Error opening serial port
+2022-07-23 13:27:49: MCB Version=0.1.00
+2022-07-23 13:27:49: DCB Version=0.0.00
+2022-07-23 13:27:49: Left  Cal Offset = 100
+2022-07-23 13:27:49: Right Cal Offset = 100
+2022-07-23 13:27:50: Tank Door is now Opened
+2022-07-23 13:27:50: Analysis Cartridge is now Removed
+2022-07-23 13:27:50: Left Tank is now Removed
+2022-07-23 13:27:50: Right Tank is now Removed
+2022-07-23 13:28:24: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 13:28:36: MCB started up!
+2022-07-23 13:28:36: Error opening serial port
+2022-07-23 13:28:36: MCB Version=0.1.00
+2022-07-23 13:28:36: DCB Version=0.0.00
+2022-07-23 13:28:36: Left  Cal Offset = 100
+2022-07-23 13:28:36: Right Cal Offset = 100
+2022-07-23 13:28:37: Tank Door is now Opened
+2022-07-23 13:28:37: Analysis Cartridge is now Removed
+2022-07-23 13:28:37: Left Tank is now Removed
+2022-07-23 13:28:37: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 13:29:29: MCB started up!
+2022-07-23 13:29:30: Error opening serial port
+2022-07-23 13:29:30: MCB Version=0.1.00
+2022-07-23 13:29:30: DCB Version=0.0.00
+2022-07-23 13:29:30: Left  Cal Offset = 100
+2022-07-23 13:29:30: Right Cal Offset = 100
+2022-07-23 13:29:31: Tank Door is now Opened
+2022-07-23 13:29:31: Analysis Cartridge is now Removed
+2022-07-23 13:29:31: Left Tank is now Removed
+2022-07-23 13:29:31: Right Tank is now Removed
+2022-07-23 13:30:05: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:30:20: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:31:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:32:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:33:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:35:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:36:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:37:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:38:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:39:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:41:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:42:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:44:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:45:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:46:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:47:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:48:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:49:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:50:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:51:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:52:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:53:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:54:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:55:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:56:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:57:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:58:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 13:59:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:00:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:01:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:02:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:03:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:04:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:05:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:06:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:07:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:08:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:09:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:10:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:11:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:12:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:13:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:14:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:15:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:16:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:17:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:18:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:19:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:20:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:21:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:22:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:23:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:24:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:25:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:26:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:27:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:28:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:29:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:30:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:31:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:32:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:33:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:35:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:36:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:37:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:38:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:39:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:41:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:42:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:44:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:45:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:46:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:47:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:48:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 14:49:03: MCB started up!
+
+------------------------------------------
+2022-07-23 14:49:30: MCB started up!
+
+------------------------------------------
+2022-07-23 14:50:41: MCB started up!
+2022-07-23 14:50:41: Error opening serial port
+2022-07-23 14:50:41: MCB Version=0.1.00
+2022-07-23 14:50:41: DCB Version=0.0.00
+2022-07-23 14:50:41: Left  Cal Offset = 100
+2022-07-23 14:50:41: Right Cal Offset = 100
+2022-07-23 14:50:42: Tank Door is now Opened
+2022-07-23 14:50:42: Analysis Cartridge is now Removed
+2022-07-23 14:50:42: Left Tank is now Removed
+2022-07-23 14:50:42: Right Tank is now Removed
+2022-07-23 14:51:16: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:52:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:53:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:54:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:55:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:56:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:57:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:58:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 14:59:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:00:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:01:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:02:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:03:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:04:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:05:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:06:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:07:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:07:30: MCB started up!
+
+------------------------------------------
+2022-07-23 15:08:47: MCB started up!
+2022-07-23 15:08:48: Error opening serial port
+2022-07-23 15:08:48: MCB Version=0.1.00
+2022-07-23 15:08:48: DCB Version=0.0.00
+2022-07-23 15:08:48: Left  Cal Offset = 100
+2022-07-23 15:08:48: Right Cal Offset = 100
+2022-07-23 15:08:49: Tank Door is now Opened
+2022-07-23 15:08:49: Analysis Cartridge is now Removed
+2022-07-23 15:08:49: Left Tank is now Removed
+2022-07-23 15:08:49: Right Tank is now Removed
+2022-07-23 15:09:23: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:10:15: MCB started up!
+2022-07-23 15:10:15: Error opening serial port
+2022-07-23 15:10:15: MCB Version=0.1.00
+2022-07-23 15:10:15: DCB Version=0.0.00
+2022-07-23 15:10:15: Left  Cal Offset = 100
+2022-07-23 15:10:15: Right Cal Offset = 100
+2022-07-23 15:10:17: Tank Door is now Opened
+2022-07-23 15:10:17: Analysis Cartridge is now Removed
+2022-07-23 15:10:17: Left Tank is now Removed
+2022-07-23 15:10:17: Right Tank is now Removed
+2022-07-23 15:10:51: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:11:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:12:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:13:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:14:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:15:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:16:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:17:03: MCB started up!
+2022-07-23 15:17:03: Error opening serial port
+2022-07-23 15:17:03: MCB Version=0.1.00
+2022-07-23 15:17:03: DCB Version=0.0.00
+2022-07-23 15:17:03: Left  Cal Offset = 100
+2022-07-23 15:17:03: Right Cal Offset = 100
+2022-07-23 15:17:05: Tank Door is now Opened
+2022-07-23 15:17:05: Analysis Cartridge is now Removed
+2022-07-23 15:17:05: Left Tank is now Removed
+2022-07-23 15:17:05: Right Tank is now Removed
+2022-07-23 15:17:39: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:18:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:19:00: MCB started up!
+2022-07-23 15:19:01: Error opening serial port
+2022-07-23 15:19:01: MCB Version=0.1.00
+2022-07-23 15:19:01: DCB Version=0.0.00
+2022-07-23 15:19:01: Left  Cal Offset = 100
+2022-07-23 15:19:01: Right Cal Offset = 100
+2022-07-23 15:19:02: Tank Door is now Opened
+2022-07-23 15:19:02: Analysis Cartridge is now Removed
+2022-07-23 15:19:02: Left Tank is now Removed
+2022-07-23 15:19:02: Right Tank is now Removed
+
+------------------------------------------
+2022-07-23 15:19:59: MCB started up!
+2022-07-23 15:19:59: Error opening serial port
+2022-07-23 15:19:59: MCB Version=0.1.00
+2022-07-23 15:19:59: DCB Version=0.0.00
+2022-07-23 15:19:59: Left  Cal Offset = 100
+2022-07-23 15:19:59: Right Cal Offset = 100
+2022-07-23 15:20:00: Tank Door is now Opened
+2022-07-23 15:20:00: Analysis Cartridge is now Removed
+2022-07-23 15:20:00: Left Tank is now Removed
+2022-07-23 15:20:00: Right Tank is now Removed
+2022-07-23 15:20:34: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:21:17: MCB started up!
+2022-07-23 15:21:18: Error opening serial port
+2022-07-23 15:21:18: MCB Version=0.1.00
+2022-07-23 15:21:18: DCB Version=0.0.00
+2022-07-23 15:21:18: Left  Cal Offset = 100
+2022-07-23 15:21:18: Right Cal Offset = 100
+2022-07-23 15:21:19: Tank Door is now Opened
+2022-07-23 15:21:19: Analysis Cartridge is now Removed
+2022-07-23 15:21:19: Left Tank is now Removed
+2022-07-23 15:21:19: Right Tank is now Removed
+2022-07-23 15:21:53: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:22:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:23:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:24:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:25:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:26:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:27:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:28:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:29:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:30:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:31:17: MCB started up!
+2022-07-23 15:31:17: Error opening serial port
+2022-07-23 15:31:17: MCB Version=0.1.00
+2022-07-23 15:31:17: DCB Version=0.0.00
+2022-07-23 15:31:17: Left  Cal Offset = 100
+2022-07-23 15:31:17: Right Cal Offset = 100
+2022-07-23 15:31:18: Tank Door is now Opened
+2022-07-23 15:31:18: Analysis Cartridge is now Removed
+2022-07-23 15:31:18: Left Tank is now Removed
+2022-07-23 15:31:18: Right Tank is now Removed
+2022-07-23 15:31:52: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:32:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:33:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:34:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:35:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:36:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:37:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:38:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:38:25: MCB started up!
+2022-07-23 15:38:25: Error opening serial port
+2022-07-23 15:38:25: MCB Version=0.1.00
+2022-07-23 15:38:25: DCB Version=0.0.00
+2022-07-23 15:38:25: Left  Cal Offset = 100
+2022-07-23 15:38:25: Right Cal Offset = 100
+2022-07-23 15:38:26: Tank Door is now Opened
+2022-07-23 15:38:26: Analysis Cartridge is now Removed
+2022-07-23 15:38:26: Left Tank is now Removed
+2022-07-23 15:38:26: Right Tank is now Removed
+2022-07-23 15:39:00: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:39:16: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:40:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:41:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:42:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:43:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:44:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:45:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:46:14: FLOW=0 COLOR=Amber TURBIDITY=Clear
+
+------------------------------------------
+2022-07-23 15:47:10: MCB started up!
+
+------------------------------------------
+2022-07-23 15:48:55: MCB started up!
+
+------------------------------------------
+2022-07-23 15:52:05: MCB started up!
+2022-07-23 15:52:06: Error opening serial port
+2022-07-23 15:52:06: MCB Version=0.1.00
+2022-07-23 15:52:06: DCB Version=0.0.00
+2022-07-23 15:52:06: Left  Cal Offset = 100
+2022-07-23 15:52:06: Right Cal Offset = 100
+2022-07-23 15:52:07: Tank Door is now Opened
+2022-07-23 15:52:07: Analysis Cartridge is now Removed
+2022-07-23 15:52:07: Left Tank is now Removed
+2022-07-23 15:52:07: Right Tank is now Removed
+2022-07-23 15:52:41: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:53:15: FLOW=0 COLOR=Amber TURBIDITY=Clear
+2022-07-23 15:54:14: FLOW=0 COLOR=Amber TURBIDITY=Clear

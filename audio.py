@@ -1,71 +1,37 @@
 from globals import *
 import tkinter as tk
+
 import screens
 import time
 import mcb_config
-if (RUN_ON_CM4):
-    import RPi.GPIO as GPIO
-
-AUDIO_PWM_PIN = 12
 
 # Temporary Audio Settings
 ConfigKeyPressToneEnabled = True
 ConfigWarningToneEnabled = True
 ConfigAlarmToneEnabled = True
 
-AudioTone = None
+
+###############################################################################
+###############################################################################
+def pull_audio_settings():
+    global ConfigKeyPressToneEnabled, ConfigWarningToneEnabled, ConfigAlarmToneEnabled
+
+    ConfigKeyPressToneEnabled = mcb_config.getPlayKeyPressTone()
+    ConfigWarningToneEnabled  = mcb_config.getPlayWarningTone()
+    ConfigAlarmToneEnabled    = mcb_config.getPlayAlarmTone()
 
 
 ###############################################################################
 ###############################################################################
-def startup():
-    global AudioTone
+def push_audio_settings():
+    global ConfigKeyPressToneEnabled, ConfigWarningToneEnabled, ConfigAlarmToneEnabled
 
-    if (RUN_ON_CM4):
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(AUDIO_PWM_PIN, GPIO.OUT)
-        AudioTone = GPIO.PWM(AUDIO_PWM_PIN, 2500)
-    else:
-        pass
+    mcb_config.setPlayKeyPressTone(ConfigKeyPressToneEnabled)
+    mcb_config.setPlayWarningTone(ConfigWarningToneEnabled)
+    mcb_config.setPlayAlarmTone(ConfigAlarmToneEnabled)
 
-
-###############################################################################
-###############################################################################
-def play_audio_tone(freq, duty=50):
-    global AudioTone
-
-    if (RUN_ON_CM4):
-        # Start/Stop the PWM at the specified duty cycle
-        if (freq == 0):
-            AudioTone.stop()
-        else:
-            AudioTone.ChangeFrequency(freq)
-            AudioTone.start(duty)
-    else:
-        pass
-
-
-###############################################################################
-###############################################################################
-def create_setup_screen(frame):
-    global this_screen
-
-    # Create and place this Screen
-    this_screen = tk.Frame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    # Create the screen Widgets
-    top_frm = create_top_line(this_screen)
-    mid_frm = create_checkboxes(this_screen)
-    bot_frm = create_bottom_line(this_screen)
-
-    # Place the Widgets onto the screen
-    top_frm.grid(row=0, column=0, sticky='nw')
-    mid_frm.grid(row=1, column=0, padx=40, pady=30, sticky='w')
-    bot_frm.grid(row=2, column=0, padx=40, pady=30, sticky='w')
-
-    return this_screen
+    # Write the new CONFIG values to file
+    mcb_config.writeConfigSettings()
 
 
 ###############################################################################
@@ -84,7 +50,7 @@ def show_setup_screen():
 
 ###############################################################################
 ###############################################################################
-def on_cancel_press():
+def upon_back_press():
     # Chirp
     screens.play_key_tone()
 
@@ -96,7 +62,7 @@ def on_cancel_press():
 
 ###############################################################################
 ###############################################################################
-def on_ok_press():
+def upon_ok_press():
     # Chirp
     screens.play_key_tone()
 
@@ -177,13 +143,41 @@ def update_checkboxes():
 
 ###############################################################################
 ###############################################################################
+def create_setup_screen(frame):
+    global this_screen
+
+    # Create and place this Screen
+    this_screen = tk.Frame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the screen Widgets
+    top_line = create_top_line(this_screen)
+    mid_line = create_checkboxes(this_screen)
+    bot_line = create_bottom_line(this_screen)
+
+    # Place the Widgets onto the screen
+    top_line.grid(row=0, column=0, sticky='nw')
+    mid_line.grid(row=1, column=0, padx=40, pady=20, sticky='w')
+    bot_line.grid(row=3, column=0, padx=40, sticky='w')
+
+    return this_screen
+
+
+###############################################################################
+###############################################################################
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame)
-    title_label.configure(font=LG_FONT, fg=SETUP_COLOR)
-    title_label.configure(text="Audio Settings:")
-    title_label.grid(row=0, column=0, padx=10)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
+    l1 = tk.Label(this_frame)
+    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
+    l1.configure(text="Audio Settings")
+
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -234,43 +228,11 @@ def create_checkboxes(frame):
 def create_bottom_line(frame):
     this_frame = tk.Frame(frame)
 
-    ok_button = tk.Button(this_frame)
-    ok_button.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    ok_button.configure(command=on_ok_press)
-
-    spacer_label = tk.Label(this_frame)
-
-    cancel_button = tk.Button(this_frame)
-    cancel_button.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    cancel_button.configure(command=on_cancel_press)
-
-    ok_button.grid(    row=0, column=0, pady=10)
-    spacer_label.grid( row=0, column=1, padx=80)
-    cancel_button.grid(row=0, column=2, pady=10)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
+    b1.configure(command=upon_ok_press)
+    b1.grid(row=0, column=0)
 
     return this_frame
-
-
-###############################################################################
-###############################################################################
-def pull_audio_settings():
-    global ConfigKeyPressToneEnabled, ConfigWarningToneEnabled, ConfigAlarmToneEnabled
-
-    ConfigKeyPressToneEnabled = mcb_config.getPlayKeyPressTone()
-    ConfigWarningToneEnabled  = mcb_config.getPlayWarningTone()
-    ConfigAlarmToneEnabled    = mcb_config.getPlayAlarmTone()
-
-
-###############################################################################
-###############################################################################
-def push_audio_settings():
-    global ConfigKeyPressToneEnabled, ConfigWarningToneEnabled, ConfigAlarmToneEnabled
-
-    mcb_config.setPlayKeyPressTone(ConfigKeyPressToneEnabled)
-    mcb_config.setPlayWarningTone(ConfigWarningToneEnabled)
-    mcb_config.setPlayAlarmTone(ConfigAlarmToneEnabled)
-
-    # Write the new CONFIG values to file
-    mcb_config.writeConfigSettings()
 
 

@@ -3,6 +3,8 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import time
 
+import tones
+
 import mcb_config
 
 import homescreen
@@ -38,9 +40,9 @@ import shutdown
 ###############################################################################
 def play_key_tone():
     if (mcb_config.getPlayKeyPressTone()):
-        audio.play_audio_tone(2500, 25)
+        tones.generate_tone(2500, 25)
         time.sleep(.100)
-        audio.play_audio_tone(0)
+        tones.generate_tone(0)
 
 
 ###############################################################################

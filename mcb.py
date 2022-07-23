@@ -3,6 +3,7 @@ import mcb_config
 import dcb
 import gui
 import scram
+import tones
 import status
 import alarms
 import analyze
@@ -19,6 +20,9 @@ MCB_VERSION = "0.1.00"
 # This is the main process of our MCB application
 ###############################################################################
 if __name__ == "__main__":
+    # Initialize the TONES interface
+    tones.initialize()
+
     # Log the startup event
     log_line = getDateTimeStamp() + "MCB started up!"
     print(log_line.rstrip())
@@ -27,9 +31,6 @@ if __name__ == "__main__":
 
     # Start the CONFIG File parser
     mcb_config.startup()
-
-    # Start up the AUDIO interface
-    audio.startup()
 
     # Start up the Graphical User Interface
     gui.startup()

@@ -1,9 +1,5 @@
 ###############################################################################
-# This module supports the TANK LIGHTS - both their manual control aspacts 
-# and their automatic control aspects.
-#
-# The TANK LIGHTS can be commanded to go either: 
-#     OFF, ON, or AUTO 
+# This module supports the TANK LIGHTS automatic configuration settings.
 # The AUTO option can be configured, by the USER to either: 
 #     OFF, ON, or ALS (controlled by ambient light sensor)
 ###############################################################################
@@ -66,9 +62,9 @@ def show_setup_screen():
 
 
 ###############################################################################
-# Handles a press of the CANCEL button
+# Handles a press of the BACK button
 ###############################################################################
-def upon_cancel_press():
+def upon_back_press():
     # Chirp
     screens.play_key_tone()
 
@@ -163,14 +159,14 @@ def create_setup_screen(frame):
     setup_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the screen Widgets
-    top_frm = create_setup_top_line(setup_screen)
-    mid_frm = create_radio_buttons(setup_screen)
-    bot_frm = create_bottom_line(setup_screen)
+    top_line = create_top_line(setup_screen)
+    mid_line = create_radio_buttons(setup_screen)
+    bot_line = create_bottom_line(setup_screen)
 
     # Place the Widgets onto the screen
-    top_frm.grid(row=0, column=0, sticky='nw')
-    mid_frm.grid(row=1, column=0, padx=40, pady=30, sticky='w')
-    bot_frm.grid(row=2, column=0, padx=40, pady=30, sticky='w')
+    top_line.grid(row=0, column=0, sticky='nw')
+    mid_line.grid(row=1, column=0, padx=40, pady=20, sticky='w')
+    bot_line.grid(row=2, column=0, padx=40, sticky='w')
 
     # Update the radio buttons based on the local settings
     update_radio_buttons()
@@ -179,15 +175,20 @@ def create_setup_screen(frame):
 
 
 ###############################################################################
-# Creates the tank light SETUP screen top line
 ###############################################################################
-def create_setup_top_line(frame):
+def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    title_label = tk.Label(this_frame)
-    title_label.configure(font=LG_FONT, fg=SETUP_COLOR)
-    title_label.configure(text="Tank Light Settings:")
-    title_label.grid(row=0, column=0, padx=10)
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
+    l1 = tk.Label(this_frame)
+    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
+    l1.configure(text="Tank Light Settings:")
+
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -243,16 +244,7 @@ def create_bottom_line(frame):
     b1 = tk.Button(this_frame)
     b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
     b1.configure(command=upon_ok_press)
-
-    l1 = tk.Label(this_frame)
-
-    b2 = tk.Button(this_frame)
-    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    b2.configure(command=upon_cancel_press)
-
-    b1.grid(row=0, column=0, pady=10)
-    l1.grid(row=0, column=1, padx=80)
-    b2.grid(row=0, column=2, pady=10)
+    b1.grid(row=0, column=0)
 
     return this_frame
 

@@ -13,6 +13,7 @@ ADJ_FONT = ('Calibri', 22)
 def show_setup_screen():
     global this_screen
 
+    # Pull the current date/time from the RTC
     now = datetime.datetime.now()
     new_hour.set(now.strftime("%I"))
     new_minute.set(now.strftime("%M"))
@@ -22,6 +23,26 @@ def show_setup_screen():
     new_year.set(now.strftime("%y"))
 
     this_screen.tkraise()
+
+
+###############################################################################
+###############################################################################
+def upon_ok_press():
+    # Chirp
+    screens.play_key_tone()
+
+    # Go back to the main SETUP screen
+    screens.show_setup_main_screen()
+
+
+###############################################################################
+###############################################################################
+def upon_back_press():
+    # Chirp
+    screens.play_key_tone()
+
+    # Go back to the main SETUP screen
+    screens.show_setup_main_screen()
 
 
 ###############################################################################
@@ -142,20 +163,6 @@ def dec_years():
 
 ###############################################################################
 ###############################################################################
-def on_ok_press():
-    screens.play_key_tone()
-    screens.show_setup_main_screen()
-
-
-###############################################################################
-###############################################################################
-def on_cancel_press():
-    screens.play_key_tone()
-    screens.show_setup_main_screen()
-
-
-###############################################################################
-###############################################################################
 def create_setup_screen(frame):
     global this_screen
 
@@ -170,10 +177,10 @@ def create_setup_screen(frame):
     bot_line = create_bottom_line(this_screen)
 
     # Place the Widgets into the Frame
-    top_line.grid(row=0, column=0, columnspan=10, sticky='nw')
-    time_adj.grid(row=1, column=0, padx=40, pady=10, sticky='ew')
-    date_adj.grid(row=2, column=0, padx=40, pady=10, sticky='ew')
-    bot_line.grid(row=3, column=0, pady=20)
+    top_line.grid(row=0, column=0, columnspan=5, sticky='nw')
+    time_adj.grid(row=1, column=0, padx=40, pady=15, sticky='w')
+    date_adj.grid(row=2, column=0, padx=40, pady=15, sticky='w')
+    bot_line.grid(row=3, column=0, padx=40, sticky='w')
 
     return this_screen
 
@@ -183,9 +190,16 @@ def create_setup_screen(frame):
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
     l1 = tk.Label(this_frame)
-    l1.configure(text="Set Time/Date:", font=LG_FONT, fg=SETUP_COLOR)
-    l1.grid(row=0, column=0, padx=10)
+    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
+    l1.configure(text="Set Time/Date:")
+
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -230,28 +244,6 @@ def create_date_adjuster(window):
     a2.grid(row=0, column=2, padx=5)
     a3.grid(row=0, column=3, padx=5)
     sl.grid(row=0, column=4, padx=10)
-
-    return this_frame
-
-
-###############################################################################
-###############################################################################
-def create_bottom_line(frame):
-    this_frame = tk.Frame(frame)
-
-    b1 = tk.Button(this_frame)
-    b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
-    b1.configure(command=on_ok_press)
-
-    sl = tk.Label(this_frame)
-
-    b2 = tk.Button(this_frame)
-    b2.configure(image=screens.blu_cancel_btn_icon, borderwidth=0)
-    b2.configure(command=on_cancel_press)
-
-    b1.grid(    row=0, column=0, pady=10)
-    sl.grid( row=0, column=1, padx=80)
-    b2.grid(row=0, column=2, pady=10)
 
     return this_frame
 
@@ -462,6 +454,19 @@ def create_year_adjuster(window):
     b2.configure(command=dec_years)
     b1.grid(row=0, column=0)
     b2.grid(row=1, column=0)
+
+    return this_frame
+
+
+###############################################################################
+###############################################################################
+def create_bottom_line(frame):
+    this_frame = tk.Frame(frame)
+
+    b1 = tk.Button(this_frame)
+    b1.configure(image=screens.blu_ok_btn_icon, borderwidth=0)
+    b1.configure(command=upon_ok_press)
+    b1.grid(row=0, column=0)
 
     return this_frame
 
