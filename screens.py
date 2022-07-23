@@ -26,7 +26,8 @@ import turbidity
 import cartridge
 import lights
 
-import tanks
+import tankinfo
+import patientinfo
 import engineering
 
 import shutdown
@@ -158,14 +159,20 @@ def show_verify_shutdown_screen():
 
 ###############################################################################
 ###############################################################################
-def show_tank_status_screen():
-    tanks.show_status_screen()
+def show_tank_info_screen():
+    tankinfo.show_info_screen()
+
+
+###############################################################################
+###############################################################################
+def show_patient_info_screen():
+    patientinfo.show_info_screen()
 
 
 ###############################################################################
 ###############################################################################
 def show_engineering_screen():
-    engineering.show_status_screen()
+    engineering.show_info_screen()
 
 
 ###############################################################################
@@ -202,20 +209,20 @@ def create_screens(window):
     s11 = shutdown.create_control_shutdown_screen(this_frame)
     s12 = shutdown.create_shutting_down_screen(this_frame)
 
-    s21 = tanks.create_info_screen(this_frame)
-    s22 = engineering.create_info_screen(this_frame)
+    s13 = tankinfo.create_info_screen(this_frame)
+    s14 = patientinfo.create_info_screen(this_frame)
+    s15 = engineering.create_info_screen(this_frame)
 
+    s16 = newpatient.create_setup_screen(this_frame)
+    s17 = audio.create_setup_screen(this_frame)
+    s18 = alerts.create_setup_screen(this_frame)
+    s19 = calibrate.create_setup_screen(this_frame)
+    s20 = clock.create_setup_screen(this_frame)
 
-    s13 = newpatient.create_setup_screen(this_frame)
-    s14 = audio.create_setup_screen(this_frame)
-    s15 = alerts.create_setup_screen(this_frame)
-    s16 = calibrate.create_setup_screen(this_frame)
-    s17 = clock.create_setup_screen(this_frame)
+    s21 = mcb_logging.create_setup_screen(this_frame)
+    s22 = lights.create_setup_screen(this_frame)
 
-    s19 = mcb_logging.create_setup_screen(this_frame)
-    s20 = lights.create_setup_screen(this_frame)
-
-    # Initialize to raise the 1st Screen
+    # Initialize to raise the HOME Screen
     show_home_screen()
 
     return this_frame

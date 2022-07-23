@@ -8,7 +8,7 @@ import telemetry
 ###############################################################################
 # Display the ENGINEERING screen in the screen area
 ###############################################################################
-def show_status_screen():
+def show_info_screen():
     global this_screen
     this_screen.tkraise()
     periodic_screen_update()

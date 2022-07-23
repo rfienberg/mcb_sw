@@ -19,7 +19,7 @@ TINY_FONT = ('Franklin Gothic', 12)
 ###############################################################################
 # Display the TANKS screen in the screen area
 ###############################################################################
-def show_status_screen():
+def show_info_screen():
     global this_screen
     this_screen.tkraise()
     periodic_screen_update()
@@ -96,14 +96,7 @@ def periodic_screen_update():
     x2 = TANK_CENTER_X + (LIQUID_WIDTH/2)
     y2 = TANK_CENTER_Y + (LIQUID_HEIGHT/2)
     y1 = y2 - ((percent/100) * LIQUID_HEIGHT)
-
-
-    #y1 = TANK_CENTER_Y - (LIQUID_HEIGHT/2)
-
     tank.coords(liquid, x1,y1, x2,y2)
-
-
-    #tank.coords(liquid, 8,fill_line, TANK_WIDTH-6,TANK_HEIGHT-6)
 
     # Schedule the next screen update
     updates = this_screen.after(500, periodic_screen_update)
@@ -115,11 +108,13 @@ def periodic_screen_update():
 def on_back_press():
     global this_screen, updates
 
+    # Cancel periodic screen updates
     this_screen.after_cancel(updates)
 
     # Chirp
     screens.play_key_tone()
 
+    # Go back to the INFO main screen
     screens.show_info_main_screen()
 
 

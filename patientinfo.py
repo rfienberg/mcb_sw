@@ -1,17 +1,28 @@
 from globals import *
-from os.path import exists
+import os
+import shutil
+from datetime import datetime
 import tkinter as tk
 import screens
-import analyze
 
-KEY_FONT = ('Calibri', 14)
+
+PatientInfoFile = "Logs/Unknown.log"
 
 
 ###############################################################################
 # Shows the PATIENT INFO screen
 ###############################################################################
-def show_setup_screen():
-    global this_screen
+def show_info_screen():
+    global this_screen, PatientInfoFile
+
+    if (os.path.exists(PATIENT_FILE)):
+        patient_name = get_patient_name().replace(" ", "")
+        date_stamp = datetime.now().strftime("%Y%m%d")
+        PatientInfoFile = "Logs/" + patient_name + date_stamp + ".log"
+
+        shutil.copyfile(PATIENT_FILE, PatientInfoFile)
+        print("Copied PATIENT info into %s" % PatientInfoFile)
+
     this_screen.tkraise()
 
 
@@ -21,6 +32,26 @@ def show_setup_screen():
 def upon_ok_press():
     # Chirp
     screens.play_key_tone()
+
+    # Go back to the INFO main screen
+    screens.show_info_main_screen()
+
+
+###############################################################################
+# Exits back to the INFO main screen
+###############################################################################
+def upon_back_press():
+    global PatientInfoFile
+
+    # Chirp
+    screens.play_key_tone()
+
+    if os.path.exists(PatientInfoFile):
+        os.remove(PatientInfoFile)
+        print("Deleted file %s" % PatientInfoFile)
+
+    # Go back to the INFO main screen
+    screens.show_info_main_screen()
 
 
 ###############################################################################
@@ -42,10 +73,12 @@ def create_info_screen(frame):
     this_screen.grid(row=0, column=0, sticky='nsew')
 
     # Create the Widgets for this screen
-    top_line = create_top_line(this_screen)
+    tline = create_top_line(this_screen)
+    #bline = create_bot_line(this_screen)
 
     # Place the Widgets into the Frame
-    top_line.grid(row=0, column=0, sticky='nw')
+    tline.grid(row=0, column=0, padx=5, sticky='nw')
+    #bline.grid(row=1, column=0, padx=80)
 
     return this_screen
 
@@ -55,11 +88,15 @@ def create_info_screen(frame):
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    l1 = tk.Label(this_frame)
-    l1.configure(font=LG_FONT, fg=SETUP_COLOR)
-    l1.configure(text="Patient Info")
+    # Create the widgets
+    l1 = tk.Label(this_frame, text="Patient Info")
+    b1 = tk.Button(this_frame)
+    l1.configure(font=LG_FONT, fg=STATUS_COLOR)
+    b1.configure(image=screens.pur_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
 
-    l1.grid(row=0, column=0, padx=10)
+    b1.grid(row=0, column=0, padx=5, pady=10)
+    l1.grid(row=0, column=1, padx=80)
 
     return this_frame
 
@@ -110,7 +147,7 @@ def create_log_file(name):
 ###############################################################################
 ###############################################################################
 def open_log_file(mode="a"):
-    if (not exists(PATIENT_FILE)):
+    if (not os.path.exists(PATIENT_FILE)):
         create_log_file("UNKNOWN PATIENT")
 
     file = open(PATIENT_FILE, mode)

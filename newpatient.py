@@ -1,8 +1,8 @@
 from globals import *
-from os.path import exists
 import tkinter as tk
 import screens
 import analyze
+import patientinfo
 
 KEY_FONT = ('Calibri', 14)
 
@@ -31,7 +31,7 @@ def upon_ok_press():
     if (len(patient_name) > 0):
 
         # Create a new Patient Log File with this name in it
-        create_log_file(patient_name)
+        patientinfo.create_log_file(patient_name)
 
         # Create a new ANALYZE Log File
         analyze.create_log_file(patient_name)
