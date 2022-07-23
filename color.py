@@ -14,14 +14,14 @@ import time
 BOX_START_X = 4
 BOX_START_Y = 4
 BOX_WIDTH = 156
-BOX_HEIGHT = 32
+BOX_HEIGHT = 28
 BOX_MID_X = (BOX_START_X + (BOX_WIDTH/2))
 BOX_MID_Y = (BOX_START_Y + (BOX_HEIGHT/2))
 
 ARROW_COLOR = ANALYZE_COLOR
 TRI_START_X = 0
-TRI_WIDTH   = 32
-TRI_HEIGHT  = 32
+TRI_WIDTH   = BOX_HEIGHT
+TRI_HEIGHT  = BOX_HEIGHT
 TAIL_WIDTH  = 42
 TAIL_HEIGHT = 16
 
@@ -158,13 +158,28 @@ def show_details_screen():
 
 ###############################################################################
 ###############################################################################
+def upon_back_press():
+    global this_screen, updates
+
+    # Chirp
+    screens.play_key_tone()
+
+    # Cancel periodic screen updates
+    this_screen.after_cancel(updates)
+
+    # Go back to the ANALYZE main screen
+    screens.show_analyze_main_screen()
+
+
+###############################################################################
+###############################################################################
 def periodic_screen_update():
     global this_screen, updates
 
     # Update with the latest snapshot image
     if (exists(SNAP_COLOR_IMG)):
         global analyze_color_img # Keeps it persistent in memory
-        this_graphic = Image.open(SNAP_COLOR_IMG).resize((200,200), Image.ANTIALIAS)
+        this_graphic = Image.open(SNAP_COLOR_IMG).resize((240,240), Image.ANTIALIAS)
         analyze_color_img = ImageTk.PhotoImage(this_graphic)
 
         photo_frame.configure(image=analyze_color_img)
@@ -213,17 +228,6 @@ def periodic_screen_update():
 
 ###############################################################################
 ###############################################################################
-def on_back_press():
-    global this_screen, updates
-
-    this_screen.after_cancel(updates)
-
-    screens.play_key_tone()
-    screens.show_analyze_main_screen()
-
-
-###############################################################################
-###############################################################################
 def create_details_screen(frame):
     global this_screen
 
@@ -233,13 +237,15 @@ def create_details_screen(frame):
 
     # Create the Widgets
     top_line = create_top_line(this_screen)
-    section1 = create_photo_frame(this_screen)
-    section2 = create_color_rater(this_screen)
+    section1 = tk.Label(this_screen)
+    section2 = create_photo_frame(this_screen)
+    section3 = create_color_rater(this_screen)
 
     # Place the Widgets
-    top_line.grid(row=0, column=0, columnspan=2, pady=10, sticky='nw')
-    section1.grid(row=1, column=0, padx=20, sticky='e')
-    section2.grid(row=1, column=1, padx=20)
+    top_line.grid(row=0, column=0, columnspan=3, pady=10, sticky='nw')
+    section1.grid(row=1, column=0, padx=60)
+    section2.grid(row=1, column=1, padx=20, sticky='n')
+    section3.grid(row=1, column=2, padx=20)
 
     return this_screen
 
@@ -249,10 +255,15 @@ def create_details_screen(frame):
 def create_top_line(frame):
     this_frame = tk.Frame(frame)
 
-    l1 = tk.Label(this_frame)
+    # Create the widgets
+    b1 = tk.Button(this_frame)
+    l1 = tk.Label(this_frame, text="Color Analysis")
     l1.configure(font=LG_FONT, fg=ANALYZE_COLOR)
-    l1.configure(text="Color Analysis:")
-    l1.grid(row=0, column=0, padx=10)
+    b1.configure(image=screens.brn_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
+    b1.grid(row=0, column=0, padx=5)
+    l1.grid(row=0, column=1, padx=20)
 
     return this_frame
 
@@ -270,11 +281,6 @@ def create_photo_frame(frame):
 
     p1 = tk.Label(f1)
     p1.grid(row=0, column=0)
-
-    b1 = tk.Button(f2)
-    b1.configure(image=screens.back_btn_icon, borderwidth=0)
-    b1.configure(command=on_back_press)
-    b1.grid(row=0, column=0)
 
     photo_frame = p1
 

@@ -115,21 +115,6 @@ def updateDailyFlows(timestamp):
 
 
 ###############################################################################
-# Define the FLOW HISTORY screen
-###############################################################################
-def create_history_screen(frame):
-    global this_screen
-
-    this_screen = tk.Frame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    history = create_flow_history(this_screen)
-    history.grid(row=0, column=0, sticky='w')
-
-    return this_screen
-
-
-###############################################################################
 # Show the FLOW HISTORY screen
 ###############################################################################
 def show_history_screen():
@@ -145,6 +130,22 @@ def show_history_screen():
 
 
 ###############################################################################
+# Handles a press event of the BACK button
+###############################################################################
+def upon_back_press():
+    global this_screen, updates
+
+    # Chirp
+    screens.play_key_tone()
+
+    # Cancel the periodic screen updates
+    this_screen.after_cancel(updates)
+
+    # Bring up the ANALYZE main screen
+    screens.show_analyze_main_screen()
+
+
+###############################################################################
 # Periodically update the FLOW HISTORY screen
 ###############################################################################
 def periodic_screen_update():
@@ -157,19 +158,41 @@ def periodic_screen_update():
 
 
 ###############################################################################
-# Handles a press event of the BACK button
+# Define the FLOW HISTORY screen
 ###############################################################################
-def on_back_press():
-    global this_screen, updates
+def create_history_screen(frame):
+    global this_screen
 
-    # Chirp
-    screens.play_key_tone()
+    # Create and place the Screen
+    this_screen = tk.Frame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
 
-    # Cancel the periodic screen updates
-    this_screen.after_cancel(updates)
+    # Create the Widgets
+    top_line = create_top_line(this_screen)
+    section1 = create_flow_history(this_screen)
 
-    # Bring up the main ANALYZE screen
-    screens.show_analyze_main_screen()
+    top_line.grid(row=0, column=0, columnspan=3, pady=10, sticky='nw')
+    section1.grid(row=1, column=0, sticky='sw')
+
+    return this_screen
+
+
+###############################################################################
+###############################################################################
+def create_top_line(frame):
+    this_frame = tk.Frame(frame)
+
+    # Create the widgets
+    b1 = tk.Button(this_frame)
+    l1 = tk.Label(this_frame, text="Flow History")
+    l1.configure(font=LG_FONT, fg=ANALYZE_COLOR)
+    b1.configure(image=screens.brn_gohome_btn_icon, borderwidth=0)
+    b1.configure(command=upon_back_press)
+
+    b1.grid(row=0, column=0, padx=5)
+    l1.grid(row=0, column=1, padx=20)
+
+    return this_frame
 
 
 ###############################################################################
@@ -192,7 +215,7 @@ def create_flow_history(frame):
     figure.set_facecolor("#F0F0F0")
     plot_canvas = FigureCanvasTkAgg(figure, f1)
     my_canvas = plot_canvas.get_tk_widget()
-    my_canvas.grid(row=0, column=0, pady=10, sticky='n')
+    my_canvas.grid(row=0, column=0, sticky='n')
 
     flowplot = figure.add_subplot(1,1,1)
     flowplot.set_facecolor('white')
@@ -205,15 +228,17 @@ def create_flow_history(frame):
     flowplot.spines['left'].set_color(ANALYZE_COLOR)
     flowplot.spines['right'].set_color(ANALYZE_COLOR)
 
+    """
     b1 = tk.Button(f2)
     b1.configure(image=screens.back_btn_icon, borderwidth=0)
-    b1.configure(command=on_back_press)
+    b1.configure(command=upon_back_press)
     l1 = tk.Label(f2)
     l1.configure(font=SM_FONT, fg=ANALYZE_COLOR)
     l1.configure(image=screens.past_arrow_icon)
 
     b1.grid(row=0, column=0, padx=40)
     l1.grid(row=0, column=1, padx=340, sticky='ne')
+    """
 
     return this_frame
 
@@ -236,7 +261,7 @@ def plot_flow_history():
     flowplot.clear()
     flowplot.bar(x, y, color='#C86430')
     flowplot.title.set_color(ANALYZE_COLOR)
-    flowplot.set_title('Flow Over Past 24-Hours')
+    flowplot.set_title('Past 24-Hours')
     flowplot.set_ylabel('Flow (mL)')
     flowplot.tick_params(labelsize=11)
     flowplot.grid(axis = 'y')

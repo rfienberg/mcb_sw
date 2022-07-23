@@ -21,31 +21,6 @@ FLOW_COLOR = '#49CF13'
 
 
 ###############################################################################
-# Creates the ANALYZE Main Screen - which shows a summary of the current analysis
-###############################################################################
-def create_main_screen(frame):
-    global this_screen
-
-    # Create and place the Screen
-    this_screen = tk.Frame(frame)
-    this_screen.grid(row=0, column=0, sticky='nsew')
-
-    # Create the Widgets
-    top = create_top_line(this_screen)
-    afw = create_flowrate_widget(this_screen)
-    acw = create_color_widget(this_screen)
-    atw = create_turbidity_widget(this_screen)
-
-    # Place the Widgets
-    top.grid(row=0, column=0, columnspan=3, padx=2, sticky='w')
-    afw.grid(row=1, column=0, padx=2)
-    acw.grid(row=1, column=1, padx=2)
-    atw.grid(row=1, column=2, padx=2)
-
-    return this_screen
-
-
-###############################################################################
 # Shows the ANALYZE Main Screen
 ###############################################################################
 def show_main_screen():
@@ -80,7 +55,7 @@ def periodic_screen_update():
 
 ###############################################################################
 ###############################################################################
-def on_home_press():
+def upon_home_press():
     global this_screen, updates
 
     # Chirp
@@ -94,7 +69,7 @@ def on_home_press():
 
 ###############################################################################
 ###############################################################################
-def on_flow_history_press():
+def upon_flow_history_press():
     # Chirp
     screens.play_key_tone()
 
@@ -103,7 +78,7 @@ def on_flow_history_press():
 
 ###############################################################################
 ###############################################################################
-def on_color_details_press():
+def upon_color_details_press():
     # Chirp
     screens.play_key_tone()
 
@@ -112,11 +87,36 @@ def on_color_details_press():
 
 ###############################################################################
 ###############################################################################
-def on_turbidity_details_press():
+def upon_turbidity_details_press():
     # Chirp
     screens.play_key_tone()
 
     screens.show_turbidity_details_screen()
+
+
+###############################################################################
+# Creates the ANALYZE Main Screen - which shows a summary of the current analysis
+###############################################################################
+def create_main_screen(frame):
+    global this_screen
+
+    # Create and place the Screen
+    this_screen = tk.Frame(frame)
+    this_screen.grid(row=0, column=0, sticky='nsew')
+
+    # Create the Widgets
+    top = create_top_line(this_screen)
+    afw = create_flowrate_widget(this_screen)
+    acw = create_color_widget(this_screen)
+    atw = create_turbidity_widget(this_screen)
+
+    # Place the Widgets
+    top.grid(row=0, column=0, columnspan=3, padx=2, sticky='w')
+    afw.grid(row=1, column=0, padx=2)
+    acw.grid(row=1, column=1, padx=2)
+    atw.grid(row=1, column=2, padx=2)
+
+    return this_screen
 
 
 ###############################################################################
@@ -129,10 +129,10 @@ def create_top_line(frame):
     l1 = tk.Label(this_frame, text="Analysis Summary")
     l1.configure(font=LG_FONT, fg=ANALYZE_COLOR)
     b1.configure(image=screens.brn_gohome_btn_icon, borderwidth=0)
-    b1.configure(command=on_home_press)
+    b1.configure(command=upon_home_press)
 
     b1.grid(row=0, column=0, padx=5, pady=10)
-    l1.grid(row=0, column=1, padx=80)
+    l1.grid(row=0, column=1, padx=40)
 
     return this_frame
 
@@ -176,7 +176,7 @@ def create_flowrate_widget(frame):
     my_spacer = tk.Label(f3)
     history_btn = tk.Button(f3)
     history_btn.configure(image=screens.history_btn_icon, borderwidth=0)
-    history_btn.configure(command=on_flow_history_press)
+    history_btn.configure(command=upon_flow_history_press)
     history_btn.grid(row=1, column=0)
 
     flow_items = (c1, flow, unit)
@@ -220,7 +220,7 @@ def create_color_widget(frame):
     # Define the bottom frame widget
     b1 = tk.Button(f3)
     b1.configure(image=screens.details_btn_icon, borderwidth=0)
-    b1.configure(command=on_color_details_press)
+    b1.configure(command=upon_color_details_press)
     b1.grid(row=0, column=0)
 
     # Populate the updatable items with default values
@@ -268,7 +268,7 @@ def create_turbidity_widget(frame):
     # Define the bottom frame widget
     b1 = tk.Button(f3)
     b1.configure(image=screens.details_btn_icon, borderwidth=0)
-    b1.configure(command=on_turbidity_details_press)
+    b1.configure(command=upon_turbidity_details_press)
     b1.grid(row=0, column=0)
 
     # Populate the updatable items with default values
